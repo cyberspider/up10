@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Toolbar.qml</file>
+        <file>images/bg.png</file>
+        <file>images/btnToolBar1.png</file>
+        <file>images/btnToolBar2.png</file>
+        <file>images/btnToolBar3.png</file>
+        <file>images/btnToolBar4.png</file>
+        <file>deployment.pri</file>
+        <file>main.cpp</file>
+        <file>qml.qrc</file>
+        <file>up10.pro</file>
+        <file>images/logo.png</file>
+        <file>images/splash_logo.png</file>
+        <file>DataView.qml</file>
+        <file>LogView.qml</file>
+        <file>LogViewDetail.qml</file>
+        <file>AddActivityView.qml</file>
+        <file>HelpView.qml</file>
+        <file>SettingsView.qml</file>
+    </qresource>
+</RCC>
