@@ -10,35 +10,23 @@ Rectangle {
 
         Rectangle {
             width: view.width; height: view.height
-            color: "#f41340"
-            Text { text: "Help Page 1"; font.bold: true; anchors.centerIn: parent }
+            color: "#E67E22"
+            Text { text: "Day"; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#f41340"
-            Text { text: "Help Page 2"; font.bold: true; anchors.centerIn: parent }
+            color: "#16A085"
+            Text { text: "Week"; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#f41340"
-            Text { text: "Help Page 3"; font.bold: true; anchors.centerIn: parent }
-            Behavior on opacity { NumberAnimation {} }
+            color: "#C0392B"
+            Text { text: "Month"; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#f41340"
-
-            Flow{
-                anchors.centerIn: parent
-                anchors.fill: parent
-
-                Text {
-                    text: "Help Page 4. Close button here. Help needs 2b modal";
-                    clip: true
-                    font.bold: true;
-                    wrapMode: Text.WordWrap
-                }
-            }
+            color: "#7F8C8D"
+            Text { text: "Year"; font.bold: true; anchors.centerIn: parent }
         }
     }
 

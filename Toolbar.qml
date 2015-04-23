@@ -3,12 +3,18 @@ import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 Item {
-    anchors.verticalCenter: bg.bottom
-    anchors.verticalCenterOffset: -100
+
+    anchors.bottom: parent.bottom
+    width: parent.width
+    height:80
+
+    Rectangle{
+        anchors.fill: parent
+        color: "black"
+    }
     Row{
         id: toolBarRow
         spacing: 4
-        //height:160
 
         Image {
             id: btnToolBar1

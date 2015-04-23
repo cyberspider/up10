@@ -15,7 +15,7 @@ ApplicationWindow {
     }
     Image {
         id: bg
-        source: "images/bg.png"
+        //source: "images/bg.png"
         opacity: 0
 
     }
@@ -24,15 +24,17 @@ ApplicationWindow {
         id:topPanel
         anchors{
             top:parent.top
-            bottom: myToolBar.bottom
+            bottom: myToolBar.top
             left:parent.left
             right:parent.right
         }
-        DataView{
+        DataView2{
             id:dataView
+            width: Screen.width
         }
         LogView{
             id:logView
+
         }
         LogViewDetail{
             id:logViewDetail
@@ -167,6 +169,7 @@ ApplicationWindow {
     Toolbar{
         opacity: 0
         id:myToolBar
+
     }
 
 }

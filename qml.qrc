@@ -19,5 +19,13 @@
         <file>AddActivityView.qml</file>
         <file>HelpView.qml</file>
         <file>SettingsView.qml</file>
+        <file>DataPathView.qml</file>
+        <file>ContactModel.qml</file>
+        <file>DataView2.qml</file>
+        <file>images/rarrow.png</file>
+        <file>images/item.png</file>
+        <file>images/add.png</file>
+        <file>images/back.png</file>
+        <file>TopBar.qml</file>
     </qresource>
 </RCC>
