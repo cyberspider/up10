@@ -1,167 +1,74 @@
 import QtQuick 2.0
 
-Rectangle{
 
-    color: "Red"
+Rectangle {
+
     anchors.fill: parent
     opacity: 0
-    Item{
-        id:dvScroller
-        anchors.fill: parent
-        Rectangle{
-            id:rectDay
-            opacity: 0
-            anchors.fill: parent
-            color: "Red"
-            Text {
-                id: txtDay
-                text: qsTr("Day")
-                opacity: 0
-            }
+    VisualItemModel {
+        id: itemModel
 
+        Rectangle {
+            width: view.width; height: view.height
+            color: "#E67E22"
+            Text { text: "Day"; font.bold: true; anchors.centerIn: parent }
         }
-
-        Rectangle{
-            id:rectWeek
-            opacity: 0
-            anchors.fill: parent
-            color: "Green"
-            Text {
-                id: txtWeek
-                text: qsTr("Week")
-                opacity: 0
-            }
-
+        Rectangle {
+            width: view.width; height: view.height
+            color: "#16A085"
+            Text { text: "Week"; font.bold: true; anchors.centerIn: parent }
         }
-        Rectangle{
-            id:rectMonth
-            opacity: 0
-            anchors.fill: parent
-            color: "Blue"
-            Text {
-                id: txtMonth
-                text: qsTr("Month")
-                opacity: 0
-            }
+        Rectangle {
+            width: view.width; height: view.height
+            color: "#C0392B"
+            Text { text: "Month"; font.bold: true; anchors.centerIn: parent }
         }
-        Rectangle{
-            id:rectYear
-            opacity: 0
-            anchors.fill: parent
-            color: "Yellow"
-            Text {
-                id: txtYear
-                text: qsTr("Year")
-                opacity: 0
-            }
+        Rectangle {
+            width: view.width; height: view.height
+            color: "#7F8C8D"
+            Text { text: "Year"; font.bold: true; anchors.centerIn: parent }
         }
-
-
-        states: [
-            State {
-                name: "dvStateDay"
-                PropertyChanges {
-                    target: rectDay
-                    opacity: 1
-                    z:1
-                }
-                PropertyChanges {
-                    target: txtDay
-                    opacity: 1
-                    z:1
-                }
-
-            },
-            State {
-                name: "dvStateWeek"
-                PropertyChanges {
-                    target: rectWeek
-                    opacity: 1
-                    z:1
-                }
-                PropertyChanges {
-                    target: txtWeek
-                    opacity: 1
-                    z:1
-                }
-            },
-            State {
-                name: "dvStateMonth"
-                PropertyChanges {
-                    target: rectMonth
-                    opacity: 1
-                    z:1
-                }
-                PropertyChanges {
-                    target: txtMonth
-                    opacity: 1
-                    z:1
-                }
-            },
-            State {
-                name: "dvStateYear"
-                PropertyChanges {
-                    target: rectYear
-                    opacity: 1
-                    z:1
-                }
-                PropertyChanges {
-                    target: txtYear
-                    opacity: 1
-                    z:1
-                }
-            }
-
-        ]
-        transitions: [
-            Transition {
-                NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration:1000}
-            }
-
-        ]
     }
 
-    Row{
-        anchors.right: parent.right
+    ListView {
+        id: view
+        anchors {
+            fill: parent;
+            //bottomMargin: 30
+        }
+        model: itemModel
+        preferredHighlightBegin: 0; preferredHighlightEnd: 0
+        highlightRangeMode: ListView.StrictlyEnforceRange
+        orientation: ListView.Horizontal
+        snapMode: ListView.SnapOneItem; flickDeceleration: 1000
+    }
 
-        Rectangle{
-            id:dayView
-            color: "Red"
-            height: 30
-            width: 30
-            MouseArea{
-                anchors.fill: parent
-                onClicked: dvScroller.state = "dvStateDay"
-            }
-        }
-        Rectangle{
-            id:weekView
-            color: "Green"
-            height: 30
-            width: 30
-            MouseArea{
-                anchors.fill: parent
-                onClicked: dvScroller.state = "dvStateWeek"
-            }
-        }
-        Rectangle{
-            id:monthView
-            color: "Blue"
-            height: 30
-            width: 30
-            MouseArea{
-                anchors.fill: parent
-                onClicked: dvScroller.state = "dvStateMonth"
-            }
-        }
-        Rectangle{
-            id:yearView
-            color: "Yellow"
-            height: 30
-            width: 30
-            MouseArea{
-                anchors.fill: parent
-                onClicked: dvScroller.state = "dvStateYear"
+    Rectangle {
+        width: parent.width;
+        height: 30
+        anchors { top: view.bottom; bottom: parent.bottom }
+        //color: "Black"
+        //opacity: 0.3
+
+        Row {
+            anchors.centerIn: parent
+            anchors.verticalCenterOffset: -10
+            spacing: 10
+
+            Repeater {
+                model: itemModel.count
+
+                Rectangle {
+                    width: 8; height: 8
+                    radius: 4
+                    color: view.currentIndex == index ? "White" : "Gray"
+
+                    MouseArea {
+                        width: 20; height: 20
+                        anchors.centerIn: parent
+                        onClicked: view.currentIndex = index
+                    }
+                }
             }
         }
     }

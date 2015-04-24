@@ -23,9 +23,9 @@ ApplicationWindow {
         opacity: 1
     }
     Image {
+        id: splash
         width: Screen.width / 2
         height:Screen.width / 2
-        id: splash
         source: "images/logo.png"
         opacity: 1
         anchors.centerIn: parent
@@ -40,19 +40,13 @@ ApplicationWindow {
             left:parent.left
             right:parent.right
         }
-        DataView2{
+        DataView{
             id:dataView
             width: Screen.width
         }
         LogView{
             id:logView
 
-        }
-        LogViewDetail{
-            id:logViewDetail
-        }
-        AddActivityView{
-            id:addActivityView
         }
         HelpView{
             id:helpView
@@ -63,14 +57,18 @@ ApplicationWindow {
 
         states: [
             State {
+                PropertyChanges {
+                    target: splash
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: bg
+                    opacity: 1
+                }
                 name: "dataViewState"
                 PropertyChanges {
                     target: myToolBar
                     opacity: 1
-                }
-                PropertyChanges {
-                    target: splash
-                    opacity: 0
                 }
                 PropertyChanges {
                     target: bg

@@ -4,16 +4,18 @@ Rectangle{
     id:topBar
     width:screen.width
     height:75
-    color: "Orange"
+    color: "Black"
 
-    Image {
-        id: imgToolBarBack
-        source: "images/back.png"
-    }
     Image {
         id: imgToolBarAdd
         source: "images/add.png"
         anchors.right: parent.right
+        MouseArea{
+            anchors.fill: parent
+            onClicked: {
+                screen.state = "stateActivtyAdd"
+            }
+        }
     }
 
 }

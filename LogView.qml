@@ -8,11 +8,18 @@ Rectangle{
 
     states: [
         State {
-            name: "view"
+            name: "stateActivtyView"
             PropertyChanges {
                 target: screenLayout
                 x: -screen.width
 
+            }
+        },
+        State {
+            name: "stateActivtyAdd"
+            PropertyChanges {
+                target: screenLayout
+                x: -screen.width*2
             }
         }
     ]
@@ -108,14 +115,13 @@ Rectangle{
 
             MouseArea{
                 anchors.fill: parent
-                onClicked: {screen.state = "view"}
+                onClicked: {screen.state = "stateActivtyView"}
             }
         }
     }
 
     Row{
         id:screenLayout
-
         Column{
             id:initScreen
             width:screen.width
@@ -124,7 +130,6 @@ Rectangle{
 
             ListView {
                 id:activityListView
-                //anchors.top:toolBar.bottom
                 width:screen.width
                 height:screen.height
                 model: 20 //activityModel
@@ -135,25 +140,15 @@ Rectangle{
 
             }
         }
-        Item{
+        LogViewDetail{
             id:logViewDetail
             width:screen.width
             height: screen.height
-            Image {
-                id: img
-                source: "images/logo.png"
-                width: screen.width
-                height: screen.width
-            }
-            Image{
-                id:bckButton
-                source:"images/back.png"
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {screen.state = ""}
-                }
-
-            }
+        }
+        AddActivityView{
+            id:addActivityView
+            width:screen.width
+            height: screen.height
         }
     }
 }
