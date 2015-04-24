@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 3.3.1, 2015-04-23T20:22:37. -->
+<!-- Written by QtCreator 3.3.1, 2015-04-24T08:40:27. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -644,13 +644,13 @@
      <value type="int">14</value>
     </valuelist>
     <valuemap type="QVariantMap" key="Ios.device_type">
-     <value type="QString" key="displayName">iPhone 5, iOS 8.1</value>
-     <value type="QString" key="identifier">com.apple.CoreSimulator.SimDeviceType.iPhone-5, 8.1</value>
+     <value type="QString" key="displayName">iPhone 6, iOS 8.1</value>
+     <value type="QString" key="identifier">com.apple.CoreSimulator.SimDeviceType.iPhone-6, 8.1</value>
      <value type="int" key="type">1</value>
     </valuemap>
     <valuelist type="QVariantList" key="Ios.run_arguments"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Run on iOS Simulator</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Run up10 on iOS Simulator2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Run up10 on iOS Simulator</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.IosRunConfiguration:/Users/heraldsmit/Dev/Qt/up10/version2.0/up10/up10.pro</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>

@@ -7,18 +7,27 @@ ApplicationWindow {
     width:Screen.width
     height:Screen.height
     visible: true
-    Image {
-        id: splash
-        source: "images/splash_logo.png"
+
+    Rectangle {
+        id:bg
+        width:Screen.height
+        height: Screen.height
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "silver" }
+            GradientStop { position: 0.33; color: "blue" }
+            GradientStop { position: 1.0; color: "darkblue" }
+        }
         opacity: 1
-
     }
     Image {
-        id: bg
-        //source: "images/bg.png"
-        opacity: 0
-
+        width: Screen.width / 2
+        height:Screen.width / 2
+        id: splash
+        source: "images/logo.png"
+        opacity: 1
+        anchors.centerIn: parent
     }
+
 
     Item{
         id:topPanel

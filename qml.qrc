@@ -12,7 +12,6 @@
         <file>qml.qrc</file>
         <file>up10.pro</file>
         <file>images/logo.png</file>
-        <file>images/splash_logo.png</file>
         <file>DataView.qml</file>
         <file>LogView.qml</file>
         <file>LogViewDetail.qml</file>
