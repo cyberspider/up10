@@ -12,10 +12,11 @@ Item {
         anchors.fill: parent
         color: "black"
     }
-    Row{
+    Row {
         id: toolBarRow
-        spacing: 4
-
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: (parent.width / 4) - 77
         Image {
             id: btnToolBar1
             source: "images/btnToolBar1.png"

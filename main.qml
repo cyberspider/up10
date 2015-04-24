@@ -10,12 +10,15 @@ ApplicationWindow {
 
     Rectangle {
         id:bg
-        width:Screen.height
-        height: Screen.height
+        width:Screen.height *1.5
+        height: Screen.height*1.5
+        anchors.centerIn: parent
+        rotation: 75
         gradient: Gradient {
-            GradientStop { position: 0.0; color: "silver" }
-            GradientStop { position: 0.33; color: "blue" }
-            GradientStop { position: 1.0; color: "darkblue" }
+            GradientStop { position: 0.0; color: "#a2f6cf" }
+            GradientStop { position: 0.33; color: "#65c79a" }
+            GradientStop { position: 0.66; color: "#459874" }
+            GradientStop { position: 1.0; color: "#5b9c80" }
         }
         opacity: 1
     }
@@ -178,7 +181,7 @@ ApplicationWindow {
     Toolbar{
         opacity: 0
         id:myToolBar
-
+        width: Screen.width
     }
 
 }
