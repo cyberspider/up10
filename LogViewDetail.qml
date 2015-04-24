@@ -5,8 +5,8 @@ Item{
     Image {
         id: img
         source: "images/logo.png"
-        width: screen.width
-        height: screen.width
+        width: screen.width/2
+        height: screen.width/2
     }
     Image{
         id:bckButton

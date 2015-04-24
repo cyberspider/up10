@@ -4,7 +4,7 @@ Rectangle{
     id:topBar
     width:screen.width
     height:75
-    color: "Black"
+    color: clrBackground
 
     Image {
         id: imgToolBarAdd

@@ -7,7 +7,8 @@ ApplicationWindow {
     width:Screen.width
     height:Screen.height
     visible: true
-
+    property string clrBackground: "Black"
+    property string clrFont: "White"
     Rectangle {
         id:bg
         width:Screen.height *1.5
@@ -57,21 +58,17 @@ ApplicationWindow {
 
         states: [
             State {
+                name: "dataViewState"
                 PropertyChanges {
                     target: splash
                     opacity: 0
                 }
                 PropertyChanges {
                     target: bg
-                    opacity: 1
+                    opacity: 0
                 }
-                name: "dataViewState"
                 PropertyChanges {
                     target: myToolBar
-                    opacity: 1
-                }
-                PropertyChanges {
-                    target: bg
                     opacity: 1
                 }
                 PropertyChanges {
@@ -83,6 +80,14 @@ ApplicationWindow {
             },
             State {
                 name: "logViewState"
+                PropertyChanges {
+                    target: splash
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: bg
+                    opacity: 0
+                }
                 PropertyChanges {
                     target: myToolBar
                     opacity: 1
@@ -101,6 +106,14 @@ ApplicationWindow {
             State {
                 name: "logViewDetailState"
                 PropertyChanges {
+                    target: splash
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: bg
+                    opacity: 0
+                }
+                PropertyChanges {
                     target: myToolBar
                     opacity: 1
                 }
@@ -117,6 +130,14 @@ ApplicationWindow {
             },
             State {
                 name: "addActivityViewState"
+                PropertyChanges {
+                    target: splash
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: bg
+                    opacity: 0
+                }
                 PropertyChanges {
                     target: myToolBar
                     opacity: 1
@@ -135,6 +156,14 @@ ApplicationWindow {
             State {
                 name: "settingsViewState"
                 PropertyChanges {
+                    target: splash
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: bg
+                    opacity: 0
+                }
+                PropertyChanges {
                     target: myToolBar
                     opacity: 1
                 }
@@ -151,6 +180,14 @@ ApplicationWindow {
             State {
                 name: "helpViewState"
                 PropertyChanges {
+                    target: splash
+                    opacity: 0
+                }
+                PropertyChanges {
+                    target: bg
+                    opacity: 0
+                }
+                PropertyChanges {
                     target: myToolBar
                     opacity: 1
                 }
@@ -161,7 +198,10 @@ ApplicationWindow {
                 PropertyChanges {
                     target: helpView
                     opacity: 1
-                    z:1}}]
+                    z:1
+                }
+
+            }]
         transitions: [
             Transition {
                 NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration:1000}

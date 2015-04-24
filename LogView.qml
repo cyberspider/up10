@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Rectangle{
     id:screen
-    color: "Blue"
+    color: clrBackground
     anchors.fill: parent
     opacity: 0
 
@@ -30,7 +30,7 @@ Rectangle{
                 target: screenLayout
                 property: "x"
                 duration: 500
-                easing.type: Easing.InOutBack
+                easing.type: Easing.InOutQuint
             }
 
         }

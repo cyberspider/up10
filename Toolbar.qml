@@ -10,7 +10,7 @@ Item {
 
     Rectangle{
         anchors.fill: parent
-        color: "black"
+        color: clrBackground
     }
     Row {
         id: toolBarRow
@@ -50,7 +50,10 @@ Item {
             opacity: 1
             MouseArea{
              anchors.fill: parent
-             onClicked: topPanel.state = "helpViewState"
+             onClicked: {
+                 topPanel.state = "helpViewState"
+                 //clrBackground = "#a90e1d"
+             }
             }
         }
     }

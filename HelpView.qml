@@ -10,23 +10,23 @@ Rectangle {
 
         Rectangle {
             width: view.width; height: view.height
-            color: "#f41340"
-            Text { text: "Help Page 1"; font.bold: true; anchors.centerIn: parent }
+            color: clrBackground
+            Text { text: "Help Page 1"; color: clrFont; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#f41340"
-            Text { text: "Help Page 2"; font.bold: true; anchors.centerIn: parent }
+            color: clrBackground
+            Text { text: "Help Page 2"; color: clrFont; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#f41340"
-            Text { text: "Help Page 3"; font.bold: true; anchors.centerIn: parent }
+            color: clrBackground
+            Text { text: "Help Page 3"; color: clrFont; font.bold: true; anchors.centerIn: parent }
             Behavior on opacity { NumberAnimation {} }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#f41340"
+            color: clrBackground
 
             Flow{
                 anchors.centerIn: parent
@@ -34,6 +34,7 @@ Rectangle {
 
                 Text {
                     text: "Help Page 4. Close button here. Help needs 2b modal";
+                    color: clrFont
                     clip: true
                     font.bold: true;
                     wrapMode: Text.WordWrap
@@ -73,7 +74,7 @@ Rectangle {
                 Rectangle {
                     width: 8; height: 8
                     radius: 4
-                    color: view.currentIndex == index ? "White" : "Gray"
+                    color: view.currentIndex == index ? clrFont : "Gray"
 
                     MouseArea {
                         width: 20; height: 20

@@ -22,5 +22,7 @@
         <file>images/back.png</file>
         <file>TopBar.qml</file>
         <file>images/btnToolBar.png</file>
+        <file>TextItem.qml</file>
+        <file>images/txtBox.png</file>
     </qresource>
 </RCC>

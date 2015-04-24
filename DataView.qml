@@ -10,23 +10,23 @@ Rectangle {
 
         Rectangle {
             width: view.width; height: view.height
-            color: "#E67E22"
-            Text { text: "Day"; font.bold: true; anchors.centerIn: parent }
+            color: clrBackground
+            Text { text: "Day"; color:clrFont; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#16A085"
-            Text { text: "Week"; font.bold: true; anchors.centerIn: parent }
+            color: clrBackground
+            Text { text: "Week"; color:clrFont; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#C0392B"
-            Text { text: "Month"; font.bold: true; anchors.centerIn: parent }
+            color: clrBackground
+            Text { text: "Month"; color:clrFont; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height
-            color: "#7F8C8D"
-            Text { text: "Year"; font.bold: true; anchors.centerIn: parent }
+            color: clrBackground
+            Text { text: "Year"; color:clrFont; font.bold: true; anchors.centerIn: parent }
         }
     }
 
@@ -61,7 +61,7 @@ Rectangle {
                 Rectangle {
                     width: 8; height: 8
                     radius: 4
-                    color: view.currentIndex == index ? "White" : "Gray"
+                    color: view.currentIndex == index ? clrFont : "Gray"
 
                     MouseArea {
                         width: 20; height: 20
