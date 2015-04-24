@@ -136,6 +136,7 @@ Rectangle{
                 delegate: contactDelegate
                 clip: true
                 focus: true
+                spacing: 3
                 //boundsBehavior: Flickable.StopAtBounds
 
             }

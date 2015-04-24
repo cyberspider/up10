@@ -7,7 +7,6 @@ Rectangle {
     opacity: 0
     VisualItemModel {
         id: itemModel
-
         Rectangle {
             width: view.width; height: view.height
             color: clrBackground
