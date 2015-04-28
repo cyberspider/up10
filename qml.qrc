@@ -24,5 +24,6 @@
         <file>images/btnToolBar.png</file>
         <file>TextItem.qml</file>
         <file>images/txtBox.png</file>
+        <file>localStorage.js</file>
     </qresource>
 </RCC>

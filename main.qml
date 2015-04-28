@@ -2,12 +2,13 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
+import "localStorage.js" as DB
 
 ApplicationWindow {
     width:Screen.width
     height:Screen.height
     visible: true
-    property string clrBackground: "Black"
+    property string clrBackground: "#314b7f"
     property string clrFont: "White"
     Rectangle {
         id:bg
