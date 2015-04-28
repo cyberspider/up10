@@ -10,7 +10,7 @@ Rectangle {
         Rectangle {
             width: view.width; height: view.height
             color: clrBackground
-            Text { text: "Day"; color:clrFont; font.bold: true; anchors.centerIn: parent }
+            Text { text: qsTr(currentTimePeriod); color:clrFont; font.bold: true; anchors.centerIn: parent }
         }
         Rectangle {
             width: view.width; height: view.height

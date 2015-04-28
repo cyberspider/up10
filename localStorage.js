@@ -45,9 +45,11 @@ function openDB() {
 function saveActivity(key, value) {
     openDB();
     db.transaction( function(tx){
-        tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?)', [key, value]);
+        tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?, ?)', [key, "D", value]);
+        //VALUES(?, ?, ?)', ["Yoga", "T", 0]);
     });
 }
+
 function getActivity(key) {
     openDB();
     console.log("attempting to get key:" + key)

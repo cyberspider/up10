@@ -2,6 +2,11 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
+import QtQuick.LocalStorage 2.0
+import QtQuick.Controls.Styles 1.3
+import QtQuick.Layouts 1.1
+import QtSensors 5.3
+
 import "localStorage.js" as DB
 
 ApplicationWindow {
@@ -10,6 +15,9 @@ ApplicationWindow {
     visible: true
     property string clrBackground: "#314b7f"
     property string clrFont: "White"
+
+    property string currentTimePeriod: DB.getSetting("TimePeriod")
+
     Rectangle {
         id:bg
         width:Screen.height *1.5

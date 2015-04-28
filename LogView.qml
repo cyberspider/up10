@@ -96,19 +96,18 @@ Rectangle{
                 width: 20
                 source: "images/rarrow.png"
                 anchors.right: lvItem.right
-                //anchors.top:lvItem.top
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter            }
             Image {
                 id: imgLV
                 width:70
                 height: 70
-                //source: icon
+                source: icon
                 anchors.verticalCenter: parent.verticalCenter
             }
             Text {
                 anchors.left:imgLV.right
-                //text: activityName
+                text: activityName
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.margins: 5
             }
@@ -125,19 +124,19 @@ Rectangle{
         Column{
             id:initScreen
             width:screen.width
-            height:screen.height
-            TopBar{}
+            //height:screen.height
+            TopBar{id:topBar}
 
             ListView {
                 id:activityListView
                 width:screen.width
-                height:screen.height
-                model: 20 //activityModel
+                height:screen.height - topBar.height
+                model: activityModel
                 delegate: contactDelegate
                 clip: true
                 focus: true
                 spacing: 3
-                //boundsBehavior: Flickable.StopAtBounds
+                boundsBehavior: Flickable.DragAndOvershootBounds
 
             }
         }

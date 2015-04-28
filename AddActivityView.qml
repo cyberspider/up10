@@ -1,5 +1,6 @@
 import QtQuick 2.0
-
+import QtQuick.LocalStorage 2.0
+import "localStorage.js" as DB
 Rectangle{
     color: clrBackground
     Image{
@@ -33,6 +34,7 @@ Rectangle{
             onClicked: {
                 screen.state = ""
                 console.log("this gets executed none the less")
+                DB.saveActivity(txtItem.text);
             }
         }
     }
