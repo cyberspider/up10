@@ -6,17 +6,23 @@ import QtQuick.LocalStorage 2.0
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import QtSensors 5.3
-
 import "localStorage.js" as DB
 
 ApplicationWindow {
+    id:main
     width:Screen.width
     height:Screen.height
     visible: true
     property string clrBackground: "#314b7f"
     property string clrFont: "White"
-
+    property string newActivity: ""
     property string currentTimePeriod: DB.getSetting("TimePeriod")
+
+    signal addActivity()
+    onAddActivity: {
+        logView.addActivity()
+        console.log("main.Clicked()")
+    }
 
     Rectangle {
         id:bg
@@ -57,6 +63,9 @@ ApplicationWindow {
         LogView{
             id:logView
 
+            function addActivity(){
+                lvaddActivity()
+            }
         }
         HelpView{
             id:helpView
@@ -85,7 +94,6 @@ ApplicationWindow {
                     opacity: 1
                     z:1
                 }
-
             },
             State {
                 name: "logViewState"
@@ -160,7 +168,6 @@ ApplicationWindow {
                     opacity: 1
                     z:1
                 }
-
             },
             State {
                 name: "settingsViewState"
@@ -222,7 +229,6 @@ ApplicationWindow {
         Timer {
             interval: 3333; running: true; repeat: false
             onTriggered: topPanel.state = "dataViewState"
-
         }
     }
     Toolbar{
@@ -230,5 +236,4 @@ ApplicationWindow {
         id:myToolBar
         width: Screen.width
     }
-
 }

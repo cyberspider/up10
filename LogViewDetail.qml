@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Item{
-
+    id:mainItem
     Image {
         id: img
         source: "images/logo.png"

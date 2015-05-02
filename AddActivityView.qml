@@ -22,7 +22,6 @@ Rectangle{
     TextItem{
         id:txtItem
         anchors.verticalCenter: parent.verticalCenter
-
     }
     Image{
         id:btnAddActivity
@@ -32,9 +31,10 @@ Rectangle{
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                screen.state = ""
-                console.log("this gets executed none the less")
                 DB.saveActivity(txtItem.text);
+                newActivity = txtItem.text;
+                main.addActivity();
+                screen.state = "";
             }
         }
     }

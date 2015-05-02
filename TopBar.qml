@@ -13,7 +13,7 @@ Rectangle{
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                screen.state = "stateActivtyAdd"
+                screen.state = "stateActivityAdd"
             }
         }
     }

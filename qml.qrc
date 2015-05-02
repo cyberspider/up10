@@ -25,5 +25,6 @@
         <file>TextItem.qml</file>
         <file>images/txtBox.png</file>
         <file>localStorage.js</file>
+        <file>ActivityModel.qml</file>
     </qresource>
 </RCC>

@@ -8,10 +8,12 @@ BorderImage{
     border.right: 20
     border.top: 20
     border.bottom: 20
+    property alias text: textInput.text
+
     TextInput {
         id: textInput
         color: clrFont
-        text: ""
+        text: parent.text
         font.family: "Arial"
         font.pixelSize: 20
         anchors.margins: 25
@@ -19,6 +21,7 @@ BorderImage{
         clip:true
         activeFocusOnPress: false
         cursorVisible: true
+
         MouseArea {
             anchors.fill: parent
             onClicked: {

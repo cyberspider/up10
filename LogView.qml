@@ -6,6 +6,11 @@ Rectangle{
     anchors.fill: parent
     opacity: 0
 
+    signal lvaddActivity()
+    onLvaddActivity: {
+        activityListView.amaddActivity()
+    }
+
     states: [
         State {
             name: "stateActivtyView"
@@ -16,13 +21,15 @@ Rectangle{
             }
         },
         State {
-            name: "stateActivtyAdd"
+            name: "stateActivityAdd"
             PropertyChanges {
                 target: screenLayout
                 x: -screen.width*2
             }
         }
+
     ]
+
     transitions: [
         Transition {
 
@@ -32,55 +39,11 @@ Rectangle{
                 duration: 500
                 easing.type: Easing.InOutQuint
             }
-
         }
     ]
-    ListModel {
-        id:activityModel
-        ListElement {
-            activityName: "Running"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Biking"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Yoga"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Swimming"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Jogging"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Climbing"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Yoga"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Swimming"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Jogging"
-            icon: "images/logo.png"
-        }
-        ListElement {
-            activityName: "Climbing"
-            icon: "images/logo.png"
-        }
-    }
 
     Component {
-        id: contactDelegate
+        id: activityDelegate
         Item {
             id:lvItem
             width: parent.width; height: 70
@@ -98,15 +61,15 @@ Rectangle{
                 anchors.right: lvItem.right
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter            }
-            Image {
-                id: imgLV
-                width:70
-                height: 70
-                source: icon
-                anchors.verticalCenter: parent.verticalCenter
-            }
+//            Image {
+//                id: imgLV
+//                width:70
+//                height: 70
+//                source: icon
+//                anchors.verticalCenter: parent.verticalCenter
+//            }
             Text {
-                anchors.left:imgLV.right
+                //anchors.left:imgLV.right
                 text: activityName
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.margins: 5
@@ -131,13 +94,16 @@ Rectangle{
                 id:activityListView
                 width:screen.width
                 height:screen.height - topBar.height
-                model: activityModel
-                delegate: contactDelegate
+                model: ActivityModel{id:activityModel}
+                delegate: activityDelegate
                 clip: true
                 focus: true
                 spacing: 3
                 boundsBehavior: Flickable.DragAndOvershootBounds
 
+                function amaddActivity(){
+                    activityModel.append({"activityName":newActivity})
+                }
             }
         }
         LogViewDetail{
@@ -151,5 +117,6 @@ Rectangle{
             height: screen.height
         }
     }
+
 }
 

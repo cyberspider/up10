@@ -14,12 +14,9 @@ function openDB() {
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
             // Seed the table with default values
-            if (table.rows.length == 0) {
+            if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO activities VALUES(?, ?, ?)', ["Swimming", "D", 1]);
-                tx.executeSql('INSERT INTO activities VALUES(?, ?, ?)', ["Cycling", "D", 1]);
-                tx.executeSql('INSERT INTO activities VALUES(?, ?, ?)', ["Running", "D", 1]);
-                tx.executeSql('INSERT INTO activities VALUES(?, ?, ?)', ["Yoga", "T", 0]);
-                tx.executeSql('INSERT INTO activities VALUES(?, ?, ?)', ["Lunges", "R", 0]);
+
                 console.log('Activities table added');
             };
 
@@ -31,35 +28,45 @@ function openDB() {
             }
 
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id NUMBER UNIQUE, day TEXT, month TEXT, year TEXT, activity TEXT, value NUMBER)');
-//            if (table.rows.length == 0) {
-//                tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Use Metric System", 1]);
-                console.log('Logbook table added');
-//            }
+
+            console.log('Logbook table added');
+
         });
     } catch (err) {
         console.log("Error creating table in database: " + err);
     };
 }
 
+function getActivityModel(){
 
-function saveActivity(key, value) {
+    var activities = []
     openDB();
-    db.transaction( function(tx){
-        tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?, ?)', [key, "D", value]);
-        //VALUES(?, ?, ?)', ["Yoga", "T", 0]);
+    console.log("attempting to get model:")
+
+    db.transaction(function(tx) {
+//        tx.executeSql('Delete from activities;')
+        var rs = tx.executeSql('SELECT activity FROM activities;')
+
+        for(var i = 0; i < rs.rows.length; i++) {
+            activities.push({"activityName": "" + rs.rows.item(i).activity }); //+ "", "icon": "images/logo.png"})
+        }
     });
+
+    return activities;
 }
 
-function getActivity(key) {
+function saveActivity(value) {
     openDB();
-    console.log("attempting to get key:" + key)
-    var res = "nothing found."
-    db.transaction(function(tx) {
-        var rs = tx.executeSql('SELECT activity FROM activities WHERE activity=?;', [key]);
-        res = rs.rows.item(0).activity;
+    console.log("attempting to create value:" + value)
+    if(value === "") {
+        console.log("can't insert empty string")
+        return;
+    }
+    db.transaction( function(tx){
+        var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?, ?)', [value, "D", 0]);
+        console.log("inserted id:" + rs.insertId);
 
     });
-    return res;
 }
 
 function saveSetting(key, value) {
@@ -89,7 +96,7 @@ function getToday() {
     var yyyy = today.getFullYear();
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var MMMM = months[mm]
-/*
+    /*
     if(dd<10) {
         dd='0'+dd
     }
@@ -104,7 +111,7 @@ function getToday() {
 
 function leapYear(year)
 {
-  return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+    return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 }
 
 
