@@ -13,11 +13,11 @@ ApplicationWindow {
     width:Screen.width
     height:Screen.height
     visible: true
-    property string clrBackground: "#314b7f"
+    property string clrBackground: "#000000"
     property string clrFont: "White"
     property string newActivity: ""
     property string currentTimePeriod: DB.getSetting("TimePeriod")
-
+    property string selectedActivity: "hey hey"
     signal addActivity()
     onAddActivity: {
         logView.addActivity()

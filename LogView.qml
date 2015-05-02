@@ -41,7 +41,6 @@ Rectangle{
             }
         }
     ]
-
     Component {
         id: activityDelegate
         Item {
@@ -61,23 +60,20 @@ Rectangle{
                 anchors.right: lvItem.right
                 anchors.margins: 5
                 anchors.verticalCenter: parent.verticalCenter            }
-//            Image {
-//                id: imgLV
-//                width:70
-//                height: 70
-//                source: icon
-//                anchors.verticalCenter: parent.verticalCenter
-//            }
             Text {
                 //anchors.left:imgLV.right
                 text: activityName
+                color: clrFont
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.margins: 5
             }
 
             MouseArea{
                 anchors.fill: parent
-                onClicked: {screen.state = "stateActivtyView"}
+                onClicked: {
+                    screen.state = "stateActivtyView"
+                    selectedActivity = activityName
+                }
             }
         }
     }
@@ -104,6 +100,7 @@ Rectangle{
                 function amaddActivity(){
                     activityModel.append({"activityName":newActivity})
                 }
+
             }
         }
         LogViewDetail{

@@ -2,12 +2,7 @@ import QtQuick 2.0
 
 Item{
     id:mainItem
-    Image {
-        id: img
-        source: "images/logo.png"
-        width: screen.width/2
-        height: screen.width/2
-    }
+
     Image{
         id:bckButton
         source:"images/back.png"
@@ -16,5 +11,11 @@ Item{
             onClicked: {screen.state = ""}
         }
 
+    }
+
+    TextItem{
+        id:txtActivity
+        anchors.top: bckButton.bottom
+        text: selectedActivity
     }
 }

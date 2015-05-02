@@ -42,9 +42,8 @@ function getActivityModel(){
     var activities = []
     openDB();
     console.log("attempting to get model:")
-
     db.transaction(function(tx) {
-//        tx.executeSql('Delete from activities;')
+//      tx.executeSql('Delete from activities;')
         var rs = tx.executeSql('SELECT activity FROM activities;')
 
         for(var i = 0; i < rs.rows.length; i++) {
