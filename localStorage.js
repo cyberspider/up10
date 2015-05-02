@@ -67,6 +67,15 @@ function saveActivity(value) {
 
     });
 }
+function deleteActivity(value) {
+    openDB();
+
+    db.transaction( function(tx){
+        tx.executeSql('Delete from activities where activity=?;', [value]);
+        console.log("deleted:" + value);
+
+    });
+}
 
 function saveSetting(key, value) {
     openDB();

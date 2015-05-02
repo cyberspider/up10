@@ -1,4 +1,6 @@
 import QtQuick 2.0
+import QtQuick.LocalStorage 2.0
+import "localStorage.js" as DB
 
 Rectangle{
     id:screen
@@ -7,8 +9,13 @@ Rectangle{
     opacity: 0
 
     signal lvaddActivity()
+    signal lvdeleteActivity()
     onLvaddActivity: {
         activityListView.amaddActivity()
+
+    }
+    onLvdeleteActivity: {
+        activityListView.amdeleteActivity()
     }
 
     states: [
@@ -73,6 +80,7 @@ Rectangle{
                 onClicked: {
                     screen.state = "stateActivtyView"
                     selectedActivity = activityName
+
                 }
             }
         }
@@ -96,9 +104,16 @@ Rectangle{
                 focus: true
                 spacing: 3
                 boundsBehavior: Flickable.DragAndOvershootBounds
-
+                highlightFollowsCurrentItem:true
                 function amaddActivity(){
                     activityModel.append({"activityName":newActivity})
+                    newActivity = ""
+                }
+                function amdeleteActivity(){
+                    activityModel.clear()
+                    activityModel.append(DB.getActivityModel())
+
+                    deletedActivity = ""
                 }
 
             }

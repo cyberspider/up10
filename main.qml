@@ -17,11 +17,18 @@ ApplicationWindow {
     property string clrFont: "White"
     property string newActivity: ""
     property string currentTimePeriod: DB.getSetting("TimePeriod")
-    property string selectedActivity: "hey hey"
+    property string selectedActivity: ""
+    property string deletedActivity: ""
+
     signal addActivity()
+    signal deleteActivity()
+
     onAddActivity: {
         logView.addActivity()
-        console.log("main.Clicked()")
+    }
+
+    onDeleteActivity: {
+        logView.deleteActivity()
     }
 
     Rectangle {
@@ -65,6 +72,9 @@ ApplicationWindow {
 
             function addActivity(){
                 lvaddActivity()
+            }
+            function deleteActivity(){
+                lvdeleteActivity()
             }
         }
         HelpView{
