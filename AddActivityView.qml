@@ -1,11 +1,12 @@
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
+import QtGraphicalEffects 1.0
 import "localStorage.js" as DB
 Rectangle{
     color: clrBackground
     Image{
-        id:bckButton
-        source:"images/back.png"
+        id:btnBack
+        source:"images/back_arrow.png"
         MouseArea{
             anchors.fill: parent
             onClicked: {screen.state = ""}
@@ -22,11 +23,12 @@ Rectangle{
     TextItem{
         id:txtItem
         anchors.verticalCenter: parent.verticalCenter
+
     }
     Image{
         id:btnAddActivity
         anchors.top: txtItem.bottom
-        source:"images/back.png"
+        source:"images/save.png"
         anchors.right: parent.right
         MouseArea{
             anchors.fill: parent
@@ -37,6 +39,19 @@ Rectangle{
                 screen.state = "";
             }
         }
+        ColorOverlay {
+            anchors.fill: btnAddActivity
+            source: btnAddActivity
+            color: "Green"
+            opacity: 0.5
+        }
+    }
+
+    ColorOverlay {
+        anchors.fill: btnBack
+        source: btnBack
+        color: "Orange"
+        opacity: 0.5
     }
 }
 

@@ -26,5 +26,10 @@
         <file>images/txtBox.png</file>
         <file>localStorage.js</file>
         <file>ActivityModel.qml</file>
+        <file>SliderComponent.qml</file>
+        <file>images/back_arrow.png</file>
+        <file>images/delete.png</file>
+        <file>images/save.png</file>
+        <file>font/Myriad Pro Regular.ttf</file>
     </qresource>
 </RCC>

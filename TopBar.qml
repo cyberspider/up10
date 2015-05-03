@@ -1,5 +1,5 @@
 import QtQuick 2.0
-
+import QtGraphicalEffects 1.0
 Rectangle{
     id:topBar
     width:screen.width
@@ -7,7 +7,7 @@ Rectangle{
     color: clrBackground
 
     Image {
-        id: imgToolBarAdd
+        id: btnAdd
         source: "images/add.png"
         anchors.right: parent.right
         MouseArea{
@@ -16,6 +16,12 @@ Rectangle{
                 screen.state = "stateActivityAdd"
             }
         }
+    }
+    ColorOverlay {
+        anchors.fill: btnAdd
+        source: btnAdd
+        color: "Green"
+        opacity: 0.5
     }
 
 }
