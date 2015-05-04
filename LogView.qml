@@ -96,13 +96,14 @@ Rectangle{
 
             ListView {
                 id:activityListView
-                width:screen.width
+                width:screen.width - 10
                 height:screen.height - topBar.height
                 model: ActivityModel{id:activityModel}
                 delegate: activityDelegate
                 clip: true
                 focus: true
                 spacing: 3
+                anchors.horizontalCenter: parent.horizontalCenter
                 boundsBehavior: Flickable.DragAndOvershootBounds
                 highlightFollowsCurrentItem:true
                 function amaddActivity(){

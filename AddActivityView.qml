@@ -4,6 +4,8 @@ import QtGraphicalEffects 1.0
 import "localStorage.js" as DB
 Rectangle{
     color: clrBackground
+    width: parent.width - 10
+    //anchors.horizontalCenter: parent.horizontalCenter
     Image{
         id:btnBack
         source:"images/back_arrow.png"
@@ -12,7 +14,6 @@ Rectangle{
             onClicked: {screen.state = ""}
         }
     }
-
     Text{
         id:lblAddActivity
         anchors.bottom: txtItem.top
@@ -39,14 +40,13 @@ Rectangle{
                 screen.state = "";
             }
         }
-        ColorOverlay {
-            anchors.fill: btnAddActivity
-            source: btnAddActivity
-            color: "Green"
-            opacity: 0.5
-        }
     }
-
+    ColorOverlay {
+        anchors.fill: btnAddActivity
+        source: btnAddActivity
+        color: "Green"
+        opacity: 0.5
+    }
     ColorOverlay {
         anchors.fill: btnBack
         source: btnBack

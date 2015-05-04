@@ -13,4 +13,112 @@ ListModel {
          name: "John Smith"
          icon: "images/logo.png"
      }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Bill Jones"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "Jane Doe"
+         icon: "images/logo.png"
+     }
+     ListElement {
+         name: "John Smith"
+         icon: "images/logo.png"
+     }
  }

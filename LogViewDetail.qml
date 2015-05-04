@@ -1,23 +1,26 @@
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
+import QtQuick.Controls 1.3
 import QtGraphicalEffects 1.0
 import "localStorage.js" as DB
+
 
 Item{
     id:mainItem
     width: screen.width
+    property real milesDone: {
+        if (sldDecimal.value > 0)  {
+            sldHundred.value + sldTen.value + sldOne.value + (sldDecimal.value / 10)
+        }else{
+            sldHundred.value + sldTen.value + sldOne.value
+        }
+    }
     Image{
         id:btnBack
         source:"images/back_arrow.png"
         MouseArea{
             anchors.fill: parent
             onClicked: {screen.state = ""}
-        }
-        ColorOverlay {
-            anchors.fill: btnBack
-            source: btnBack
-            color: "Orange"
-            opacity: 0.5
         }
     }
     Image{
@@ -34,12 +37,19 @@ Item{
                 screen.state = ""
             }
         }
-        ColorOverlay {
-            anchors.fill: btnDelete
-            source: btnDelete
-            color: "Red"
-            opacity: 0.5
-        }
+    }
+    ColorOverlay {
+        anchors.fill: btnBack
+        source: btnBack
+        color: "Orange"
+        opacity: 0.5
+
+    }
+    ColorOverlay {
+        anchors.fill: btnDelete
+        source: btnDelete
+        color: "Red"
+        opacity: 0.5
     }
     Column{
         id:logviewdetailcolumn
@@ -48,24 +58,75 @@ Item{
         anchors.left:parent.left
         anchors.bottom: parent.bottom
         anchors.margins: 10
-        //        TextItem{
-        //            id:txtActivity
-
-        //            text: selectedActivity
-        //        }
+        spacing: 10
         Text{
             anchors.horizontalCenter: parent.horizontalCenter
             id:txtActivity
             text: selectedActivity
             color: clrFont
             font.family: fntMyraidPro.name
+            font.pointSize: 20
+        }
+        Text {
+            id: txtUnits
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: milesDone.toString()
+            color: clrFont
+            font.family: fntMyraidPro.name
             font.pointSize: 40
         }
-        SliderComponent{
-
+        Slider {
+            id:sldHundred
+            width: parent.width
+            maximumValue: 900
+            minimumValue : 0
+            stepSize : 100
+            //tickmarksEnabled : true
+            updateValueWhileDragging : true
+            value : 0
         }
-        SliderComponent{
-
+        Slider {
+            id:sldTen
+            width: parent.width
+            maximumValue: 90
+            minimumValue : 0
+            stepSize : 10
+            //tickmarksEnabled : true
+            updateValueWhileDragging : true
+            value : 0
         }
+        Slider {
+            id:sldOne
+            width: parent.width
+            maximumValue: 9
+            minimumValue : 0
+            stepSize : 1
+            //tickmarksEnabled : true
+            updateValueWhileDragging : true
+            value : 0
+        }
+        Slider {
+            id:sldDecimal
+            width: parent.width
+            maximumValue: 9
+            minimumValue : 0
+            stepSize : 1
+            tickmarksEnabled : true
+            updateValueWhileDragging : true
+            value : 0
+        }
+
+        Rectangle{
+            id:spaceman
+            color: clrBackground
+            height: 30
+            width: 20
+        }
+
+        SliderComponent{
+            id:sldcomp
+        }
+
     }
+
 }
