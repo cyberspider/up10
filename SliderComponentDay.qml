@@ -26,10 +26,24 @@ Rectangle {
         anchors.fill: parent
         model: ContactModel {}
         delegate: contactDelegate
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-        focus: true
+        highlight: dayshighlight
         orientation: Qt.Horizontal
-        onCurrentItemChanged: console.log("current item changed.")
+        onCurrentItemChanged: console.log("current item changed in day.")
         highlightMoveDuration: 100
+    }
+
+    Component {
+        id: dayshighlight
+        Rectangle {
+            width: 100; height: 25
+            color: "lightsteelblue"; //radius: 5
+            x: lvwDays.currentItem.x
+            Behavior on x {
+                SpringAnimation {
+                    spring: 3
+                    damping: 0.2
+                }
+            }
+        }
     }
 }

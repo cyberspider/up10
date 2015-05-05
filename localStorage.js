@@ -47,10 +47,10 @@ function getActivityModel(){
     console.log("attempting to get model:")
     db.transaction(function(tx) {
 //      tx.executeSql('Delete from activities;')
-        var rs = tx.executeSql('SELECT activity FROM activities;')
+        var rs = tx.executeSql('SELECT activity, measurement FROM activities;')
 
         for(var i = 0; i < rs.rows.length; i++) {
-            activities.push({"activityName": "" + rs.rows.item(i).activity }); //+ "", "icon": "images/logo.png"})
+            activities.push({"activityName": "" + rs.rows.item(i).activity , "activityUnit": "" + rs.rows.item(i).measurement + ""})
         }
     });
 

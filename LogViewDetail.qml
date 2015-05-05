@@ -74,7 +74,19 @@ Item{
             color: clrFont
             font.family: fntMyraidPro.name
             font.pointSize: 40
+
+            Text {
+                id: txtUnitsMeasurement
+                anchors.left: txtUnits.right
+                anchors.bottom: txtUnits.bottom
+                anchors.bottomMargin: 5
+                text: " " + selectedActivityUnit
+                color: clrFont
+                font.family: fntMyraidPro.name
+                font.pointSize: 20
+            }
         }
+
         Slider {
             id:sldHundred
             width: parent.width
@@ -123,9 +135,14 @@ Item{
             width: 20
         }
 
-        SliderComponent{
-            id:sldcomp
+
+        SliderComponentMonth{
+            id:sldcompmonth
         }
+        SliderComponentDay{
+            id:sldcompday
+        }
+
 
     }
 

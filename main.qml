@@ -17,6 +17,7 @@ ApplicationWindow {
     property string clrFont: "White"
     property string newActivity: ""
     property string selectedActivity: ""
+    property string selectedActivityUnit: ""
     property string deletedActivity: ""
 
     signal addActivity()

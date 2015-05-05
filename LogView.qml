@@ -80,7 +80,8 @@ Rectangle{
                 onClicked: {
                     screen.state = "stateActivtyView"
                     selectedActivity = activityName
-
+                    selectedActivityUnit = activityUnit
+                    console.log(selectedActivityUnit + "<--here")
                 }
             }
         }
