@@ -16,7 +16,6 @@ ApplicationWindow {
     property string clrBackground: "#000000"
     property string clrFont: "White"
     property string newActivity: ""
-    property string currentTimePeriod: DB.getSetting("TimePeriod")
     property string selectedActivity: ""
     property string deletedActivity: ""
 

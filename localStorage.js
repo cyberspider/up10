@@ -10,7 +10,11 @@ function openDB() {
 
     try {
         db.transaction(function(tx){
-            tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity TEXT UNIQUE, measurement TEXT)');
+
+            tx.executeSql('DROP TABLE activities');
+            tx.executeSql('DROP TABLE settings');
+            tx.executeSql('DROP TABLE logbook');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
             // Seed the table with default values
@@ -22,17 +26,14 @@ function openDB() {
                 console.log('Activities table added');
             };
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS settings(key TEXT UNIQUE, value TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS settings(mkey TEXT, mvalue TEXT)');
             if (table.rows.length == 0) {
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Use Metric System", "1"]);
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["TimePeriod", "2"]);
                 console.log('Settings table added');
             }
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id NUMBER UNIQUE, day TEXT, month TEXT, year TEXT, activity TEXT, value NUMBER)');
-
-
-
+            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id NUMERIC UNIQUE, day TEXT, month TEXT, year TEXT, activity TEXT, value NUMERIC)');
         });
     } catch (err) {
         console.log("Error creating table in database: " + err);
@@ -56,7 +57,7 @@ function getActivityModel(){
     return activities;
 }
 
-function saveActivity(value) {
+function saveActivity(value, unit) {
     openDB();
     console.log("attempting to create value:" + value)
     if(value === "") {
@@ -64,7 +65,7 @@ function saveActivity(value) {
         return;
     }
     db.transaction( function(tx){
-        var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?)', [value, "D"]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?)', [value, unit]);
         console.log("inserted id:" + rs.insertId);
 
     });
@@ -91,7 +92,7 @@ function getSetting(key) {
     //console.log("attempting to get key:" + key)
     var res = "nothing found."
     db.transaction(function(tx) {
-        var rs = tx.executeSql('SELECT value FROM settings WHERE key=?;', [key]);
+        var rs = tx.executeSql('SELECT mvalue FROM settings WHERE mkey=?;', [key]);
         res = rs.rows.item(0).value;
 
     });

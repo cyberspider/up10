@@ -14,38 +14,68 @@ Rectangle{
             onClicked: {screen.state = ""}
         }
     }
-    Text{
-        id:lblAddActivity
-        anchors.bottom: txtItem.top
-        font.family: "Impact"
-        text:"  Activity name:"
-        color: clrFont
+    Item{
+        id:spaceman
+        anchors.top:btnBack.bottom
+        height: 25
     }
-    TextItem{
-        id:txtItem
-        anchors.verticalCenter: parent.verticalCenter
 
-    }
-    Image{
-        id:btnAddActivity
-        anchors.top: txtItem.bottom
-        source:"images/save.png"
-        anchors.right: parent.right
-        MouseArea{
-            anchors.fill: parent
-            onClicked: {
-                DB.saveActivity(txtItem.text);
-                newActivity = txtItem.text;
-                main.addActivity();
-                screen.state = "";
+    Rectangle{
+        id:frmAddAvtivity
+        width:parent.width
+        anchors.top:spaceman.bottom
+        color: "green"
+        z:1
+
+        Text{
+            id:lblAddActivity
+            font.family: fntMyraidPro.name
+            text:"  Activity name:"
+            color: clrFont
+        }
+        TextItem{
+            id:txtItem
+            anchors.top: lblAddActivity.bottom
+            focus: true
+
+        }
+        Item{
+            id:spaceman2
+            anchors.top:txtItem.bottom
+            height: 25
+        }
+        Text{
+            id:lblAddActivityUnit
+            anchors.top: spaceman2.bottom
+            font.family: fntMyraidPro.name
+            text:"  Measuring unit:"
+            color: clrFont
+        }
+        TextItem{
+            id:txtItemUnit
+            anchors.top: lblAddActivityUnit.bottom
+        }
+        Image{
+            id:btnAddActivity
+            anchors.top: txtItemUnit.bottom
+            source:"images/save.png"
+            anchors.right: parent.right
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    DB.saveActivity(txtItem.text);
+                    newActivity = txtItem.text;
+                    main.addActivity();
+                    screen.state = "";
+                }
             }
         }
-    }
-    ColorOverlay {
-        anchors.fill: btnAddActivity
-        source: btnAddActivity
-        color: "Green"
-        opacity: 0.5
+        ColorOverlay {
+            anchors.fill: btnAddActivity
+            source: btnAddActivity
+            color: "Green"
+            opacity: 0.5
+        }
     }
     ColorOverlay {
         anchors.fill: btnBack

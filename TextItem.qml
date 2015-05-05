@@ -4,10 +4,10 @@ BorderImage{
     id:txtbg
     width:parent.width
     source:"images/txtBox.png"
-    border.left: 20
-    border.right: 20
-    border.top: 20
-    border.bottom: 20
+    border.left: 18
+    border.right: 18
+    border.top: 18
+    border.bottom: 18
     property alias text: textInput.text
 
     TextInput {
@@ -15,12 +15,12 @@ BorderImage{
         color: clrFont
         text: parent.text
         font.family: "Arial"
-        font.pixelSize: 20
-        anchors.margins: 25
+        font.pixelSize: 25
+        anchors.margins: 20
         anchors.fill: parent
         clip:true
         activeFocusOnPress: false
-        cursorVisible: true
+        //cursorVisible: true
 
         MouseArea {
             anchors.fill: parent
