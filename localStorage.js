@@ -4,18 +4,20 @@ var today = new Date();
 function openDB() {
 
     if(db !== undefined) return;
-    console.log("opening db")
+    //console.log("opening db")
     // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
     db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
 
     try {
         db.transaction(function(tx){
-            tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity TEXT UNIQUE, measurement TEXT, usedecimal NUMBER)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity TEXT UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
             // Seed the table with default values
             if (table.rows.length === 0) {
-                tx.executeSql('INSERT INTO activities VALUES(?, ?, ?)', ["Swimming", "D", 1]);
+                tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Swimming", "laps"]);
+                tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Running", "km"]);
+                tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Cycling", "km"]);
 
                 console.log('Activities table added');
             };
@@ -29,7 +31,7 @@ function openDB() {
 
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id NUMBER UNIQUE, day TEXT, month TEXT, year TEXT, activity TEXT, value NUMBER)');
 
-            console.log('Logbook table added');
+
 
         });
     } catch (err) {
@@ -62,7 +64,7 @@ function saveActivity(value) {
         return;
     }
     db.transaction( function(tx){
-        var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?, ?)', [value, "D", 0]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?)', [value, "D"]);
         console.log("inserted id:" + rs.insertId);
 
     });
