@@ -81,7 +81,7 @@ Rectangle{
                     screen.state = "stateActivtyView"
                     selectedActivity = activityName
                     selectedActivityUnit = activityUnit
-                    console.log(selectedActivityUnit + "<--here")
+                    //console.log(selectedActivityUnit + "<--here")
                 }
             }
         }
