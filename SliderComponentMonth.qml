@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 
 Rectangle {
     width: parent.width; height: 50
-
+    color: clrBackground
     Component {
         id: contactDelegate
         Item {
