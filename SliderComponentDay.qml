@@ -8,10 +8,15 @@ Rectangle {
         id: contactDelegate
         Item {
             width: 200; height: 50
-            Column {
-                Text { text: '<b>N:</b> ' + name }
-                Text { text: '<b>I:</b> ' + icon }
-            }
+            //Column {
+
+                Rectangle{
+                    anchors.fill: parent
+                    color: clrBackground
+                }
+                Text { text: name; color: clrFont }
+            //    Text { text: icon; color: clrFont }
+            //}
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
@@ -26,17 +31,18 @@ Rectangle {
         anchors.fill: parent
         model: ContactModel {}
         delegate: contactDelegate
-        highlight: dayshighlight
+        highlight: dayhighlight //Rectangle { color: "lightsteelblue"; radius: 0 }
         orientation: Qt.Horizontal
         onCurrentItemChanged: console.log("current item changed in day.")
         highlightMoveDuration: 100
     }
 
     Component {
-        id: dayshighlight
+        id: dayhighlight
         Rectangle {
+            z:3
             width: 100; height: 25
-            color: "lightsteelblue"; //radius: 5
+            color: "lightsteelblue"; opacity: 0.25
             x: lvwDays.currentItem.x
             Behavior on x {
                 SpringAnimation {
@@ -45,5 +51,7 @@ Rectangle {
                 }
             }
         }
+
     }
+
 }

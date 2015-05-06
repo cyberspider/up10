@@ -1,25 +1,27 @@
 import QtQuick 2.0
-
+import QtGraphicalEffects 1.0
 
 Rectangle {
-    width: parent.width; height: 25
+    width: parent.width; height: 50
 
     Component {
-        id: monthDelegate
-        Rectangle{
-            anchors.fill: parent
-            color: clrBackground
-            Item {
-                width: 100; height: 25
+        id: contactDelegate
+        Item {
+            width: 200; height: 50
 
-                Column {
-                    Text { text: month; color:clrFont}
-                }
-                MouseArea{
+
+            //Column {
+
+                Rectangle{
                     anchors.fill: parent
-                    onClicked: {
-                        lvwMonth.currentIndex = index
-                    }
+                    color: clrBackground
+                }
+                Text { text:month; color: clrFont}
+            //}
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    lvwMonth.currentIndex = index
                 }
             }
         }
@@ -29,18 +31,20 @@ Rectangle {
         id:lvwMonth
         anchors.fill: parent
         model: MonthModel {}
-        delegate: monthDelegate
-        highlight: monthhighlight
+        delegate: contactDelegate
+        highlight: monthhighlight//Rectangle { color: "lightsteelblue"; radius: 0 }
         orientation: Qt.Horizontal
         onCurrentItemChanged: console.log("current item changed in month.")
         highlightMoveDuration: 100
+
     }
 
     Component {
         id: monthhighlight
         Rectangle {
+            z:3
             width: 100; height: 25
-            color: "lightsteelblue"; //radius: 5
+            color: "lightsteelblue"; opacity: 0.25
             x: lvwMonth.currentItem.x
             Behavior on x {
                 SpringAnimation {
@@ -49,6 +53,6 @@ Rectangle {
                 }
             }
         }
-    }
 
+    }
 }
