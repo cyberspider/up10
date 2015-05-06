@@ -131,7 +131,7 @@ Item{
         Rectangle{
             id:spaceman
             color: clrBackground
-            height: 30
+            height: 15
             width: 20
         }
 
@@ -142,8 +142,40 @@ Item{
         SliderComponentDay{
             id:sldcompday
         }
+        Rectangle{
+            id:spaceman2
+            color: clrBackground
+            height: 5
+            width: 20
+        }
 
-
+        Image{
+            id:btnAddActivity
+            source:"images/save.png"
+            anchors.right:parent.right
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    //DB.saveActivity(txtItem.text);
+                    //newActivity = txtItem.text;
+                    //main.addActivity();
+                    //screen.state = "";
+                    console.log("saving private Ryan.")
+                }
+            }
+            ShaderEffectSource {
+                id:buf1;
+                recursive:true;
+                sourceItem: btnAddActivity;
+            }
+            ColorOverlay {
+                id:clroverlay
+                anchors.fill: btnAddActivity
+                color: "Green"
+                opacity: 0.5
+                source: buf1
+                //property variant src: buf1;
+            }
+        }
     }
-
 }

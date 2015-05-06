@@ -8,15 +8,12 @@ Rectangle {
         id: contactDelegate
         Item {
             width: 200; height: 50
-            //Column {
+            Rectangle{
+                anchors.fill: parent
+                color: clrBackground
+            }
+            Text { text: name; color: clrFont; font.family: fntMyraidPro.name}
 
-                Rectangle{
-                    anchors.fill: parent
-                    color: clrBackground
-                }
-                Text { text: name; color: clrFont }
-            //    Text { text: icon; color: clrFont }
-            //}
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
