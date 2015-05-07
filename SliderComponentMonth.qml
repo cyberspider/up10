@@ -32,7 +32,7 @@ Rectangle {
         orientation: Qt.Horizontal
         onCurrentItemChanged: console.log("current item changed in month.")
         highlightMoveDuration: 100
-
+        Component.onCompleted: positionViewAtEnd()
     }
 
     Component {

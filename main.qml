@@ -22,14 +22,15 @@ ApplicationWindow {
 
     signal addActivity()
     signal deleteActivity()
-    FontLoader { id: fntMyraidPro; source: "font/Myriad Pro Regular.ttf" }
+
     onAddActivity: {
         logView.addActivity()
     }
-
     onDeleteActivity: {
         logView.deleteActivity()
     }
+
+    FontLoader { id: fntMyraidPro; source: "font/Myriad Pro Regular.ttf" }
 
     Rectangle {
         id:bg

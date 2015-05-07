@@ -32,6 +32,8 @@ Rectangle {
         orientation: Qt.Horizontal
         onCurrentItemChanged: console.log("current item changed in day.")
         highlightMoveDuration: 100
+        //snapMode: ListView.SnapOneItem
+        Component.onCompleted: positionViewAtEnd()
     }
 
     Component {

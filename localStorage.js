@@ -10,10 +10,10 @@ function openDB() {
 
     try {
         db.transaction(function(tx){
-
-            //tx.executeSql('DROP TABLE activities');
-            //tx.executeSql('DROP TABLE settings');
-            //tx.executeSql('DROP TABLE logbook');
+            //Create tables first
+            tx.executeSql('DROP TABLE activities');
+            tx.executeSql('DROP TABLE settings');
+            tx.executeSql('DROP TABLE logbook');
             tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
@@ -27,13 +27,33 @@ function openDB() {
             };
 
             tx.executeSql('CREATE TABLE IF NOT EXISTS settings(mkey TEXT, mvalue TEXT)');
-            if (table.rows.length == 0) {
+            table = tx.executeSql('SELECT * from settings');
+            if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Use Metric System", "1"]);
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["TimePeriod", "2"]);
                 console.log('Settings table added');
             }
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id NUMERIC UNIQUE, day TEXT, month TEXT, year TEXT, activity TEXT, value NUMERIC)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id NUMERIC UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
+
+            //1.First Run - set start date if not found
+            var start = new Date();
+            start.setDate(1);
+            start.setMonth(start.getMonth()-1);
+            console.log(start)
+
+
+            var end = new Date();
+            //end.setDate(1);
+
+                while(start < end){
+                   console.log(start.getDate() + "/" + start.getMonth() + "/" + start.getFullYear())
+                   var newDate = start.setDate(start.getDate() + 1);
+                   start = new Date(newDate);
+                }
+            //2.Fill in gaps between today and start date
+
+            //3.Load models
         });
     } catch (err) {
         console.log("Error creating table in database: " + err);
@@ -46,7 +66,7 @@ function getActivityModel(){
     openDB();
     //console.log("attempting to get model:")
     db.transaction(function(tx) {
-//      tx.executeSql('Delete from activities;')
+        //      tx.executeSql('Delete from activities;')
         var rs = tx.executeSql('SELECT activity, measurement FROM activities;')
 
         for(var i = 0; i < rs.rows.length; i++) {
@@ -116,8 +136,8 @@ function getToday() {
         mm='0'+mm
     }
 */
-    today = dd + ' ' + MMMM + ' ' + yyyy;
-    return today;
+    return dd + ' ' + MMMM + ' ' + yyyy;
+
 }
 
 function leapYear(year)
