@@ -138,9 +138,14 @@ Item{
 
         SliderComponentMonth{
             id:sldcompmonth
+            width: mainItem.width
+            anchors.left: mainItem.left
         }
         SliderComponentDay{
             id:sldcompday
+            width: mainItem.width
+            anchors.left: mainItem.left
+
         }
         Rectangle{
             id:spaceman2

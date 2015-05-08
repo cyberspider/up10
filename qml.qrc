@@ -33,5 +33,6 @@
         <file>font/Myriad Pro Regular.ttf</file>
         <file>SliderComponentMonth.qml</file>
         <file>MonthModel.qml</file>
+        <file>AddActivityDaysModel.qml</file>
     </qresource>
 </RCC>
