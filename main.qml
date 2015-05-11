@@ -7,7 +7,8 @@ import QtQuick.Controls.Styles 1.3
 import QtQuick.Layouts 1.1
 import QtSensors 5.3
 import "localStorage.js" as DB
-//today i received my masters degree
+
+
 ApplicationWindow {
     id:main
     width:Screen.width
