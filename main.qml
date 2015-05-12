@@ -81,9 +81,11 @@ ApplicationWindow {
         }
         HelpView{
             id:helpView
+
         }
         SettingsView{
             id:settingsView
+
         }
 
         states: [
