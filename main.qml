@@ -87,7 +87,7 @@ ApplicationWindow {
             id:settingsView
 
         }
-
+//contr
         states: [
             State {
                 name: "dataViewState"
