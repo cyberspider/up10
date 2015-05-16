@@ -7,7 +7,7 @@ import "localStorage.js" as DB
 
 Item{
     id:mainItem
-    width: screen.width
+    width: parent.width - 10
     property real milesDone: {
         if (sldDecimal.value > 0)  {
             sldHundred.value + sldTen.value + sldOne.value + (sldDecimal.value / 10)
@@ -96,6 +96,7 @@ Item{
             //tickmarksEnabled : true
             updateValueWhileDragging : true
             value : 0
+
         }
         Slider {
             id:sldTen
@@ -106,6 +107,7 @@ Item{
             //tickmarksEnabled : true
             updateValueWhileDragging : true
             value : 0
+
         }
         Slider {
             id:sldOne
@@ -116,6 +118,7 @@ Item{
             //tickmarksEnabled : true
             updateValueWhileDragging : true
             value : 0
+
         }
         Slider {
             id:sldDecimal
@@ -126,6 +129,7 @@ Item{
             tickmarksEnabled : true
             updateValueWhileDragging : true
             value : 0
+
         }
 
         Rectangle{
@@ -139,13 +143,14 @@ Item{
         SliderComponentMonth{
             id:sldcompmonth
             width: mainItem.width
-            anchors.left: mainItem.left
+            anchors.left: parent.left
+            z:10
         }
         SliderComponentDay{
             id:sldcompday
             width: mainItem.width
-            anchors.left: mainItem.left
-
+            anchors.left: parent.left
+            z:10
         }
         Rectangle{
             id:spaceman2

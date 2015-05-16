@@ -115,10 +115,7 @@ ApplicationWindow {
                     target: splash
                     opacity: 0
                 }
-                PropertyChanges {
-                    target: bg
-                    opacity: 0
-                }
+
                 PropertyChanges {
                     target: myToolBar
                     opacity: 1
@@ -140,10 +137,7 @@ ApplicationWindow {
                     target: splash
                     opacity: 0
                 }
-                PropertyChanges {
-                    target: bg
-                    opacity: 0
-                }
+
                 PropertyChanges {
                     target: myToolBar
                     opacity: 1
@@ -165,10 +159,7 @@ ApplicationWindow {
                     target: splash
                     opacity: 0
                 }
-                PropertyChanges {
-                    target: bg
-                    opacity: 0
-                }
+
                 PropertyChanges {
                     target: myToolBar
                     opacity: 1
@@ -189,10 +180,7 @@ ApplicationWindow {
                     target: splash
                     opacity: 0
                 }
-                PropertyChanges {
-                    target: bg
-                    opacity: 0
-                }
+
                 PropertyChanges {
                     target: myToolBar
                     opacity: 1
@@ -213,10 +201,7 @@ ApplicationWindow {
                     target: splash
                     opacity: 0
                 }
-                PropertyChanges {
-                    target: bg
-                    opacity: 0
-                }
+
                 PropertyChanges {
                     target: myToolBar
                     opacity: 1

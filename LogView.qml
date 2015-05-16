@@ -4,7 +4,7 @@ import "localStorage.js" as DB
 
 Rectangle{
     id:screen
-    color: clrBackground
+    color: "Green"//clrBackground
     anchors.fill: parent
     opacity: 0
 
@@ -104,9 +104,13 @@ Rectangle{
                 clip: true
                 focus: true
                 spacing: 3
+                contentHeight: screen.height - topBar.height
+                z:10
                 anchors.horizontalCenter: parent.horizontalCenter
                 boundsBehavior: Flickable.DragAndOvershootBounds
                 highlightFollowsCurrentItem:true
+
+
                 function amaddActivity(){
                     activityModel.append({"activityName":newActivity})
                     newActivity = ""
