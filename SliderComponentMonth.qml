@@ -8,7 +8,7 @@ Rectangle {
     Component {
         id: contactDelegate
         Item {
-            width: 100; height: 20
+            width: 100; height: 25
             Rectangle{
                 anchors.fill: parent
                 color: clrBackground
@@ -29,19 +29,22 @@ Rectangle {
         anchors.fill: parent
         model: MonthModel {}
         delegate: contactDelegate
-        highlight: monthhighlight//Rectangle { color: "lightsteelblue"; radius: 0 }
+        highlight: monthhighlight//
         orientation: Qt.Horizontal
         onCurrentItemChanged: console.log("current item changed in month.")
         highlightMoveDuration: 100
-        Component.onCompleted: positionViewAtEnd()
+        //Component.onCompleted: positionViewAtEnd()
+        z:0
     }
 
     Component {
         id: monthhighlight
+
         Rectangle {
-            width: 100; height: 20
+            width: 100; height: 25
             color: "lightsteelblue"; opacity: 0.25
             x: lvwMonth.currentItem.x
+            z:1
             Behavior on x {
                 SpringAnimation {
                     spring: 3

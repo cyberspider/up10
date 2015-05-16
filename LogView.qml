@@ -49,9 +49,11 @@ Rectangle{
             }
             onRunningChanged: {
                 if ((state == "stateActivtyView") && (!running)){
-                    slidersVisible = 1
+                    sliderMonthVisible = 1
+                    sliderDayVisible = 1
                 }else{
-                    slidersVisible = 0
+                    sliderMonthVisible = 0
+                    sliderDayVisible = 0
                 }
             }
         }

@@ -139,12 +139,14 @@ Rectangle{
         SliderComponentMonth{
             id:sldcompmonth
             width: parent.width
-            opacity: slidersVisible
+            height: 25
+            opacity: sliderMonthVisible
         }
         SliderComponentDay{
             id:sldcompday
             width: parent.width
-            opacity: slidersVisible
+            height: 50
+            opacity: sliderDayVisible
         }
         Rectangle{
             id:spaceman2

@@ -20,7 +20,8 @@ ApplicationWindow {
     property string selectedActivity: ""
     property string selectedActivityUnit: ""
     property string deletedActivity: ""
-    property int slidersVisible: 0
+    property int sliderMonthVisible: 0
+    property int sliderDayVisible: 0
 
     signal addActivity()
     signal deleteActivity()
