@@ -2,7 +2,8 @@ import QtQuick 2.0
 
 
 Rectangle {
-    width: parent.width; height: 50
+    width: parent.width
+    height: parent.height
     color: clrBackground
     Component {
         id: contactDelegate
@@ -39,7 +40,6 @@ Rectangle {
     Component {
         id: dayhighlight
         Rectangle {
-            z:3
             width: 100; height: 25
             color: "lightsteelblue"; opacity: 0.25
             x: lvwDays.currentItem.x

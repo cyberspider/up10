@@ -2,7 +2,8 @@ import QtQuick 2.0
 import QtGraphicalEffects 1.0
 
 Rectangle {
-    width: parent.width; height: 20
+    width: parent.width
+    height: parent.height
     color: clrBackground
     Component {
         id: contactDelegate
@@ -38,7 +39,6 @@ Rectangle {
     Component {
         id: monthhighlight
         Rectangle {
-            z:3
             width: 100; height: 20
             color: "lightsteelblue"; opacity: 0.25
             x: lvwMonth.currentItem.x

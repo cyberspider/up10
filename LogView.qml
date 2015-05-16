@@ -4,7 +4,7 @@ import "localStorage.js" as DB
 
 Rectangle{
     id:screen
-    color: "Green"//clrBackground
+    color: clrBackground
     anchors.fill: parent
     opacity: 0
 
@@ -26,6 +26,7 @@ Rectangle{
                 x: -screen.width
 
             }
+
         },
         State {
             name: "stateActivityAdd"
@@ -45,6 +46,13 @@ Rectangle{
                 property: "x"
                 duration: 500
                 easing.type: Easing.InOutQuint
+            }
+            onRunningChanged: {
+                if ((state == "stateActivtyView") && (!running)){
+                    slidersVisible = 1
+                }else{
+                    slidersVisible = 0
+                }
             }
         }
     ]
@@ -105,7 +113,6 @@ Rectangle{
                 focus: true
                 spacing: 3
                 contentHeight: screen.height - topBar.height
-                z:10
                 anchors.horizontalCenter: parent.horizontalCenter
                 boundsBehavior: Flickable.DragAndOvershootBounds
                 highlightFollowsCurrentItem:true

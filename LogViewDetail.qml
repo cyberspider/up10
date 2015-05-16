@@ -5,7 +5,8 @@ import QtGraphicalEffects 1.0
 import "localStorage.js" as DB
 
 
-Item{
+Rectangle{
+    color: clrBackground
     id:mainItem
     width: parent.width - 10
     property real milesDone: {
@@ -53,28 +54,26 @@ Item{
     }
     Column{
         id:logviewdetailcolumn
-        anchors.top: btnBack.bottom
+        anchors.top: btnDelete.bottom
         anchors.right: parent.right
         anchors.left:parent.left
-        anchors.bottom: parent.bottom
         anchors.margins: 10
         spacing: 10
         Text{
-            anchors.horizontalCenter: parent.horizontalCenter
             id:txtActivity
             text: selectedActivity
             color: clrFont
             font.family: fntMyraidPro.name
             font.pointSize: 20
+            anchors.horizontalCenter: parent.horizontalCenter
         }
         Text {
             id: txtUnits
-            anchors.horizontalCenter: parent.horizontalCenter
             text: milesDone.toString()
             color: clrFont
             font.family: fntMyraidPro.name
             font.pointSize: 40
-
+            anchors.horizontalCenter: parent.horizontalCenter
             Text {
                 id: txtUnitsMeasurement
                 anchors.left: txtUnits.right
@@ -86,7 +85,6 @@ Item{
                 font.pointSize: 20
             }
         }
-
         Slider {
             id:sldHundred
             width: parent.width
@@ -104,7 +102,6 @@ Item{
             maximumValue: 90
             minimumValue : 0
             stepSize : 10
-            //tickmarksEnabled : true
             updateValueWhileDragging : true
             value : 0
 
@@ -115,7 +112,6 @@ Item{
             maximumValue: 9
             minimumValue : 0
             stepSize : 1
-            //tickmarksEnabled : true
             updateValueWhileDragging : true
             value : 0
 
@@ -142,15 +138,13 @@ Item{
 
         SliderComponentMonth{
             id:sldcompmonth
-            width: mainItem.width
-            anchors.left: parent.left
-            z:10
+            width: parent.width
+            opacity: slidersVisible
         }
         SliderComponentDay{
             id:sldcompday
-            width: mainItem.width
-            anchors.left: parent.left
-            z:10
+            width: parent.width
+            opacity: slidersVisible
         }
         Rectangle{
             id:spaceman2
