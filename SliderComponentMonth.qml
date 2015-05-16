@@ -33,7 +33,7 @@ Rectangle {
         orientation: Qt.Horizontal
         onCurrentItemChanged: console.log("current item changed in month.")
         highlightMoveDuration: 100
-        //Component.onCompleted: positionViewAtEnd()
+        Component.onCompleted: positionViewAtEnd()
         z:0
     }
 
@@ -44,7 +44,7 @@ Rectangle {
             width: 100; height: 25
             color: "lightsteelblue"; opacity: 0.25
             x: lvwMonth.currentItem.x
-            z:1
+            z:10
             Behavior on x {
                 SpringAnimation {
                     spring: 3

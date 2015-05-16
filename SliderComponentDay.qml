@@ -34,7 +34,7 @@ Rectangle {
         onCurrentItemChanged: console.log("current item changed in day.")
         highlightMoveDuration: 100
         //snapMode: ListView.SnapOneItem
-        //Component.onCompleted: positionViewAtEnd()
+        Component.onCompleted: positionViewAtEnd()
         z:0
     }
 
@@ -45,7 +45,7 @@ Rectangle {
             width: 100; height: 50
             color: "lightsteelblue"; opacity: 0.25
             x: lvwDays.currentItem.x
-            z:1
+            z:10
             Behavior on x {
                 SpringAnimation {
                     spring: 3
