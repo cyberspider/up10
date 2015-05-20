@@ -1,5 +1,7 @@
 var db;
 var today = new Date();
+var daysModel = [];
+var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function openDB() {
 
@@ -47,10 +49,12 @@ function openDB() {
             //end.setDate(1);
 
                 while(start < end){
-                   console.log(start.getDate() + "/" + start.getMonth() + "/" + start.getFullYear())
+                   daysModel.push({"day": "" + start.getDate()  , "month": "" + months[start.getMonth()], "year": "" + start.getFullYear()})
+                   //increment while loop
                    var newDate = start.setDate(start.getDate() + 1);
                    start = new Date(newDate);
                 }
+
             //2.Fill in gaps between today and start date
 
             //3.Load models
@@ -129,7 +133,6 @@ function getToday() {
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
     var yyyy = today.getFullYear();
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var MMMM = months[mm]
     /*
     if(dd<10) {
