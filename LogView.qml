@@ -20,7 +20,7 @@ Rectangle{
 
     states: [
         State {
-            name: "stateActivtyView"
+            name: "stateActivityView"
             PropertyChanges {
                 target: screenLayout
                 x: -screen.width
@@ -48,7 +48,7 @@ Rectangle{
                 easing.type: Easing.InOutQuint
             }
             onRunningChanged: {
-                if ((state == "stateActivtyView") && (!running)){
+                if ((state == "stateActivityView") && (!running)){
                     sliderMonthVisible = 1
                     sliderDayVisible = 1
                 }else{
@@ -88,7 +88,7 @@ Rectangle{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    screen.state = "stateActivtyView"
+                    screen.state = "stateActivityView"
                     selectedActivity = activityName
                     selectedActivityUnit = activityUnit
                     //console.log(selectedActivityUnit + "<--here")
@@ -121,8 +121,9 @@ Rectangle{
 
 
                 function amaddActivity(){
-                    activityModel.append({"activityName":newActivity})
+                    activityModel.append({"activityName":newActivity, "activityUnit":newActivityUnit})
                     newActivity = ""
+                    newActivityUnit = ""
                 }
                 function amdeleteActivity(){
                     activityModel.clear()

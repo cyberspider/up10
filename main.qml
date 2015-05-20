@@ -17,6 +17,7 @@ ApplicationWindow {
     property string clrBackground: "#000000"
     property string clrFont: "White"
     property string newActivity: ""
+    property string newActivityUnit: ""
     property string selectedActivity: ""
     property string selectedActivityUnit: ""
     property string deletedActivity: ""

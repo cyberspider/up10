@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import QtQuick.Controls 1.3
 import QtGraphicalEffects 1.0
+import QtQuick.Dialogs 1.2
 import "localStorage.js" as DB
 
 
@@ -31,14 +32,12 @@ Rectangle{
         MouseArea{
             anchors.fill: parent
             onClicked: {
-                //delete the item here
-                DB.deleteActivity(selectedActivity)
-                deletedActivity = selectedActivity
-                main.deleteActivity();
-                screen.state = ""
+                messageDialog.visible = true
+
             }
         }
     }
+
     ColorOverlay {
         anchors.fill: btnBack
         source: btnBack
@@ -162,10 +161,11 @@ Rectangle{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    //DB.saveActivity(txtItem.text);
-                    //newActivity = txtItem.text;
-                    //main.addActivity();
-                    //screen.state = "";
+//                    DB.saveActivity(txtItem.text);
+//                    newActivity = txtItem.text;
+
+//                    main.addActivity();
+//                    screen.state = "";
                     console.log("saving private Ryan.")
                 }
             }
@@ -183,5 +183,22 @@ Rectangle{
                 //property variant src: buf1;
             }
         }
+    }
+
+    MessageDialog {
+        id: messageDialog
+        title: "Delete Activity?"
+        text: "Are you sure you want to delete " + selectedActivity + " and all its data?"
+        standardButtons: StandardButton.Yes | StandardButton.No
+        onYes: {
+            console.log("deleting " + selectedActivity)
+//            //delete the item here
+            DB.deleteActivity(selectedActivity)
+            deletedActivity = selectedActivity
+            main.deleteActivity();
+            screen.state = ""
+        }
+
+        onNo: {console.log("not deleting")}
     }
 }

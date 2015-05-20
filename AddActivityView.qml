@@ -63,8 +63,10 @@ Rectangle{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    DB.saveActivity(txtItem.text);
+
                     newActivity = txtItem.text;
+                    newActivityUnit = txtItemUnit.text;
+                    DB.saveActivity(newActivity, newActivityUnit);
                     main.addActivity();
                     screen.state = "";
                 }

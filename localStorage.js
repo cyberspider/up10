@@ -11,9 +11,9 @@ function openDB() {
     try {
         db.transaction(function(tx){
             //Create tables first
-            tx.executeSql('DROP TABLE activities');
-            tx.executeSql('DROP TABLE settings');
-            tx.executeSql('DROP TABLE logbook');
+            //tx.executeSql('DROP TABLE activities');
+            //tx.executeSql('DROP TABLE settings');
+            //tx.executeSql('DROP TABLE logbook');
             tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
@@ -81,7 +81,11 @@ function saveActivity(value, unit) {
     openDB();
     //console.log("attempting to create value:" + value)
     if(value === "") {
-        console.log("can't insert empty string")
+        console.log("can't insert empty activity string")
+        return;
+    }
+    if(unit === "") {
+        console.log("can't insert empty unit string")
         return;
     }
     db.transaction( function(tx){
@@ -95,7 +99,7 @@ function deleteActivity(value) {
 
     db.transaction( function(tx){
         tx.executeSql('Delete from activities where activity=?;', [value]);
-        //console.log("deleted:" + value);
+        console.log("deleted:" + value);
 
     });
 }
