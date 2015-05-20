@@ -39,20 +39,21 @@ function openDB() {
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id NUMERIC UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
             //1.First Run - set start date if not found
+            //do this actually
             var start = new Date();
             start.setDate(1);
             start.setMonth(start.getMonth()-1);
             console.log(start)
-
-
             var end = new Date();
-            //end.setDate(1);
 
                 while(start < end){
                    daysModel.push({"day": "" + start.getDate()  , "month": "" + months[start.getMonth()], "year": "" + start.getFullYear()})
                    //increment while loop
                    var newDate = start.setDate(start.getDate() + 1);
                    start = new Date(newDate);
+
+                   console.log(JSON.stringify(daysModel))
+                   console.log("@@@@@@@@@")
                 }
 
             //2.Fill in gaps between today and start date
@@ -79,6 +80,13 @@ function getActivityModel(){
     });
 
     return activities;
+}
+
+function getDaysModel(){
+    console.log(JSON.stringify(daysModel))
+    console.log("RRRRRR")
+    console.log(daysModel.length)
+    return daysModel;
 }
 
 function saveActivity(value, unit) {

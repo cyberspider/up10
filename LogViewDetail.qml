@@ -166,7 +166,7 @@ Rectangle{
 
 //                    main.addActivity();
 //                    screen.state = "";
-                    console.log(JSON.stringify(daysModel))
+                    console.log(JSON.stringify(DB.getDaysModel()))
                     console.log("saving private Ryan.")
                 }
             }
