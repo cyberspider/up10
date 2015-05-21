@@ -59,10 +59,10 @@ function doInitialSettings(){
            //increment while loop
            var newDate = start.setDate(start.getDate() + 1);
            start = new Date(newDate);
-
-           console.log(JSON.stringify(daysModel))
-           console.log("@@@@@@@@@")
         }
+        daysModel.reverse()
+        console.log(JSON.stringify(daysModel))
+        console.log("@@@@@@@@@")
 
     //2.Fill in gaps between today and start date
 
