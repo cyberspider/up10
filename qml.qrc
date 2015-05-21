@@ -14,7 +14,7 @@
         <file>HelpView.qml</file>
         <file>SettingsView.qml</file>
         <file>DataPathView.qml</file>
-        <file>ContactModel.qml</file>
+        <file>DaysModel.qml</file>
         <file>DataView.qml</file>
         <file>images/rarrow.png</file>
         <file>images/item.png</file>

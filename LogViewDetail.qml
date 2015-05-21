@@ -5,7 +5,6 @@ import QtGraphicalEffects 1.0
 import QtQuick.Dialogs 1.2
 import "localStorage.js" as DB
 
-
 Rectangle{
     color: clrBackground
     id:mainItem
@@ -135,12 +134,12 @@ Rectangle{
         }
 
 
-        SliderComponentMonth{
-            id:sldcompmonth
-            width: parent.width
-            height: 25
-            opacity: sliderMonthVisible
-        }
+//        SliderComponentMonth{
+//            id:sldcompmonth
+//            width: parent.width
+//            height: 25
+//            opacity: sliderMonthVisible
+//        }
         SliderComponentDay{
             id:sldcompday
             width: parent.width

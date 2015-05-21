@@ -8,12 +8,19 @@ Rectangle {
     Component {
         id: contactDelegate
         Item {
-            width: 200; height: 50
-            Rectangle{
-                anchors.fill: parent
-                color: clrBackground
+            width: 75; height: 75
+
+            Text { id:txtmonth; text: month; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 15
+                anchors.horizontalCenter: parent.horizontalCenter
             }
-            Text { text: name; color: clrFont; font.family: fntMyraidPro.name}
+            Text { id:txtday; text: day; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 40
+                anchors.top:txtmonth.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Text { id:txtyear; text: year; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 15
+                anchors.top:txtday.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
 
             MouseArea{
                 anchors.fill: parent
@@ -27,7 +34,7 @@ Rectangle {
     ListView {
         id:lvwDays
         anchors.fill: parent
-        model: ContactModel {}
+        model: DaysModel{id:daysModel}//DaysModel {}
         delegate: contactDelegate
         highlight: dayhighlight
         orientation: Qt.Horizontal
