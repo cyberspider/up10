@@ -6,7 +6,7 @@ Rectangle {
     height: parent.height
     color: clrBackground
     Component {
-        id: contactDelegate
+        id: dayDelegate
         Item {
             width: 75; height: 75
 
@@ -35,7 +35,7 @@ Rectangle {
         id:lvwDays
         anchors.fill: parent
         model: DaysModel{id:daysModel}//DaysModel {}
-        delegate: contactDelegate
+        delegate: dayDelegate
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: console.log("current item changed in day.")
@@ -49,7 +49,7 @@ Rectangle {
         id: dayhighlight
 
         Rectangle {
-            width: 100; height: 50
+            width: 75; height: 75
             color: "lightsteelblue"; opacity: 0.25
             x: lvwDays.currentItem.x
             z:10

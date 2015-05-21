@@ -143,7 +143,7 @@ Rectangle{
         SliderComponentDay{
             id:sldcompday
             width: parent.width
-            height: 50
+            height: 75
             opacity: sliderDayVisible
         }
         Rectangle{
