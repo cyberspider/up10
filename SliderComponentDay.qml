@@ -26,6 +26,8 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
+                    console.log(index)
+                    JSON.stringify(daysModel[index])
                 }
             }
         }
