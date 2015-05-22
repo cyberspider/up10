@@ -25,7 +25,7 @@ function openDB() {
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Running", "km"]);
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Cycling", "km"]);
 
-                console.log('Activities table added');
+                console.log('Activities table added.');
             };
 
             tx.executeSql('CREATE TABLE IF NOT EXISTS settings(mkey TEXT, mvalue TEXT)');
