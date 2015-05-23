@@ -1,5 +1,5 @@
 import QtQuick 2.0
-
+import "localStorage.js" as DB
 
 Rectangle {
     width: parent.width
@@ -26,7 +26,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
-                    console.log(lvwDays.model.get(lvwDays.currentIndex).month)
+                    //day item click here
 
                 }
             }
@@ -40,7 +40,22 @@ Rectangle {
         delegate: dayDelegate
         highlight: dayhighlight
         orientation: Qt.Horizontal
-        onCurrentItemChanged: console.log("current item changed in day.")
+        onCurrentItemChanged: {
+
+            //lets get the values from DB here and set interface
+//            console.log(lvwDays.model.get(lvwDays.currentIndex).day)
+//            console.log(lvwDays.model.get(lvwDays.currentIndex).month)
+//            console.log(lvwDays.model.get(lvwDays.currentIndex).year)
+            selectedDateDay = lvwDays.model.get(lvwDays.currentIndex).day
+            selectedDateMonth = lvwDays.model.get(lvwDays.currentIndex).month
+            selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
+            selectedDate = lvwDays.model.get(lvwDays.currentIndex).day + "/" + lvwDays.model.get(lvwDays.currentIndex).month + "/" + lvwDays.model.get(lvwDays.currentIndex).year
+
+            console.log("current item changed in day:" + selectedDate)
+            //sldTen.value = DB.getSliderTen()
+            //sldOne.value = DB.getSliderOne()
+            //sldDecimal.value = DB.getSliderDecimal()
+        }
         highlightMoveDuration: 100
         Component.onCompleted: {
 

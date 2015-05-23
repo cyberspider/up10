@@ -23,6 +23,11 @@ ApplicationWindow {
     property string deletedActivity: ""
     property int sliderMonthVisible: 0
     property int sliderDayVisible: 0
+    property string selectedDate: ""
+    property string selectedDateDay: ""
+    property string selectedDateMonth: ""
+    property string selectedDateYear: ""
+    property string selectedSliderValue: ""
 
     signal addActivity()
     signal deleteActivity()

@@ -2,7 +2,7 @@ var db;
 var today = new Date();
 var daysModel = [];
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
+var slider1 = 0
 function openDB() {
 
     if(db !== undefined) return;
@@ -36,7 +36,7 @@ function openDB() {
                 console.log('Settings table added');
             }
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id NUMERIC UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id TEXT UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
             doInitialSettings()
         });
@@ -54,15 +54,15 @@ function doInitialSettings(){
     console.log(start)
     var end = new Date();
 
-        while(start < end){
-           daysModel.push({"day": "" + start.getDate()  , "month": "" + months[start.getMonth()], "year": "" + start.getFullYear()})
-           //increment while loop
-           var newDate = start.setDate(start.getDate() + 1);
-           start = new Date(newDate);
-        }
-        daysModel.reverse()
-        console.log(JSON.stringify(daysModel))
-        console.log("@@@@@@@@@")
+    while(start < end){
+        daysModel.push({"day": "" + start.getDate()  , "month": "" + months[start.getMonth()], "year": "" + start.getFullYear()})
+        //increment while loop
+        var newDate = start.setDate(start.getDate() + 1);
+        start = new Date(newDate);
+    }
+    daysModel.reverse()
+    //console.log(JSON.stringify(daysModel))
+    //console.log("@@@@@@@@@")
 
     //2.Fill in gaps between today and start date
 
@@ -168,7 +168,6 @@ function leapYear(year)
     return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
 }
 
-
 function getWeekNumber(d) {
     // Copy date so don't modify original
     d = new Date(+d);
@@ -183,4 +182,28 @@ function getWeekNumber(d) {
     // Return array of year and week number
     //return [d.getFullYear(), weekNo];
     return weekNo.toString()
+}
+
+function getSliderHundred(){
+    slider1 +=100
+    console.log("incremented slider:" + slider1)
+    return slider1
+}
+
+/*
+sldHundred.value = DB.getSliderHundred()
+sldTen.value = DB.getSliderTen()
+sldOne.value = DB.getSliderOne()
+sldDecimal.value = DB.getSliderDecimal()
+*/
+function saveLogBookEntry(day, month, year, activity, value) {
+    openDB();
+    var munique = (day + month + year).toString()
+    //tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id TEXT UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
+
+    db.transaction( function(tx){
+        var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?)', [munique, day, month, year, activity, value]);
+        console.log("inserted log entry:" + rs.insertId);
+
+    });
 }

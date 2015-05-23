@@ -91,7 +91,7 @@ Rectangle{
             stepSize : 100
             //tickmarksEnabled : true
             updateValueWhileDragging : true
-            value : 0
+            value : DB.getSliderHundred()
 
         }
         Slider {
@@ -153,13 +153,12 @@ Rectangle{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-//                    DB.saveActivity(txtItem.text);
-//                    newActivity = txtItem.text;
-
-//                    main.addActivity();
-//                    screen.state = "";
-                    console.log(JSON.stringify(DB.getDaysModel()))
-                    console.log("saving private Ryan.")
+//                  //save the slider values with date for the activity
+                    selectedSliderValue = parseInt(sldHundred.value) + parseInt(sldTen.value) + parseInt(sldOne.value)
+                    selectedSliderValue += "." + sldDecimal.value
+                    console.log(selectedSliderValue + "<-------------")
+                    DB.saveLogBookEntry(selectedDateDay, selectedDateMonth, selectedDateYear, selectedActivity, selectedSliderValue)
+                    console.log(txtActivity.text + ":" + selectedDate + ":" + sldHundred.value + sldTen.value + sldOne.value + sldDecimal.value)
                 }
             }
             ShaderEffectSource {
