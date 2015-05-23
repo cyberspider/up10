@@ -36,7 +36,7 @@ function openDB() {
                 console.log('Settings table added');
             }
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id TEXT UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id TEXT, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
             doInitialSettings()
         });
@@ -199,11 +199,28 @@ sldDecimal.value = DB.getSliderDecimal()
 function saveLogBookEntry(day, month, year, activity, value) {
     openDB();
     var munique = (day + month + year).toString()
+    console.log("munique:" + munique)
     //tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id TEXT UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
     db.transaction( function(tx){
         var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?)', [munique, day, month, year, activity, value]);
         console.log("inserted log entry:" + rs.insertId);
 
+    });
+
+    db.transaction( function(tx){
+        var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?)', [munique, day, month, year, activity, value]);
+        console.log("inserted log entry:" + rs.insertId);
+
+    });
+
+    db.transaction(function(tx) {
+
+        var rs = tx.executeSql('SELECT * FROM logbook;')
+
+        for(var i = 0; i < rs.rows.length; i++) {
+            //activities.push({"activityName": "" + rs.rows.item(i).activity , "activityUnit": "" + rs.rows.item(i).measurement + ""})
+            console.log("items in db:" + rs.rows.item(i).munique + "-" + rs.rows.item(i).day + "-" + rs.rows.item(i).month + "-" + rs.rows.item(i).year + "-" + rs.rows.item(i).activity + "-" + rs.rows.item(i).value)
+        }
     });
 }
