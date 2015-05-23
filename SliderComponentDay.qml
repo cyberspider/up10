@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.LocalStorage 2.0
 import "localStorage.js" as DB
 
 Rectangle {
@@ -41,24 +42,7 @@ Rectangle {
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
-
-            //lets get the values from DB here and set interface
-//            console.log(lvwDays.model.get(lvwDays.currentIndex).day)
-//            console.log(lvwDays.model.get(lvwDays.currentIndex).month)
-//            console.log(lvwDays.model.get(lvwDays.currentIndex).year)
-            selectedDateDay = lvwDays.model.get(lvwDays.currentIndex).day
-            selectedDateMonth = lvwDays.model.get(lvwDays.currentIndex).month
-            selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
-            selectedDate = lvwDays.model.get(lvwDays.currentIndex).day + "/" + lvwDays.model.get(lvwDays.currentIndex).month + "/" + lvwDays.model.get(lvwDays.currentIndex).year
-
-            var munique = (selectedDateDay + selectedDateMonth + selectedDateYear).toString()
-            munique += selectedActivity.toString().toUpperCase()
-            console.log("munique:" + munique)
-
-            sldHundred.value = DB.getSliderHundred(munique)
-            sldTen.value = DB.getSliderTen(munique)
-            sldOne.value = DB.getSliderOne(munique)
-            sldDecimal.value = DB.getSliderDecimal(munique)
+            reLoadSliders()
         }
         highlightMoveDuration: 100
         Component.onCompleted: {
@@ -83,7 +67,26 @@ Rectangle {
                 }
             }
         }
-
     }
+    signal reLoadSliders()
+    onReLoadSliders: {
 
+        //lets get the values from DB here and set interface
+        //            console.log(lvwDays.model.get(lvwDays.currentIndex).day)
+        //            console.log(lvwDays.model.get(lvwDays.currentIndex).month)
+        //            console.log(lvwDays.model.get(lvwDays.currentIndex).year)
+        selectedDateDay = lvwDays.model.get(lvwDays.currentIndex).day
+        selectedDateMonth = lvwDays.model.get(lvwDays.currentIndex).month
+        selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
+        selectedDate = lvwDays.model.get(lvwDays.currentIndex).day + "/" + lvwDays.model.get(lvwDays.currentIndex).month + "/" + lvwDays.model.get(lvwDays.currentIndex).year
+
+        var munique = (selectedDateDay + selectedDateMonth + selectedDateYear).toString()
+        munique += selectedActivity.toString().toUpperCase()
+        console.log("munique:" + munique)
+
+        sldHundred.value = DB.getSliderHundred(munique)
+        sldTen.value = DB.getSliderTen(munique)
+        sldOne.value = DB.getSliderOne(munique)
+        sldDecimal.value = DB.getSliderDecimal(munique)
+    }
 }

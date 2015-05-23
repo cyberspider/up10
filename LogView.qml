@@ -91,7 +91,9 @@ Rectangle{
                     screen.state = "stateActivityView"
                     selectedActivity = activityName
                     selectedActivityUnit = activityUnit
-                    //console.log(selectedActivityUnit + "<--here")
+                    console.log("munique")
+                    //i need global variable for the default munique value.
+                    //this will change in a function when a different activity is selected.
                 }
             }
         }
@@ -138,6 +140,7 @@ Rectangle{
             id:logViewDetail
             width:screen.width
             height: screen.height
+
         }
         AddActivityView{
             id:addActivityView

@@ -10,12 +10,15 @@ function openDB() {
     // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
     db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
 
+}
+
+function setupDB(){
     try {
         db.transaction(function(tx){
             //Create tables first
             //tx.executeSql('DROP TABLE activities');
             //tx.executeSql('DROP TABLE settings');
-            tx.executeSql('DROP TABLE logbook');
+            //tx.executeSql('DROP TABLE logbook');
             tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
@@ -184,24 +187,110 @@ function getWeekNumber(d) {
 }
 
 function getSliderHundred(munique){
-    return 700
+    console.log("munique" + munique)
+    openDB()
+    var res = "nothing found."
+    db.transaction(function(tx) {
+        var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
+        if (rs.rows.length > 0) {
+            res = rs.rows.item(0).value;
+        }else{
+            res = 0
+        }
+    });
+    console.log("db says:" + res)
+    if (res > 100){
+        var hundred = res.toString()
+        hundred = hundred.substring(0, 1);
+        return parseInt(hundred * 100)
+    }else{
+        return 0
+    }
 }
 function getSliderTen(munique){
-    return 70
+    console.log("munique" + munique)
+    openDB()
+    var res = "nothing found."
+    db.transaction(function(tx) {
+        var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
+        if (rs.rows.length > 0) {
+            res = rs.rows.item(0).value;
+        }else{
+            res = 0
+        }
+    });
+    var ten = 0
+
+    console.log("db says:" + res)
+    if (res > 100){
+        ten = res.toString()
+        ten = ten.substring(1, 2);
+        return parseInt(ten * 10)
+    }else if (res > 10){
+        ten = res.toString()
+        ten = ten.substring(0, 1);
+        return parseInt(ten * 10)
+    }else{
+        return 0
+    }
 }
 function getSliderOne(munique){
-    return 7
+    console.log("munique" + munique)
+    openDB()
+    var res = "nothing found."
+    db.transaction(function(tx) {
+        var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
+        if (rs.rows.length > 0) {
+            res = rs.rows.item(0).value;
+        }else{
+            res = 0
+        }
+    });
+    var one = 0
+
+    console.log("db says:" + res)
+    if (res > 100){
+        one = res.toString()
+        one = one.substring(2, 3);
+        return parseInt(one)
+    }else if (res > 10){
+        one = res.toString()
+        one = one.substring(1, 2);
+        return parseInt(one)
+    }else if (res > 1){
+        one = res.toString()
+        one = one.substring(0, 1);
+        return parseInt(one)
+    }else{
+        return 0
+    }
 }
 function getSliderDecimal(munique){
-    return 7
+    console.log("munique" + munique)
+    openDB()
+    var res = "nothing found."
+    db.transaction(function(tx) {
+        var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
+        if (rs.rows.length > 0) {
+            res = rs.rows.item(0).value;
+        }else{
+            res = 0
+        }
+    });
+    var deci = 0
+    var decicheck = Math.floor(res)
+
+    if (res - decicheck == 0){
+        console.log("dezicheck 0")
+        return 0
+    }else{
+        console.log("remainder:" + res + "-" + decicheck + "=" + (res -decicheck).toFixed(1) * 10)
+        console.log("remainder:" + res + "-" + decicheck + "=" + parseFloat((res -decicheck)).toFixed(1))
+
+        return (res -decicheck).toFixed(1) * 10
+    }
 }
 
-/*
-sldHundred.value = DB.getSliderHundred()
-sldTen.value = DB.getSliderTen()
-sldOne.value = DB.getSliderOne()
-sldDecimal.value = DB.getSliderDecimal()
-*/
 function saveLogBookEntry(day, month, year, activity, value) {
     openDB();
     var munique = (day + month + year).toString()

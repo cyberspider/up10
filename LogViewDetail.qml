@@ -193,4 +193,5 @@ Rectangle{
 
         onNo: {console.log("not deleting")}
     }
+
 }
