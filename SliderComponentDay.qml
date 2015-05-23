@@ -51,10 +51,14 @@ Rectangle {
             selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
             selectedDate = lvwDays.model.get(lvwDays.currentIndex).day + "/" + lvwDays.model.get(lvwDays.currentIndex).month + "/" + lvwDays.model.get(lvwDays.currentIndex).year
 
-            console.log("current item changed in day:" + selectedDate)
-            //sldTen.value = DB.getSliderTen()
-            //sldOne.value = DB.getSliderOne()
-            //sldDecimal.value = DB.getSliderDecimal()
+            var munique = (selectedDateDay + selectedDateMonth + selectedDateYear).toString()
+            munique += selectedActivity.toString().toUpperCase()
+            console.log("munique:" + munique)
+
+            sldHundred.value = DB.getSliderHundred(munique)
+            sldTen.value = DB.getSliderTen(munique)
+            sldOne.value = DB.getSliderOne(munique)
+            sldDecimal.value = DB.getSliderDecimal(munique)
         }
         highlightMoveDuration: 100
         Component.onCompleted: {

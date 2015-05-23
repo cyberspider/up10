@@ -154,7 +154,6 @@ function getToday() {
     if(dd<10) {
         dd='0'+dd
     }
-
     if(mm<10) {
         mm='0'+mm
     }
@@ -184,10 +183,17 @@ function getWeekNumber(d) {
     return weekNo.toString()
 }
 
-function getSliderHundred(){
-    slider1 +=100
-    console.log("incremented slider:" + slider1)
-    return slider1
+function getSliderHundred(munique){
+    return 700
+}
+function getSliderTen(munique){
+    return 70
+}
+function getSliderOne(munique){
+    return 7
+}
+function getSliderDecimal(munique){
+    return 7
 }
 
 /*

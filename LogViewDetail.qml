@@ -91,7 +91,7 @@ Rectangle{
             stepSize : 100
             //tickmarksEnabled : true
             updateValueWhileDragging : true
-            value : DB.getSliderHundred()
+            value : 0
 
         }
         Slider {
