@@ -15,7 +15,7 @@ function openDB() {
             //Create tables first
             //tx.executeSql('DROP TABLE activities');
             //tx.executeSql('DROP TABLE settings');
-            //tx.executeSql('DROP TABLE logbook');
+            tx.executeSql('DROP TABLE logbook');
             tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
@@ -36,7 +36,7 @@ function openDB() {
                 console.log('Settings table added');
             }
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id TEXT, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
             doInitialSettings()
         });
@@ -199,17 +199,17 @@ sldDecimal.value = DB.getSliderDecimal()
 function saveLogBookEntry(day, month, year, activity, value) {
     openDB();
     var munique = (day + month + year).toString()
+    munique += activity.toString().toUpperCase()
     console.log("munique:" + munique)
     //tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id TEXT UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
+    //delete the entry first because replace does not work on non-unique columns, and text cant be unique
     db.transaction( function(tx){
-        var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?)', [munique, day, month, year, activity, value]);
-        console.log("inserted log entry:" + rs.insertId);
-
+        tx.executeSql('Delete from logbook where mid=?;', [munique]);
     });
 
     db.transaction( function(tx){
-        var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?)', [munique, day, month, year, activity, value]);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?)', [munique.toString(), day, month, year, activity, value]);
         console.log("inserted log entry:" + rs.insertId);
 
     });
@@ -220,7 +220,7 @@ function saveLogBookEntry(day, month, year, activity, value) {
 
         for(var i = 0; i < rs.rows.length; i++) {
             //activities.push({"activityName": "" + rs.rows.item(i).activity , "activityUnit": "" + rs.rows.item(i).measurement + ""})
-            console.log("items in db:" + rs.rows.item(i).munique + "-" + rs.rows.item(i).day + "-" + rs.rows.item(i).month + "-" + rs.rows.item(i).year + "-" + rs.rows.item(i).activity + "-" + rs.rows.item(i).value)
+            console.log("items in db:" + rs.rows.item(i).mid + "-" + rs.rows.item(i).day + "-" + rs.rows.item(i).month + "-" + rs.rows.item(i).year + "-" + rs.rows.item(i).activity + "-" + rs.rows.item(i).value)
         }
     });
 }
