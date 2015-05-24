@@ -73,7 +73,7 @@ function doInitialSettings(){
 }
 
 function getActivityModel(){
-
+    var initialActivity = ""
     var activities = []
     openDB();
     //console.log("attempting to get model:")
@@ -82,10 +82,11 @@ function getActivityModel(){
         var rs = tx.executeSql('SELECT activity, measurement FROM activities;')
 
         for(var i = 0; i < rs.rows.length; i++) {
+            if (initialActivity == "") initialActivity = rs.rows.item(i).activity
             activities.push({"activityName": "" + rs.rows.item(i).activity , "activityUnit": "" + rs.rows.item(i).measurement + ""})
         }
     });
-
+    selectedActivity = initialActivity
     return activities;
 }
 

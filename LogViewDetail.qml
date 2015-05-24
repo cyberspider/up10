@@ -9,12 +9,18 @@ Rectangle{
     color: clrBackground
     id:mainItem
     width: parent.width - 10
+
     property real milesDone: {
         if (sldDecimal.value > 0)  {
             sldHundred.value + sldTen.value + sldOne.value + (sldDecimal.value / 10)
         }else{
             sldHundred.value + sldTen.value + sldOne.value
         }
+    }
+    signal reloadSliders
+    onReloadSliders: {
+        console.log("we arrived to reload the sliders." + selectedActivity)
+        sldcompday.reloadMeSliders()
     }
     Image{
         id:btnBack
@@ -138,6 +144,9 @@ Rectangle{
             width: parent.width
             height: 75
             opacity: sliderDayVisible
+            function reloadMeSliders(){
+                reLoadSliders()
+            }
         }
         Rectangle{
             id:spaceman2

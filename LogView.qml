@@ -10,12 +10,16 @@ Rectangle{
 
     signal lvaddActivity()
     signal lvdeleteActivity()
+    signal reloadSliders()
     onLvaddActivity: {
         activityListView.amaddActivity()
 
     }
     onLvdeleteActivity: {
         activityListView.amdeleteActivity()
+    }
+    onReloadSliders: {
+        logViewDetail.mreloadSliders()
     }
 
     states: [
@@ -91,7 +95,8 @@ Rectangle{
                     screen.state = "stateActivityView"
                     selectedActivity = activityName
                     selectedActivityUnit = activityUnit
-                    console.log("munique")
+                    console.log("muniq selected activity:" + selectedActivity)
+                    reloadSliders()
                     //i need global variable for the default munique value.
                     //this will change in a function when a different activity is selected.
                 }
@@ -140,7 +145,9 @@ Rectangle{
             id:logViewDetail
             width:screen.width
             height: screen.height
-
+            function mreloadSliders(){
+                reloadSliders()
+            }
         }
         AddActivityView{
             id:addActivityView
