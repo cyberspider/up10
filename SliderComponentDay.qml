@@ -10,7 +10,6 @@ Rectangle {
         id: dayDelegate
         Item {
             width: 75; height: 75
-
             Text { id:txtmonth; text: month; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 15
                 anchors.horizontalCenter: parent.horizontalCenter
             }
@@ -70,11 +69,6 @@ Rectangle {
     }
     signal reLoadSliders()
     onReLoadSliders: {
-
-        //lets get the values from DB here and set interface
-        //            console.log(lvwDays.model.get(lvwDays.currentIndex).day)
-        //            console.log(lvwDays.model.get(lvwDays.currentIndex).month)
-        //            console.log(lvwDays.model.get(lvwDays.currentIndex).year)
         selectedDateDay = lvwDays.model.get(lvwDays.currentIndex).day
         selectedDateMonth = lvwDays.model.get(lvwDays.currentIndex).month
         selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
@@ -88,5 +82,9 @@ Rectangle {
         sldTen.value = DB.getSliderTen(munique)
         sldOne.value = DB.getSliderOne(munique)
         sldDecimal.value = DB.getSliderDecimal(munique)
+    }
+    signal reLoadMainDataView()
+    onReLoadMainDataView: {
+     console.log("reloading this day's view.")
     }
 }
