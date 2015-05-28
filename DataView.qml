@@ -76,8 +76,8 @@ Rectangle {
                                 id:rectMax
                                 anchors.top: activityName.bottom
                                 anchors.left: txtBoxes.right
-                                anchors.right: wrapper.right -5 //width:10 * max
-                                height:5
+                                width: sldcompday2.right - txtBoxes.right - 5
+                                height:10
                                 color: "#54a9ed"
                             }
                             Rectangle{
