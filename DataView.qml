@@ -26,16 +26,17 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 z:0
                 snapMode: ListView.SnapToItem
+                spacing: 5
                 Component {
                     id: contactsDelegate
                     Rectangle {
                         id: wrapper
                         width: parent.width
-                        height: 100
+                        height: 90
                         color: clrBackground
                         Rectangle{
                             id:spacer
-                            height:10
+                            height:20
                         }
 
                         Text {
@@ -50,13 +51,14 @@ Rectangle {
                                 id:txtBoxes
                                 width:wrapper.width/3
                                 anchors.top:activityName.bottom
+
                                 Text{
                                     id:txtToday
                                     anchors.top:txtBoxes.bottom
                                     anchors.right:txtBoxes.right
                                     font.family: fntMyraidPro.name
-                                    font.pixelSize: 16
-                                    text: "Today:" + today
+                                    font.pixelSize: 15
+                                    text: "Today: " + today
                                     color: clrFont
                                 }
 
@@ -65,17 +67,17 @@ Rectangle {
                                     anchors.top: txtToday.bottom
                                     anchors.right:txtBoxes.right
                                     font.family: fntMyraidPro.name
-                                    font.pixelSize: 16
+                                    font.pixelSize: 15
                                     color: clrFont
-                                    text: "Yesterday:" + yesterday
+                                    text: "Yesterday: " + yesterday
                                 }
                                 Text{
                                     id:txtMax
                                     anchors.top:txtYesterday.bottom
                                     anchors.right:txtBoxes.right
                                     font.family: fntMyraidPro.name
-                                    font.pixelSize: 16
-                                    text: "Max:" + max
+                                    font.pixelSize: 15
+                                    text: "Max: " + max
                                     color: clrFont
                                 }
 
@@ -88,7 +90,7 @@ Rectangle {
                                 width:10 * today
                                 height:10
                                 color: "#7abdf3"
-                                border.width: 3
+                                border.width: 2
                                 anchors.margins: 4
                             }
                             Rectangle{
@@ -98,7 +100,7 @@ Rectangle {
                                 width:10 * yesterday
                                 height:10
                                 color: "#54a9ed"
-                                border.width: 3
+                                border.width: 2
                                 anchors.margins: 4
                             }
                             Rectangle{
@@ -109,7 +111,7 @@ Rectangle {
                                 //width: 200
                                 height:10
                                 color: "#3782bf"
-                                border.width: 3
+                                border.width: 2
                                 anchors.margins: 4
                             }
                         }
