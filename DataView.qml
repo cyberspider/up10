@@ -9,7 +9,7 @@ Rectangle {
         id: itemModel
         Rectangle {
             width: view.width; height: view.height
-            color: "Green"//clrBackground
+            color: clrBackground
             SliderComponentDay{
                 id:sldcompday2
                 width: parent.width
@@ -32,67 +32,69 @@ Rectangle {
                         id: wrapper
                         width: parent.width
                         height: 100
-                        color: "red"//ListView.isCurrentItem ? "black" : "red"
+                        color: clrBackground
                         Text {
                             id: activityName
                             text: name + ": "
                             font.family: fntMyraidPro.name
                             font.pixelSize: 25
-                            color: "black"//wrapper.ListView.isCurrentItem ? "red" : "black"
+                            color: clrFont
 
-
-                            Text{
-                                id:txtMax
-                                anchors.top: activityName.bottom
-                                font.family: fntMyraidPro.name
-                                font.pixelSize: 15
-                                anchors.fill:parent
-                                text: "max:" + max
-
+                            Item{
+                                id:txtBoxes
+                                width:wrapper.width/3
+                                anchors.top:activityName.bottom
+                                Text{
+                                    id:txtMax
+                                    anchors.top:activityName.top
+                                    anchors.right:txtBoxes.right
+                                    font.family: fntMyraidPro.name
+                                    font.pixelSize: 15
+                                    text: "max:" + max
+                                    color: clrFont
+                                }
+                                Text{
+                                    id:txtYesterday
+                                    anchors.top: txtMax.bottom
+                                    anchors.right:txtBoxes.right
+                                    font.family: fntMyraidPro.name
+                                    font.pixelSize: 15
+                                    color: clrFont
+                                    text: "day before:" + yesterday
+                                }
+                                Text{
+                                    id:txtToday
+                                    anchors.top:txtYesterday.bottom
+                                    anchors.right:txtBoxes.right
+                                    font.family: fntMyraidPro.name
+                                    font.pixelSize: 15
+                                    text: "today:" + today
+                                    color: clrFont
+                                }
                             }
                             Rectangle{
-                                anchors.top: activityName.bottom
-                                anchors.left: txtMax.right
                                 id:rectMax
-                                width:10 * max
-                                height:15
-                                color: "Yellow"
-
-                            }
-
-                            Text{
-                                id:txtYesterday
-                                anchors.top: rectMax.bottom
-                                font.family: fntMyraidPro.name
-                                font.pixelSize: 15
-                                anchors.fill:parent
-                                text: "day before:" + yesterday
+                                anchors.top: activityName.bottom
+                                anchors.left: txtBoxes.right
+                                anchors.right: wrapper.right -5 //width:10 * max
+                                height:5
+                                color: "#54a9ed"
                             }
                             Rectangle{
-                                anchors.top: rectMax.bottom
-                                anchors.left: txtYesterday.right
                                 id:rectDayBefore
+                                anchors.top: rectMax.bottom
+                                anchors.left: txtBoxes.right
                                 width:10 * yesterday
                                 height:15
                                 color: "Blue"
-
-                            }
-                            Text{
-                                id:txtToday
-                                anchors.top:rectDayBefore.bottom
-                                font.family: fntMyraidPro.name
-                                font.pixelSize: 15
-                                anchors.fill:parent
-                                text: "today:" + today
                             }
                             Rectangle{
                                 id:rectToday
                                 anchors.top:rectDayBefore.bottom
-                                anchors.left: txtToday.right
+                                anchors.left: txtBoxes.right
                                 width:10 * today
                                 height:15
                                 color: "Green"
-
                             }
                         }
                     }

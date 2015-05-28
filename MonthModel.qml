@@ -16,7 +16,7 @@ ListModel {
     ListElement {
         name: "Swimming"
         max: "5"
-        today:"3"
+        today:"0"
         yesterday:"2"
     }
     ListElement {
