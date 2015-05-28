@@ -9,16 +9,45 @@ Rectangle {
         id: itemModel
         Rectangle {
             width: view.width; height: view.height
-            color: clrBackground
+            color: "Green"//clrBackground
             SliderComponentDay{
                 id:sldcompday2
                 width: parent.width
                 height: 75
-                function reloadMeSliders(){
-                    reLoadMainDataView()
+//                function reloadMeSliders(){
+//                    reLoadMainDataView()
+//                }
+            }
+            Component {
+                id: dayViewDelegate
+                Rectangle{
+                id:item
+                anchors.fill: parent
+                color: "Yellow"
+                    Text {
+                        //anchors.left:imgLV.right
+                        text: month
+                        color: "red"
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.margins: 5
+                    }
                 }
             }
-            Text { text: "Day"; color:clrFont; font.bold: true; anchors.centerIn: parent }
+            ListView {
+                id:dayListView
+                width:screen.width - 10
+                height:screen.height
+                model: MonthModel{id:mymonthmodel}
+                delegate: dayViewDelegate
+                clip: true
+                focus: true
+                spacing: 3
+                contentHeight: screen.height
+                anchors.horizontalCenter: parent.horizontalCenter
+                boundsBehavior: Flickable.DragAndOvershootBounds
+
+            }
+
         }
         Rectangle {
             width: view.width; height: view.height

@@ -29,6 +29,11 @@ ApplicationWindow {
     property string selectedDateYear: ""
     property string selectedSliderValue: ""
 
+    property int sldHund_i: 0
+    property int sldTen_i:0
+    property int sldOne_i: 0
+    property int sldDec_i:0
+
     signal addActivity()
     signal deleteActivity()
 

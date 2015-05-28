@@ -199,12 +199,14 @@ function getSliderHundred(munique){
             res = 0
         }
     });
-    console.log("db says:" + res)
-    if (res > 100){
+    console.log("getSliderHundred db says:" + res)
+    if (res > 99){
         var hundred = res.toString()
         hundred = hundred.substring(0, 1);
+        console.log("returning:" + parseInt(hundred * 100))
         return parseInt(hundred * 100)
     }else{
+        console.log("returning: 0")
         return 0
     }
 }
@@ -222,16 +224,19 @@ function getSliderTen(munique){
     });
     var ten = 0
 
-    console.log("db says:" + res)
-    if (res > 100){
+    console.log("getSliderTen db says:" + res)
+    if (res > 99){
         ten = res.toString()
         ten = ten.substring(1, 2);
+        console.log("returning:" + parseInt(ten * 10))
         return parseInt(ten * 10)
-    }else if (res > 10){
+    }else if (res > 9){
         ten = res.toString()
         ten = ten.substring(0, 1);
+        console.log("returning:" + parseInt(ten * 10))
         return parseInt(ten * 10)
     }else{
+        console.log("returning: 0")
         return 0
     }
 }
@@ -249,20 +254,24 @@ function getSliderOne(munique){
     });
     var one = 0
 
-    console.log("db says:" + res)
-    if (res > 100){
+    console.log("getSliderOne db says:" + res)
+    if (res > 99){
         one = res.toString()
         one = one.substring(2, 3);
+        console.log("returning:" + parseInt(one))
         return parseInt(one)
-    }else if (res > 10){
+    }else if (res > 9){
         one = res.toString()
         one = one.substring(1, 2);
+        console.log("returning:" + parseInt(one))
         return parseInt(one)
-    }else if (res > 1){
+    }else if (res > 0){
         one = res.toString()
         one = one.substring(0, 1);
+        console.log("returning:" + parseInt(one))
         return parseInt(one)
     }else{
+        console.log("returning: 0")
         return 0
     }
 }

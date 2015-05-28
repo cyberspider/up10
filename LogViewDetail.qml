@@ -97,7 +97,7 @@ Rectangle{
             stepSize : 100
             //tickmarksEnabled : true
             updateValueWhileDragging : true
-            value : 0
+            value : sldHund_i
 
         }
         Slider {
@@ -107,7 +107,7 @@ Rectangle{
             minimumValue : 0
             stepSize : 10
             updateValueWhileDragging : true
-            value : 0
+            value : sldTen_i
 
         }
         Slider {
@@ -117,7 +117,7 @@ Rectangle{
             minimumValue : 0
             stepSize : 1
             updateValueWhileDragging : true
-            value : 0
+            value : sldOne_i
 
         }
         Slider {
@@ -128,7 +128,7 @@ Rectangle{
             stepSize : 1
             tickmarksEnabled : true
             updateValueWhileDragging : true
-            value : 0
+            value : sldDec_i
 
         }
 
@@ -145,6 +145,7 @@ Rectangle{
             height: 75
             opacity: sliderDayVisible
             function reloadMeSliders(){
+                console.log("reload here?")
                 reLoadSliders()
             }
         }

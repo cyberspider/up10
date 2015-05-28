@@ -138,7 +138,6 @@ Rectangle{
 
                     deletedActivity = ""
                 }
-
             }
         }
         LogViewDetail{
