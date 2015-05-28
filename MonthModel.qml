@@ -2,40 +2,27 @@ import QtQuick 2.0
 
 ListModel {
     ListElement {
-        month: "January"
+        name: "Running"
+        max: "20"
+        today:"17"
+        yesterday:"7"
     }
     ListElement {
-        month: "February"
+        name: "Yoga"
+        max: "15"
+        today:"10"
+        yesterday:"8"
     }
     ListElement {
-        month: "March"
+        name: "Swimming"
+        max: "5"
+        today:"3"
+        yesterday:"2"
     }
     ListElement {
-        month: "April"
+        name: "Bicycle"
+        max: "12"
+        today:"12"
+        yesterday:"6"
     }
-    ListElement {
-        month: "May"
-    }
-    ListElement {
-        month: "June"
-    }
-    ListElement {
-        month: "July"
-    }
-    ListElement {
-        month: "August"
-    }
-    ListElement {
-        month: "September"
-    }
-    ListElement {
-        month: "October"
-    }
-    ListElement {
-        month: "Novemeber"
-    }
-    ListElement {
-        month: "December"
-    }
-
 }

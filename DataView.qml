@@ -14,39 +14,71 @@ Rectangle {
                 id:sldcompday2
                 width: parent.width
                 height: 75
-//                function reloadMeSliders(){
-//                    reLoadMainDataView()
-//                }
-            }
-            Component {
-                id: dayViewDelegate
-                Rectangle{
-                id:item
-                anchors.fill: parent
-                color: "Yellow"
-                    Text {
-                        //anchors.left:imgLV.right
-                        text: month
-                        color: "red"
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.margins: 5
-                    }
-                }
+                z:1
+                //                function reloadMeSliders(){
+                //                    reLoadMainDataView()
+                //                }
             }
             ListView {
-                id:dayListView
-                width:screen.width - 10
-                height:screen.height
-                model: MonthModel{id:mymonthmodel}
-                delegate: dayViewDelegate
-                clip: true
-                focus: true
-                spacing: 3
-                contentHeight: screen.height
-                anchors.horizontalCenter: parent.horizontalCenter
-                boundsBehavior: Flickable.DragAndOvershootBounds
+                anchors.top: sldcompday2.bottom
+                width: parent.width
+                height: parent.height
+                z:0
+                snapMode: ListView.SnapToItem
+                Component {
+                    id: contactsDelegate
+                    Rectangle {
+                        id: wrapper
+                        width: parent.width
+                        height: 100
+                        color: "red"//ListView.isCurrentItem ? "black" : "red"
+                        Text {
+                            id: contactInfo
+                            text: name + ": "
+                            font: fntMyraidPro.name
+                            Font.pixelSize: 30
+                            color: "black"//wrapper.ListView.isCurrentItem ? "red" : "black"
+                        }
+                        Rectangle{
+                            width:100
+                            color: "Yellow"
+                            Text{
+                                font: fntMyraidPro.name
+                                Font.pixelSize: 30
+                                anchors.fill:parent
+                                text: "max:" + max
+                            }
+                        }
+                    }
+                }
 
+                model: MonthModel {}
+                delegate: contactsDelegate
+                focus: true
             }
+//            ListView {
+//                id:dayListView
+//                anchors.fill: parent
+//                Component {
+//                    id: dayViewDelegate
+//                    Rectangle{
+//                        id:item
+//                        anchors.fill: parent
+//                        color: "Yellow"
+
+//                    }
+//                }
+//                model: 20//MonthModel{id:mymonthmodel}
+//                delegate: dayViewDelegate
+
+//                //                clip: true
+//                //                focus: true
+//                //                spacing: 3
+//                //                contentHeight: screen.height
+//                //                anchors.horizontalCenter: parent.horizontalCenter
+//                //                boundsBehavior: Flickable.DragAndOvershootBounds
+
+//            }
 
         }
         Rectangle {
