@@ -35,16 +35,16 @@ Rectangle {
                         Text {
                             id: contactInfo
                             text: name + ": "
-                            font: fntMyraidPro.name
-                            Font.pixelSize: 30
+                            font.family: fntMyraidPro.name
+                            font.pixelSize: 25
                             color: "black"//wrapper.ListView.isCurrentItem ? "red" : "black"
                         }
                         Rectangle{
                             width:100
                             color: "Yellow"
                             Text{
-                                font: fntMyraidPro.name
-                                Font.pixelSize: 30
+                                font.family: fntMyraidPro.name
+                                font.pixelSize: 15
                                 anchors.fill:parent
                                 text: "max:" + max
                             }
