@@ -33,68 +33,84 @@ Rectangle {
                         width: parent.width
                         height: 100
                         color: clrBackground
+                        Rectangle{
+                            id:spacer
+                            height:10
+                        }
+
                         Text {
                             id: activityName
+                            anchors.top:spacer.bottom
                             text: name + ": "
                             font.family: fntMyraidPro.name
                             font.pixelSize: 25
                             color: clrFont
-
+                            width: parent.width
                             Item{
                                 id:txtBoxes
                                 width:wrapper.width/3
                                 anchors.top:activityName.bottom
                                 Text{
-                                    id:txtMax
-                                    anchors.top:activityName.top
+                                    id:txtToday
+                                    anchors.top:txtBoxes.bottom
                                     anchors.right:txtBoxes.right
                                     font.family: fntMyraidPro.name
-                                    font.pixelSize: 15
-                                    text: "max:" + max
+                                    font.pixelSize: 16
+                                    text: "Today:" + today
                                     color: clrFont
                                 }
+
                                 Text{
                                     id:txtYesterday
-                                    anchors.top: txtMax.bottom
+                                    anchors.top: txtToday.bottom
                                     anchors.right:txtBoxes.right
                                     font.family: fntMyraidPro.name
-                                    font.pixelSize: 15
+                                    font.pixelSize: 16
                                     color: clrFont
-                                    text: "day before:" + yesterday
+                                    text: "Yesterday:" + yesterday
                                 }
                                 Text{
-                                    id:txtToday
+                                    id:txtMax
                                     anchors.top:txtYesterday.bottom
                                     anchors.right:txtBoxes.right
                                     font.family: fntMyraidPro.name
-                                    font.pixelSize: 15
-                                    text: "today:" + today
+                                    font.pixelSize: 16
+                                    text: "Max:" + max
                                     color: clrFont
                                 }
+
                             }
+
                             Rectangle{
-                                id:rectMax
-                                anchors.top: activityName.bottom
+                                id:rectToday
+                                anchors.top:txtBoxes.bottom
                                 anchors.left: txtBoxes.right
-                                width: sldcompday2.right - txtBoxes.right - 5
+                                width:10 * today
                                 height:10
-                                color: "#54a9ed"
+                                color: "#7abdf3"
+                                border.width: 3
+                                anchors.margins: 4
                             }
                             Rectangle{
                                 id:rectDayBefore
-                                anchors.top: rectMax.bottom
+                                anchors.top: rectToday.bottom
                                 anchors.left: txtBoxes.right
                                 width:10 * yesterday
-                                height:15
-                                color: "Blue"
+                                height:10
+                                color: "#54a9ed"
+                                border.width: 3
+                                anchors.margins: 4
                             }
                             Rectangle{
-                                id:rectToday
-                                anchors.top:rectDayBefore.bottom
+                                id:rectMax
+                                anchors.top: rectDayBefore.bottom
                                 anchors.left: txtBoxes.right
-                                width:10 * today
-                                height:15
-                                color: "Green"
+                                anchors.right:parent.right
+                                //width: 200
+                                height:10
+                                color: "#3782bf"
+                                border.width: 3
+                                anchors.margins: 4
                             }
                         }
                     }
