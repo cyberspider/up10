@@ -21,8 +21,9 @@ Rectangle {
             }
             ListView {
                 anchors.top: sldcompday2.bottom
-                width: parent.width
+                width: parent.width -10
                 height: parent.height
+                anchors.horizontalCenter: parent.horizontalCenter
                 z:0
                 snapMode: ListView.SnapToItem
                 Component {
@@ -33,52 +34,96 @@ Rectangle {
                         height: 100
                         color: "red"//ListView.isCurrentItem ? "black" : "red"
                         Text {
-                            id: contactInfo
+                            id: activityName
                             text: name + ": "
                             font.family: fntMyraidPro.name
                             font.pixelSize: 25
                             color: "black"//wrapper.ListView.isCurrentItem ? "red" : "black"
-                        }
-                        Rectangle{
-                            width:100
-                            color: "Yellow"
+
+
                             Text{
+                                id:txtMax
+                                anchors.top: activityName.bottom
                                 font.family: fntMyraidPro.name
                                 font.pixelSize: 15
                                 anchors.fill:parent
                                 text: "max:" + max
+
+                            }
+                            Rectangle{
+                                anchors.top: activityName.bottom
+                                anchors.left: txtMax.right
+                                id:rectMax
+                                width:10 * max
+                                height:15
+                                color: "Yellow"
+
+                            }
+
+                            Text{
+                                id:txtYesterday
+                                anchors.top: rectMax.bottom
+                                font.family: fntMyraidPro.name
+                                font.pixelSize: 15
+                                anchors.fill:parent
+                                text: "day before:" + yesterday
+                            }
+                            Rectangle{
+                                anchors.top: rectMax.bottom
+                                anchors.left: txtYesterday.right
+                                id:rectDayBefore
+                                width:10 * yesterday
+                                height:15
+                                color: "Blue"
+
+                            }
+                            Text{
+                                id:txtToday
+                                anchors.top:rectDayBefore.bottom
+                                font.family: fntMyraidPro.name
+                                font.pixelSize: 15
+                                anchors.fill:parent
+                                text: "today:" + today
+                            }
+                            Rectangle{
+                                id:rectToday
+                                anchors.top:rectDayBefore.bottom
+                                anchors.left: txtToday.right
+                                width:10 * today
+                                height:15
+                                color: "Green"
+
                             }
                         }
                     }
                 }
-
                 model: MonthModel {}
                 delegate: contactsDelegate
                 focus: true
             }
-//            ListView {
-//                id:dayListView
-//                anchors.fill: parent
-//                Component {
-//                    id: dayViewDelegate
-//                    Rectangle{
-//                        id:item
-//                        anchors.fill: parent
-//                        color: "Yellow"
+            //            ListView {
+            //                id:dayListView
+            //                anchors.fill: parent
+            //                Component {
+            //                    id: dayViewDelegate
+            //                    Rectangle{
+            //                        id:item
+            //                        anchors.fill: parent
+            //                        color: "Yellow"
 
-//                    }
-//                }
-//                model: 20//MonthModel{id:mymonthmodel}
-//                delegate: dayViewDelegate
+            //                    }
+            //                }
+            //                model: 20//MonthModel{id:mymonthmodel}
+            //                delegate: dayViewDelegate
 
-//                //                clip: true
-//                //                focus: true
-//                //                spacing: 3
-//                //                contentHeight: screen.height
-//                //                anchors.horizontalCenter: parent.horizontalCenter
-//                //                boundsBehavior: Flickable.DragAndOvershootBounds
+            //                //                clip: true
+            //                //                focus: true
+            //                //                spacing: 3
+            //                //                contentHeight: screen.height
+            //                //                anchors.horizontalCenter: parent.horizontalCenter
+            //                //                boundsBehavior: Flickable.DragAndOvershootBounds
 
-//            }
+            //            }
 
         }
         Rectangle {
