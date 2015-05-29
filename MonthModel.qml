@@ -10,7 +10,7 @@ ListModel {
     Component.onCompleted: refresh()
 
     onRefresh: {
-        daysModel.clear()
-        daysModel.append(DB.getDaysModel())
+        monthModel.clear()
+        monthModel.append(DB.getMonthsModel())
     }
  }

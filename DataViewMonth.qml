@@ -10,7 +10,7 @@ Rectangle {
         z:1
     }
     ListView {
-        anchors.top: sldcompday2.bottom
+        anchors.top: sldcompmonth.bottom
         width: parent.width -10
         height: parent.height
         anchors.horizontalCenter: parent.horizontalCenter
@@ -59,7 +59,7 @@ Rectangle {
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
                             color: clrFont
-                            text: "Previous Month: " + yesterday
+                            text: "Prev. Month: " + yesterday
                         }
                         Text{
                             id:txtMax
@@ -107,7 +107,7 @@ Rectangle {
                 }
             }
         }
-        model: MonthModel {}
+        model: ViewActivityModel{}
         delegate: contactsDelegate
         focus: true
     }

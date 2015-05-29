@@ -1,6 +1,9 @@
 var db;
 var today = new Date();
 var daysModel = [];
+var weeksModel = [];
+var monthsModel = [];
+var yearsModel = [];
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var slider1 = 0
 function openDB() {
@@ -95,10 +98,28 @@ function getDaysModel(){
         doInitialSettings()
     }
 
-    console.log(JSON.stringify(daysModel))
-    console.log("RRRRRR")
-
     return daysModel;
+}
+function getWeeksModel(){
+    if (weeksModel.length <=0){
+        doInitialSettings()
+    }
+
+    return weeksModel;
+}
+function getMonthsModel(){
+    if (monthsModel.length <=0){
+        doInitialSettings()
+    }
+
+    return monthsModel;
+}
+function getYearsModel(){
+    if (yearsModel.length <=0){
+        doInitialSettings()
+    }
+
+    return yearsModel;
 }
 
 function saveActivity(value, unit) {

@@ -59,7 +59,7 @@ Rectangle {
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
                             color: clrFont
-                            text: "Previous Week: " + yesterday
+                            text: "Prev. Week: " + yesterday
                         }
                         Text{
                             id:txtMax
@@ -107,7 +107,7 @@ Rectangle {
                 }
             }
         }
-        model: MonthModel {}
+        model: ViewActivityModel{}
         delegate: contactsDelegate
         focus: true
     }

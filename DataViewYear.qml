@@ -4,13 +4,13 @@ Rectangle {
     width: view.width; height: view.height
     color: clrBackground
     SliderComponentMonth{
-        id:sldcompmonth
+        id:sldcompyear
         width: parent.width
         height: 75
         z:1
     }
     ListView {
-        anchors.top: sldcompday2.bottom
+        anchors.top: sldcompyear.bottom
         width: parent.width -10
         height: parent.height
         anchors.horizontalCenter: parent.horizontalCenter
@@ -59,7 +59,7 @@ Rectangle {
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
                             color: clrFont
-                            text: "Previous Year: " + yesterday
+                            text: "Prev. Year: " + yesterday
                         }
                         Text{
                             id:txtMax
@@ -107,7 +107,7 @@ Rectangle {
                 }
             }
         }
-        model: MonthModel {}
+        model: ViewActivityModel{}
         delegate: contactsDelegate
         focus: true
     }
