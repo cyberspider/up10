@@ -95,7 +95,7 @@ Rectangle {
 
         var muniqueYesterday = (selectedYesterDateDay + selectedYesterDateMonth + selectedYesterDateYear).toString()
         muniqueYesterday += selectedActivity.toString().toUpperCase()
-        console.log(muniqueYesterday)
+        //console.log(muniqueYesterday)
 
     }
     signal reLoadMainDataView()
