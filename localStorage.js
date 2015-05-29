@@ -104,21 +104,21 @@ function getWeeksModel(){
     if (weeksModel.length <=0){
         doInitialSettings()
     }
-
+    weeksModel.push({"week": "15"})
     return weeksModel;
 }
 function getMonthsModel(){
     if (monthsModel.length <=0){
         doInitialSettings()
     }
-
+    weeksModel.push({"month": "May"})
     return monthsModel;
 }
 function getYearsModel(){
     if (yearsModel.length <=0){
         doInitialSettings()
     }
-
+    weeksModel.push({"year": "2015"})
     return yearsModel;
 }
 

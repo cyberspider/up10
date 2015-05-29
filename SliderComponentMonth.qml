@@ -36,7 +36,7 @@ Rectangle {
     ListView {
         id:lvwDays
         anchors.fill: parent
-        model: MonthModel{id:monthModel}
+        model: MonthsModel{id:monthsModel}
         delegate: monthDelegate
         highlight: dayhighlight
         orientation: Qt.Horizontal
