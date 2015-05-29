@@ -12,8 +12,9 @@ function openDB() {
     //console.log("opening db")
     // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
     db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
-
+    //setupDB()
 }
+
 
 function setupDB(){
     try {
@@ -22,7 +23,7 @@ function setupDB(){
             //tx.executeSql('DROP TABLE activities');
             //tx.executeSql('DROP TABLE settings');
             //tx.executeSql('DROP TABLE logbook');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
+            //tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
             // Seed the table with default values
@@ -39,7 +40,14 @@ function setupDB(){
             if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Use Metric System", "1"]);
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["TimePeriod", "2"]);
+                //First Run - set start date if not found
+                var strtdt = new Date(Date.now());
+                strtdt.setDate(1);
+                strtdt.setMonth(strtdt.getMonth()-1);
+                console.log("startdate:" + strtdt)
+                tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Startdate", strtdt]);
                 console.log('Settings table added');
+
             }
 
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
@@ -52,27 +60,20 @@ function setupDB(){
 }
 
 function doInitialSettings(){
-    //1.First Run - set start date if not found
-    //do this actually
-    var start = new Date();
-    start.setDate(1);
-    start.setMonth(start.getMonth()-1);
-    console.log(start)
-    var end = new Date();
 
+    var start = new Date(getSetting("Startdate"))
+    var end = new Date();
+    end.setDate(end.getDate() + 1);
+
+    console.log("building daysModel from:" + start + " to:" + end)
     while(start < end){
+        //console.log("adding a day")
         daysModel.push({"day": "" + start.getDate()  , "month": "" + months[start.getMonth()], "year": "" + start.getFullYear()})
         //increment while loop
         var newDate = start.setDate(start.getDate() + 1);
         start = new Date(newDate);
     }
     daysModel.reverse()
-    //console.log(JSON.stringify(daysModel))
-    //console.log("@@@@@@@@@")
-
-    //2.Fill in gaps between today and start date
-
-    //3.Load models
 }
 
 function getActivityModel(){
@@ -126,16 +127,16 @@ function saveActivity(value, unit) {
     openDB();
     //console.log("attempting to create value:" + value)
     if(value === "") {
-        console.log("can't insert empty activity string")
+        //console.log("can't insert empty activity string")
         return;
     }
     if(unit === "") {
-        console.log("can't insert empty unit string")
+        //console.log("can't insert empty unit string")
         return;
     }
     db.transaction( function(tx){
         var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?)', [value, unit]);
-        console.log("inserted id:" + rs.insertId);
+        //console.log("inserted id:" + rs.insertId);
 
     });
 }
@@ -144,7 +145,7 @@ function deleteActivity(value) {
 
     db.transaction( function(tx){
         tx.executeSql('Delete from activities where activity=?;', [value]);
-        console.log("deleted:" + value);
+        //console.log("deleted:" + value);
 
     });
 }
@@ -162,10 +163,10 @@ function getSetting(key) {
     var res = "nothing found."
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT mvalue FROM settings WHERE mkey=?;', [key]);
-        res = rs.rows.item(0).value;
+        res = rs.rows.item(0).mvalue;
 
     });
-
+    //console.log("getSetting:" + key + ":" + res)
     return res;
 }
 
@@ -209,7 +210,7 @@ function getWeekNumber(d) {
 }
 
 function getSliderHundred(munique){
-    console.log("munique" + munique)
+
     openDB()
     var res = "nothing found."
     db.transaction(function(tx) {
@@ -220,19 +221,19 @@ function getSliderHundred(munique){
             res = 0
         }
     });
-    console.log("getSliderHundred db says:" + res)
+    //console.log("getSliderHundred db says:" + res)
     if (res > 99){
         var hundred = res.toString()
         hundred = hundred.substring(0, 1);
-        console.log("returning:" + parseInt(hundred * 100))
+        //console.log("returning:" + parseInt(hundred * 100))
         return parseInt(hundred * 100)
     }else{
-        console.log("returning: 0")
+        //console.log("returning: 0")
         return 0
     }
 }
 function getSliderTen(munique){
-    console.log("munique" + munique)
+
     openDB()
     var res = "nothing found."
     db.transaction(function(tx) {
@@ -245,24 +246,24 @@ function getSliderTen(munique){
     });
     var ten = 0
 
-    console.log("getSliderTen db says:" + res)
+    //console.log("getSliderTen db says:" + res)
     if (res > 99){
         ten = res.toString()
         ten = ten.substring(1, 2);
-        console.log("returning:" + parseInt(ten * 10))
+        //console.log("returning:" + parseInt(ten * 10))
         return parseInt(ten * 10)
     }else if (res > 9){
         ten = res.toString()
         ten = ten.substring(0, 1);
-        console.log("returning:" + parseInt(ten * 10))
+        //console.log("returning:" + parseInt(ten * 10))
         return parseInt(ten * 10)
     }else{
-        console.log("returning: 0")
+        //console.log("returning: 0")
         return 0
     }
 }
 function getSliderOne(munique){
-    console.log("munique" + munique)
+    //console.log("munique" + munique)
     openDB()
     var res = "nothing found."
     db.transaction(function(tx) {
@@ -275,29 +276,29 @@ function getSliderOne(munique){
     });
     var one = 0
 
-    console.log("getSliderOne db says:" + res)
+    //console.log("getSliderOne db says:" + res)
     if (res > 99){
         one = res.toString()
         one = one.substring(2, 3);
-        console.log("returning:" + parseInt(one))
+        //console.log("returning:" + parseInt(one))
         return parseInt(one)
     }else if (res > 9){
         one = res.toString()
         one = one.substring(1, 2);
-        console.log("returning:" + parseInt(one))
+        //console.log("returning:" + parseInt(one))
         return parseInt(one)
     }else if (res > 0){
         one = res.toString()
         one = one.substring(0, 1);
-        console.log("returning:" + parseInt(one))
+        //console.log("returning:" + parseInt(one))
         return parseInt(one)
     }else{
-        console.log("returning: 0")
+        //console.log("returning: 0")
         return 0
     }
 }
 function getSliderDecimal(munique){
-    console.log("munique" + munique)
+
     openDB()
     var res = "nothing found."
     db.transaction(function(tx) {
@@ -312,11 +313,11 @@ function getSliderDecimal(munique){
     var decicheck = Math.floor(res)
 
     if (res - decicheck == 0){
-        console.log("dezicheck 0")
+        //console.log("dezicheck 0")
         return 0
     }else{
-        console.log("remainder:" + res + "-" + decicheck + "=" + (res -decicheck).toFixed(1) * 10)
-        console.log("remainder:" + res + "-" + decicheck + "=" + parseFloat((res -decicheck)).toFixed(1))
+        //console.log("remainder:" + res + "-" + decicheck + "=" + (res -decicheck).toFixed(1) * 10)
+        //console.log("remainder:" + res + "-" + decicheck + "=" + parseFloat((res -decicheck)).toFixed(1))
 
         return (res -decicheck).toFixed(1) * 10
     }
@@ -326,8 +327,6 @@ function saveLogBookEntry(day, month, year, activity, value) {
     openDB();
     var munique = (day + month + year).toString()
     munique += activity.toString().toUpperCase()
-    console.log("munique:" + munique)
-    //tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(id TEXT UNIQUE, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
     //delete the entry first because replace does not work on non-unique columns, and text cant be unique
     db.transaction( function(tx){

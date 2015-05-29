@@ -26,7 +26,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
-                    //day item click here
+
 
                 }
             }
@@ -86,8 +86,8 @@ Rectangle {
         sldTen_i = DB.getSliderTen(munique)
         sldOne_i = DB.getSliderOne(munique)
         sldDec_i = DB.getSliderDecimal(munique)
-        //console.log(sldHund_i + "-" + sldTen_i + "-" + sldOne_i + "-" + sldDec_i)
-        console.log("lets set yesterday's values too....<<!!!!")
+
+
         var selectedYesterDateDay = lvwDays.model.get(lvwDays.currentIndex + 1).day
         var selectedYesterDateMonth = lvwDays.model.get(lvwDays.currentIndex + 1).month
         var selectedYesterDateYear = lvwDays.model.get(lvwDays.currentIndex+ 1).year

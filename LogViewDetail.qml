@@ -19,7 +19,7 @@ Rectangle{
     }
     signal reloadSliders
     onReloadSliders: {
-        console.log("we arrived to reload the sliders." + selectedActivity)
+
         sldcompday.reloadMeSliders()
     }
     Image{
@@ -166,9 +166,9 @@ Rectangle{
 //                  //save the slider values with date for the activity
                     selectedSliderValue = parseInt(sldHundred.value) + parseInt(sldTen.value) + parseInt(sldOne.value)
                     selectedSliderValue += "." + sldDecimal.value
-                    console.log(selectedSliderValue + "<-------------")
+                    //console.log(selectedSliderValue + "<-------------")
                     DB.saveLogBookEntry(selectedDateDay, selectedDateMonth, selectedDateYear, selectedActivity, selectedSliderValue)
-                    console.log(txtActivity.text + ":" + selectedDate + ":" + sldHundred.value + sldTen.value + sldOne.value + sldDecimal.value)
+                    //console.log(txtActivity.text + ":" + selectedDate + ":" + sldHundred.value + sldTen.value + sldOne.value + sldDecimal.value)
                 }
             }
             ShaderEffectSource {

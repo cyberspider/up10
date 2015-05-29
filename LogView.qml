@@ -95,10 +95,9 @@ Rectangle{
                     screen.state = "stateActivityView"
                     selectedActivity = activityName
                     selectedActivityUnit = activityUnit
-                    console.log("muniq selected activity:" + selectedActivity)
+
                     reloadSliders()
-                    //i need global variable for the default munique value.
-                    //this will change in a function when a different activity is selected.
+
                 }
             }
         }

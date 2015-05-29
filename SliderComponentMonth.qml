@@ -76,18 +76,12 @@ Rectangle {
 
         var munique = (selectedDateDay + selectedDateMonth + selectedDateYear).toString()
         munique += selectedActivity.toString().toUpperCase()
-        //console.log("munique:" + munique)
 
-//        sldHundred.value = DB.getSliderHundred(munique)
-//        sldTen.value = DB.getSliderTen(munique)
-//        sldOne.value = DB.getSliderOne(munique)
-//        sldDecimal.value = DB.getSliderDecimal(munique)
         sldHund_i = DB.getSliderHundred(munique)
         sldTen_i = DB.getSliderTen(munique)
         sldOne_i = DB.getSliderOne(munique)
         sldDec_i = DB.getSliderDecimal(munique)
-        //console.log(sldHund_i + "-" + sldTen_i + "-" + sldOne_i + "-" + sldDec_i)
-        console.log("lets set yesterday's values too....<<!!!!")
+
         var selectedYesterDateDay = lvwDays.model.get(lvwDays.currentIndex + 1).day
         var selectedYesterDateMonth = lvwDays.model.get(lvwDays.currentIndex + 1).month
         var selectedYesterDateYear = lvwDays.model.get(lvwDays.currentIndex+ 1).year
@@ -95,7 +89,6 @@ Rectangle {
 
         var muniqueYesterday = (selectedYesterDateDay + selectedYesterDateMonth + selectedYesterDateYear).toString()
         muniqueYesterday += selectedActivity.toString().toUpperCase()
-        console.log(muniqueYesterday)
 
     }
     signal reLoadMainDataView()

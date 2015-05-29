@@ -8,7 +8,6 @@ import QtQuick.Layouts 1.1
 import QtSensors 5.3
 import "localStorage.js" as DB
 
-
 ApplicationWindow {
     id:main
     width:Screen.width
