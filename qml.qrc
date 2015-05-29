@@ -34,5 +34,12 @@
         <file>SliderComponentMonth.qml</file>
         <file>MonthModel.qml</file>
         <file>AddActivityDaysModel.qml</file>
+        <file>DataViewDay.qml</file>
+        <file>DataViewWeek.qml</file>
+        <file>DataViewMonth.qml</file>
+        <file>DataViewYear.qml</file>
+        <file>SliderComponentWeek.qml</file>
+        <file>SliderComponentYear.qml</file>
+        <file>ViewActivityModel.qml</file>
     </qresource>
 </RCC>

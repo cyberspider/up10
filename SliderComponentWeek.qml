@@ -7,7 +7,7 @@ Rectangle {
     height: parent.height
     color: clrBackground
     Component {
-        id: monthDelegate
+        id: weekDelegate
         Item {
             width: 75; height: 75
             Text { id:txtmonth; text: month; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 15
@@ -36,8 +36,8 @@ Rectangle {
     ListView {
         id:lvwDays
         anchors.fill: parent
-        model: MonthModel{id:monthModel}
-        delegate: monthDelegate
+        model: DaysModel{id:daysModel}//DaysModel {}
+        delegate: weekDelegate
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
