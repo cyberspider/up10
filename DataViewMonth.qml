@@ -13,7 +13,7 @@ Rectangle {
     SliderComponentMonth{
         id:sldcompmonth
         width: Screen.width
-        height: 75
+        height: 50
         function showView(){
             showVieW()
         }
