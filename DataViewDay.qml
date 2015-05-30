@@ -1,18 +1,29 @@
 import QtQuick 2.0
+import QtQuick.Window 2.0
 
 Rectangle {
     width: view.width; height: view.height
     color: clrBackground
+    function hideView(){
+        sldcompday2.hideView()
+    }
+    function showView(){
+        sldcompday2.showView()
+    }
+
     SliderComponentDay{
         id:sldcompday2
-        width: parent.width
+        width: Screen.width
         height: 75
-        z:1
-        //                function reloadMeSliders(){
-        //                    reLoadMainDataView()
-        //                }
+        function showView(){
+            showVieW()
+        }
+        function hideView(){
+            hideVieW()
+        }
     }
     ListView {
+        id: sliderDay
         anchors.top: sldcompday2.bottom
         width: parent.width -10
         height: parent.height

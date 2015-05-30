@@ -105,21 +105,23 @@ function getWeeksModel(){
     if (weeksModel.length <=0){
         doInitialSettings()
     }
-    weeksModel.push({"week": "15"})
+    weeksModel.push({"week": "15", "month":"Feb", "year":"2015"})
+    weeksModel.push({"week": "15", "month":"Feb", "year":"2015"}, {"week": "16", "month":"Feb", "year":"2015"},{"week": "15", "month":"Feb", "year":"2015"}, {"week": "16", "month":"Feb", "year":"2015"},{"week": "15", "month":"Feb", "year":"2015"}, {"week": "16", "month":"Feb", "year":"2015"})
+
     return weeksModel;
 }
 function getMonthsModel(){
     if (monthsModel.length <=0){
         doInitialSettings()
     }
-    weeksModel.push({"month": "May"})
+    monthsModel.push({"month": "May"})
     return monthsModel;
 }
 function getYearsModel(){
     if (yearsModel.length <=0){
         doInitialSettings()
     }
-    weeksModel.push({"year": "2015"})
+    yearsModel.push({"year": "2015"})
     return yearsModel;
 }
 

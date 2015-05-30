@@ -1,6 +1,5 @@
 import QtQuick 2.0
 
-
 Rectangle {
 
     anchors.fill: parent
@@ -10,17 +9,22 @@ Rectangle {
         id: itemModel
 
         DataViewDay{
+            id:dataViewDay
 
         }
         DataViewWeek{
+            id:dataViewWeek
 
         }
         DataViewMonth{
+            id:dataViewMonth
 
         }
         DataViewYear{
+            id:dataViewYear
 
         }
+
     }
 
     ListView {
@@ -30,10 +34,31 @@ Rectangle {
             //bottomMargin: 30
         }
         model: itemModel
+        clip: true
         preferredHighlightBegin: 0; preferredHighlightEnd: 0
         highlightRangeMode: ListView.StrictlyEnforceRange
         orientation: ListView.Horizontal
         snapMode: ListView.SnapOneItem; flickDeceleration: 1000
+        onCurrentIndexChanged: {
+
+            var mindex = view.currentIndex
+            if(mindex == 0){
+                console.log("moving week to start")
+                dataViewDay.showView()
+                dataViewWeek.hideView()
+            }else if(mindex == 1){
+                console.log("moving month to week")
+                dataViewWeek.showView()
+                dataViewMonth.hideView()
+            }else if(mindex == 2){
+                console.log("moving year to start")
+                dataViewMonth.showView()
+                dataViewYear.hideView()
+            }else{
+                console.log("here we hide them from else")
+                dataViewYear.showView()
+            }
+        }
     }
 
     Rectangle {

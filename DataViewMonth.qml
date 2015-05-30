@@ -1,15 +1,28 @@
 import QtQuick 2.0
+import QtQuick.Window 2.0
 
 Rectangle {
     width: view.width; height: view.height
     color: clrBackground
+    function hideView(){
+        sldcompmonth.hideView()
+    }
+    function showView(){
+        sldcompmonth.showView()
+    }
     SliderComponentMonth{
         id:sldcompmonth
-        width: parent.width
+        width: Screen.width
         height: 75
-        z:1
+        function showView(){
+            showVieW()
+        }
+        function hideView(){
+            hideVieW()
+        }
     }
     ListView {
+        id:sliderMonth
         anchors.top: sldcompmonth.bottom
         width: parent.width -10
         height: parent.height

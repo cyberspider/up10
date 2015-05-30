@@ -6,6 +6,14 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: clrBackground
+
+    function hideVieW(){
+        lvwDays.opacity = 0
+    }
+    function showVieW(){
+        lvwDays.opacity = 1
+    }
+
     Component {
         id: dayDelegate
         Item {

@@ -6,19 +6,24 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: clrBackground
+
+    function hideVieW(){
+        lvwDays.opacity = 0
+    }
+    function showVieW(){
+        lvwDays.opacity = 1
+    }
+
     Component {
         id: monthDelegate
         Item {
-            width: 75; height: 75
-            Text { id:txtmonth; text: month; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 15
+            width: 125; height: 50
+            Text { id:txtmonth; text: month; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 22
                 anchors.horizontalCenter: parent.horizontalCenter
             }
-            Text { id:txtday; text: day; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 40
-                anchors.top:txtmonth.bottom
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+
             Text { id:txtyear; text: year; color: clrFont; font.family: fntMyraidPro.name; font.pixelSize: 15
-                anchors.top:txtday.bottom
+                anchors.top:txtmonth.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
             }
 
@@ -41,7 +46,8 @@ Rectangle {
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
-            reLoadSliders()
+            //reLoadSliders()
+            console.log("nothing happening here <")
         }
         highlightMoveDuration: 100
         Component.onCompleted: {
@@ -66,33 +72,5 @@ Rectangle {
                 }
             }
         }
-    }
-    signal reLoadSliders()
-    onReLoadSliders: {
-        selectedDateDay = lvwDays.model.get(lvwDays.currentIndex).day
-        selectedDateMonth = lvwDays.model.get(lvwDays.currentIndex).month
-        selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
-        selectedDate = lvwDays.model.get(lvwDays.currentIndex).day + "/" + lvwDays.model.get(lvwDays.currentIndex).month + "/" + lvwDays.model.get(lvwDays.currentIndex).year
-
-        var munique = (selectedDateDay + selectedDateMonth + selectedDateYear).toString()
-        munique += selectedActivity.toString().toUpperCase()
-
-        sldHund_i = DB.getSliderHundred(munique)
-        sldTen_i = DB.getSliderTen(munique)
-        sldOne_i = DB.getSliderOne(munique)
-        sldDec_i = DB.getSliderDecimal(munique)
-
-        var selectedYesterDateDay = lvwDays.model.get(lvwDays.currentIndex + 1).day
-        var selectedYesterDateMonth = lvwDays.model.get(lvwDays.currentIndex + 1).month
-        var selectedYesterDateYear = lvwDays.model.get(lvwDays.currentIndex+ 1).year
-        var selectedYesterDate = lvwDays.model.get(lvwDays.currentIndex + 1).day + "/" + lvwDays.model.get(lvwDays.currentIndex + 1).month + "/" + lvwDays.model.get(lvwDays.currentIndex + 1).year
-
-        var muniqueYesterday = (selectedYesterDateDay + selectedYesterDateMonth + selectedYesterDateYear).toString()
-        muniqueYesterday += selectedActivity.toString().toUpperCase()
-
-    }
-    signal reLoadMainDataView()
-    onReLoadMainDataView: {
-     console.log("reloading this day's view.")
     }
 }
