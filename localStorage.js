@@ -142,9 +142,18 @@ function getMonthsModel(){
 
 function getYearsModel(){
     if (yearsModel.length <=0){
-        doInitialSettings()
+        var startDate = new Date(getSetting("Startdate"))
+        var today = new Date()
+        var fromYear = startDate.getFullYear()
+        var toYear = today.getFullYear()
+        //check if year is NOT the same, then we start from January
+        console.log("from YEAR:" + fromYear + "To YEAR:" + toYear)
+
+        for (var x=parseInt(fromYear);x <= parseInt(toYear);x++){
+            yearsModel.push({"year":x})
+        }
     }
-    yearsModel.push({"year": "2015"})
+
     return yearsModel;
 }
 
