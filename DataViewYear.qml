@@ -12,6 +12,7 @@ Rectangle {
     }
     SliderComponentYear{
         id:sldcompyear
+        z:5
         width: Screen.width
         height: 50
         function showView(){
@@ -120,11 +121,10 @@ Rectangle {
                 }
             }
         }
-        model: ViewActivityModel{}
+        model: DataViewYearsModel{id:dataViewYearsModel}
         delegate: contactsDelegate
         focus: true
     }
-
 
 }
 

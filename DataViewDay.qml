@@ -13,6 +13,7 @@ Rectangle {
 
     SliderComponentDay{
         id:sldcompday2
+        z:5
         width: Screen.width
         height: 75
         function showView(){
@@ -122,7 +123,7 @@ Rectangle {
                 }
             }
         }
-        model: DB. {}
+        model: DataViewDaysModel{id:dataViewDaysModel}
         delegate: contactsDelegate
         focus: true
     }

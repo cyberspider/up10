@@ -174,13 +174,33 @@ function getDataViewDayModel(){
     return dataViewDaysModel
 }
 function getDataViewWeekModel(){
-
+    dataViewWeeksModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewWeeksModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewWeeksModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewWeeksModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    return dataViewWeeksModel
 }
 function getDataViewMonthModel(){
-
+    dataViewMonthsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewMonthsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewMonthsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewMonthsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewMonthsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewMonthsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    return dataViewMonthsModel
 }
 function getDataViewYearModel(){
-
+    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    return dataViewYearsModel
 }
 
 function saveActivity(value, unit) {
@@ -282,7 +302,7 @@ function getSliderHundred(munique){
             res = 0
         }
     });
-    //console.log("getSliderHundred db says:" + res)
+    console.log("getSliderHundred db says:" + res)
     if (res > 99){
         var hundred = res.toString()
         hundred = hundred.substring(0, 1);
@@ -307,7 +327,7 @@ function getSliderTen(munique){
     });
     var ten = 0
 
-    //console.log("getSliderTen db says:" + res)
+    console.log("getSliderTen db says:" + res)
     if (res > 99){
         ten = res.toString()
         ten = ten.substring(1, 2);
@@ -336,7 +356,7 @@ function getSliderOne(munique){
         }
     });
     var one = 0
-
+    console.log("getsldone debugging:" + res)
     //console.log("getSliderOne db says:" + res)
     if (res > 99){
         one = res.toString()
@@ -372,6 +392,8 @@ function getSliderDecimal(munique){
     });
     var deci = 0
     var decicheck = Math.floor(res)
+
+    console.log("decimal debugging:" + res)
 
     if (res - decicheck == 0){
         //console.log("dezicheck 0")

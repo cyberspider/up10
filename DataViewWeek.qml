@@ -12,6 +12,7 @@ Rectangle {
     }
     SliderComponentWeek{
         id:sldcompweek
+        z:5
         width: Screen.width
         height: 75
         function showView(){
@@ -120,7 +121,7 @@ Rectangle {
                 }
             }
         }
-        model: ViewActivityModel{}
+        model: DataViewWeeksModel{id:dataViewWeeksModel}
         delegate: contactsDelegate
         focus: true
     }

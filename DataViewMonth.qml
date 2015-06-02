@@ -10,8 +10,9 @@ Rectangle {
     function showView(){
         sldcompmonth.showView()
     }
-    SliderComponentMonth{
+    SliderComponentMonth{ 
         id:sldcompmonth
+        z:5
         width: Screen.width
         height: 50
         function showView(){
@@ -120,7 +121,7 @@ Rectangle {
                 }
             }
         }
-        model: ViewActivityModel{}
+        model: DataViewMonthsModel{id:dataViewMonthsModel}
         delegate: contactsDelegate
         focus: true
     }
