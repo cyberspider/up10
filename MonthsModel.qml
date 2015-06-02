@@ -1,4 +1,4 @@
-/*
+
 import QtQuick 2.0
 import QtQuick.LocalStorage 2.0
 import "localStorage.js" as DB
@@ -14,7 +14,7 @@ ListModel {
         monthsModel.append(DB.getMonthsModel())
     }
  }
-*/
+/*
 import QtQuick 2.0
 ListModel {
     ListElement {
@@ -62,3 +62,4 @@ ListModel {
         year: "2015"
     }
 }
+*/

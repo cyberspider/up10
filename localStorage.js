@@ -13,8 +13,8 @@ function openDB() {
     // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
     db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
     //setupDB()
-}
 
+}
 
 function setupDB(){
     try {
@@ -101,22 +101,45 @@ function getDaysModel(){
 
     return daysModel;
 }
-function getWeeksModel(){
-    if (weeksModel.length <=0){
-        doInitialSettings()
-    }
-    weeksModel.push({"week": "15", "month":"Feb", "year":"2015"})
-    weeksModel.push({"week": "15", "month":"Feb", "year":"2015"}, {"week": "16", "month":"Feb", "year":"2015"},{"week": "15", "month":"Feb", "year":"2015"}, {"week": "16", "month":"Feb", "year":"2015"},{"week": "15", "month":"Feb", "year":"2015"}, {"week": "16", "month":"Feb", "year":"2015"})
 
+function getWeeksModel(){
+
+    if (weeksModel.length <=0){
+
+        var startDate = new Date(getSetting("Startdate"))
+        var today = new Date()
+        var fromWeek = getWeekNumber(startDate)
+        var toWeek = getWeekNumber(today)
+        //check if year is not the same, start from first week
+        if (startDate.getFullYear() !== today.getFullYear()) fromWeek = 1
+        console.log("weeks from:" + fromWeek + " to: " + toWeek)
+        for (var x=parseInt(fromWeek);x <= parseInt(toWeek);x++){
+            weeksModel.push({"week": x, "month":"Week", "year":today.getFullYear()})
+        }
+    }
+    weeksModel.reverse()
     return weeksModel;
 }
+
 function getMonthsModel(){
+
     if (monthsModel.length <=0){
-        doInitialSettings()
+        var startDate = new Date(getSetting("Startdate"))
+        var today = new Date()
+        var fromMonth = startDate.getMonth()//0 based
+        var toMonth = today.getMonth()
+        //check if year is NOT the same, then we start from January
+        if (startDate.getFullYear() !== today.getFullYear()) fromMonth = 1
+        console.log("months from:" + fromMonth + " to: " + toMonth)
+        for (var x=parseInt(fromMonth);x <= parseInt(toMonth);x++){
+            monthsModel.push({"month":months[x], "year":today.getFullYear()})
+            console.log(months[x])
+        }
     }
-    monthsModel.push({"month": "May"})
+    monthsModel.reverse()
     return monthsModel;
 }
+
 function getYearsModel(){
     if (yearsModel.length <=0){
         doInitialSettings()
@@ -199,6 +222,7 @@ function getWeekNumber(d) {
     // Copy date so don't modify original
     d = new Date(+d);
     d.setHours(0,0,0);
+    console.log("getWeekNumber:" + d)
     // Set to nearest Thursday: current date + 4 - current day number
     // Make Sunday's day number 7
     d.setDate(d.getDate() + 4 - (d.getDay()||7));

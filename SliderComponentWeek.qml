@@ -50,6 +50,7 @@ Rectangle {
         onCurrentItemChanged: {
             //reLoadSliders()
             console.log("nothing happening here < sldcomponentweek")
+
         }
         highlightMoveDuration: 100
         Component.onCompleted: {

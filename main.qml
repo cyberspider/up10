@@ -13,6 +13,7 @@ ApplicationWindow {
     width:Screen.width
     height:Screen.height
     visible: true
+    property int showSplash: 1
     property string clrBackground: "#000000"
     property string clrFont: "White"
     property string newActivity: ""
@@ -52,10 +53,22 @@ ApplicationWindow {
         anchors.centerIn: parent
         rotation: 75
         gradient: Gradient {
-            GradientStop { position: 0.0; color: "#a2f6cf" }
-            GradientStop { position: 0.33; color: "#65c79a" }
-            GradientStop { position: 0.66; color: "#459874" }
-            GradientStop { position: 1.0; color: "#5b9c80" }
+            GradientStop {
+                position: 0.00;
+                color: "#3782bf";
+            }
+            GradientStop {
+                position: 0.33;
+                color: "#54a9ed";
+            }
+            GradientStop {
+                position: 0.66;
+                color: "#3782bf";
+            }
+            GradientStop {
+                position: 1.00;
+                color: "#7abdf3";
+            }
         }
         opacity: 1
     }
@@ -64,7 +77,7 @@ ApplicationWindow {
         width: Screen.width / 2
         height:Screen.width / 2
         source: "images/logo.png"
-        opacity: 1
+        opacity: showSplash
         anchors.centerIn: parent
     }
 
@@ -237,14 +250,20 @@ ApplicationWindow {
         ]
     }
     Item {
-        Timer {
-            interval: 3333; running: true; repeat: false
-            onTriggered: topPanel.state = "dataViewState"
-        }
+//        Timer {
+//            interval: 3333; running: true; repeat: false
+//            onTriggered: topPanel.state = "dataViewState"
+//        }
     }
     Toolbar{
         opacity: 0
         id:myToolBar
         width: Screen.width
     }
+    function hideSplashScreen(){
+
+        topPanel.state = "dataViewState"
+    }
+
+
 }

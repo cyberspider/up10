@@ -35,7 +35,7 @@ Rectangle {
                 onClicked: {
                     lvwDays.currentIndex = index
 
-
+                    console.log("nothing happening here:::::")
                 }
             }
         }
@@ -55,7 +55,7 @@ Rectangle {
         Component.onCompleted: {
 
             positionViewAtBeginning()
-
+            console.log("nothing happening here--00-0-00")
         }
     }
 

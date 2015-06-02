@@ -103,7 +103,7 @@ Rectangle {
                         anchors.left: txtBoxes.right
                         width:10 * yesterday
                         height:10
-                        color: "#54a9ed"
+                        color: "#54a9ed"//#7abdf3
                         border.width: 2
                         anchors.margins: 4
                     }
@@ -113,7 +113,7 @@ Rectangle {
                         anchors.left: txtBoxes.right
                         anchors.right:parent.right
                         height:10
-                        color: "#3782bf"
+                        color: "#3782bf"//"#54a9ed"//#7abdf3
                         border.width: 2
                         anchors.margins: 4
                     }
