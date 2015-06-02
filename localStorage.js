@@ -4,6 +4,12 @@ var daysModel = [];
 var weeksModel = [];
 var monthsModel = [];
 var yearsModel = [];
+
+var dataViewDaysModel = [];
+var dataViewWeeksModel = [];
+var dataViewMonthsModel = [];
+var dataViewYearsModel = [];
+
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var slider1 = 0
 function openDB() {
@@ -154,7 +160,27 @@ function getYearsModel(){
         }
     }
 
+    yearsModel.reverse()
     return yearsModel;
+}
+
+function getDataViewDayModel(){
+//    name: "Swimming"
+//    max: "5"
+//    today:"0"
+//    yesterday:"2"
+    dataViewDaysModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
+    dataViewDaysModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    return dataViewDaysModel
+}
+function getDataViewWeekModel(){
+
+}
+function getDataViewMonthModel(){
+
+}
+function getDataViewYearModel(){
+
 }
 
 function saveActivity(value, unit) {

@@ -22,6 +22,7 @@ Rectangle {
             hideVieW()
         }
     }
+
     ListView {
         id: sliderDay
         anchors.top: sldcompday2.bottom
@@ -97,6 +98,7 @@ Rectangle {
                         border.width: 2
                         anchors.margins: 4
                     }
+
                     Rectangle{
                         id:rectDayBefore
                         anchors.top: rectToday.bottom
@@ -120,7 +122,7 @@ Rectangle {
                 }
             }
         }
-        model: ViewActivityModel {}
+        model: DB. {}
         delegate: contactsDelegate
         focus: true
     }

@@ -43,5 +43,9 @@
         <file>ViewActivityModel.qml</file>
         <file>WeeksModel.qml</file>
         <file>YearsModel.qml</file>
+        <file>DataViewDaysModel.qml</file>
+        <file>DataViewWeeksModel.qml</file>
+        <file>DataViewMonthsModel.qml</file>
+        <file>DataViewYearsModel.qml</file>
     </qresource>
 </RCC>
