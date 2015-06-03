@@ -165,25 +165,10 @@ function getYearsModel(){
 }
 
 function getDataViewDayModel(){
-    //    name: "Swimming"
-    //    max: "5"
-    //    today:"0"
-    //    yesterday:"2"
-
-    /*
-qml: items in db:3June2015RUNNING-3-23-June-2015-Running-100
-qml: items in db:3June2015SWIMMING-3-23-June-2015-Swimming-100
-qml: items in db:2June2015SWIMMING-2-23-June-2015-Swimming-3
-qml: items in db:1June2015SWIMMING-1-23-June-2015-Swimming-333.3
-qml: items in db:3June2015TEEING-3-23-June-2015-Teeing-434
-qml: items in db:2June2015RUNNING-2-23-June-2015-Running-22.2
-  */
     var str_activity = ""
     var str_max = ""
     var str_today = ""
-
     dataViewDaysModel = [];
-
     openDB()
     var res = ""
 
@@ -200,8 +185,8 @@ qml: items in db:2June2015RUNNING-2-23-June-2015-Running-22.2
     var str_yestermonth = tmp_yesterday.getMonth()
     var str_yesteryear = tmp_yesterday.getFullYear()
 
-    console.log("yesterday:" + str_yesterday + ",yestermonth:" + months[parseInt(str_yestermonth)] + ", yesteryear:" + str_yesteryear)
-    console.log("getDataViewDayModel:::::selected day:" + selectedDateDay + "-" + selectedDateMonth + "-" + selectedDateYear)
+    //console.log("yesterday:" + str_yesterday + ",yestermonth:" + months[parseInt(str_yestermonth)] + ", yesteryear:" + str_yesteryear)
+    //console.log("getDataViewDayModel:::::selected day:" + selectedDateDay + "-" + selectedDateMonth + "-" + selectedDateYear)
 
     db.transaction(function(tx) {
         var rsActivitites = tx.executeSql('SELECT * FROM activities');
@@ -228,7 +213,7 @@ qml: items in db:2June2015RUNNING-2-23-June-2015-Running-22.2
             }else{
                 str_max = 0
             }
-            console.log("name" + str_activity +", max" + str_max + ", today" + str_today + ", yesterday" + str_yesterday)
+            //console.log("name" + str_activity +", max" + str_max + ", today" + str_today + ", yesterday" + str_yesterday)
             dataViewDaysModel.push({"name": str_activity, "max":str_max, "today":str_today, "yesterday":str_yesterday})
 
         }
@@ -237,6 +222,62 @@ qml: items in db:2June2015RUNNING-2-23-June-2015-Running-22.2
     return dataViewDaysModel
 }
 function getDataViewWeekModel(){
+
+    var str_activity = ""
+    var str_max = ""
+    var str_today = ""
+    dataViewDaysModel = [];
+    openDB()
+    var res = ""
+
+    if (selectedDateYear == "") selectedDateYear = today.getFullYear()
+    if (selectedDateWeek == "") selectedDateWeek = getWeekNumber(today)
+
+    var yesterYear = selectedDateYear
+    var yesterWeek = selectedDateWeek - 1
+
+    var i = 31
+    if (yesterWeek === 0){
+        while (yesterWeek < 8){
+            yesterYear = selectedDateYear - 1
+            yesterWeek = getWeekNumber(new Date("12/" + i + "/" + yesterYear))
+            i--
+        }
+    }
+    console.log(yesterWeek)
+    console.log(yesterYear)
+
+    db.transaction(function(tx) {
+        var rsActivitites = tx.executeSql('SELECT * FROM activities');
+        for(x=0;x<rsActivitites.rows.length;x++){
+            str_activity = rsActivitites.rows.item(x).activity
+
+            var rsYesterWeek = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [str_yesterday.toString(), months[parseInt(str_yestermonth)], str_yesteryear.toString(), str_activity]);
+            var rsMaxWeek = tx.executeSql('SELECT MAX(value) as max FROM logbook WHERE activity=?;', [str_activity]);
+            var rsThisWeek = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [selectedDateDay.toString(), selectedDateMonth.toString(), selectedDateYear.toString(), str_activity]);
+/*
+            if (rsToday.rows.length>0){
+                str_today = rsToday.rows.item(0).value
+            }else{
+                str_today = 0
+            }
+            if (rsYesterday.rows.length>0){
+                str_yesterday = rsYesterday.rows.item(0).value
+            }else{
+                str_yesterday = 0
+            }
+            if (rsMax.rows.length>0){
+                str_max = rsMax.rows.item(0).max
+
+            }else{
+                str_max = 0
+            }
+            console.log("name" + str_activity +", max" + str_max + ", today" + str_today + ", yesterday" + str_yesterday)
+            dataViewDaysModel.push({"name": str_activity, "max":str_max, "today":str_today, "yesterday":str_yesterday})
+*/
+        }
+    });
+
     dataViewWeeksModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
     dataViewWeeksModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
     dataViewWeeksModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
