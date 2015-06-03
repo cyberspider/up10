@@ -25,6 +25,7 @@ ApplicationWindow {
     property int sliderDayVisible: 0
     property string selectedDate: ""
     property string selectedDateDay: ""
+    property string selectedDateWeek: ""
     property string selectedDateMonth: ""
     property string selectedDateYear: ""
     property string selectedSliderValue: ""

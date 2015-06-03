@@ -35,7 +35,9 @@ Rectangle {
                 onClicked: {
                     lvwDays.currentIndex = index
 
-                    console.log("nothing happening here:::::")
+                    console.log("we probably need to do something here...")
+                    dataViewDaysModel.clear()
+                    dataViewDaysModel.append(DB.getDataViewDayModel())
                 }
             }
         }
@@ -55,7 +57,7 @@ Rectangle {
         Component.onCompleted: {
 
             positionViewAtBeginning()
-            console.log("nothing happening here--00-0-00")
+
         }
     }
 
@@ -81,15 +83,13 @@ Rectangle {
         selectedDateMonth = lvwDays.model.get(lvwDays.currentIndex).month
         selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
         selectedDate = lvwDays.model.get(lvwDays.currentIndex).day + "/" + lvwDays.model.get(lvwDays.currentIndex).month + "/" + lvwDays.model.get(lvwDays.currentIndex).year
+        var tempMonth = new Date((DB.getMonthNumber(selectedDateMonth) + "/" + selectedDateDay + "/" + selectedDateYear).toString())
+        selectedDateWeek = DB.getWeekNumber(tempMonth)
 
         var munique = (selectedDateDay + selectedDateMonth + selectedDateYear).toString()
         munique += selectedActivity.toString().toUpperCase()
         //console.log("munique:" + munique)
 
-//        sldHundred.value = DB.getSliderHundred(munique)
-//        sldTen.value = DB.getSliderTen(munique)
-//        sldOne.value = DB.getSliderOne(munique)
-//        sldDecimal.value = DB.getSliderDecimal(munique)
         sldHund_i = DB.getSliderHundred(munique)
         sldTen_i = DB.getSliderTen(munique)
         sldOne_i = DB.getSliderOne(munique)

@@ -167,7 +167,7 @@ Rectangle{
                     selectedSliderValue = parseInt(sldHundred.value) + parseInt(sldTen.value) + parseInt(sldOne.value)
                     selectedSliderValue += "." + sldDecimal.value
                     //console.log(selectedSliderValue + "<-------------")
-                    DB.saveLogBookEntry(selectedDateDay, selectedDateMonth, selectedDateYear, selectedActivity, selectedSliderValue)
+                    DB.saveLogBookEntry(selectedDateDay, selectedDateWeek, selectedDateMonth, selectedDateYear, selectedActivity, selectedSliderValue)
                     //console.log(txtActivity.text + ":" + selectedDate + ":" + sldHundred.value + sldTen.value + sldOne.value + sldDecimal.value)
                 }
             }

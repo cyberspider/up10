@@ -50,13 +50,13 @@ function setupDB(){
                 var strtdt = new Date(Date.now());
                 strtdt.setDate(1);
                 strtdt.setMonth(strtdt.getMonth()-1);
-                console.log("startdate:" + strtdt)
+                //console.log("startdate:" + strtdt)
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Startdate", strtdt]);
                 console.log('Settings table added');
 
             }
 
-            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
             doInitialSettings()
         });
@@ -71,7 +71,7 @@ function doInitialSettings(){
     var end = new Date();
     end.setDate(end.getDate() + 1);
 
-    console.log("building daysModel from:" + start + " to:" + end)
+    // console.log("building daysModel from:" + start + " to:" + end)
     while(start < end){
         //console.log("adding a day")
         daysModel.push({"day": "" + start.getDate()  , "month": "" + months[start.getMonth()], "year": "" + start.getFullYear()})
@@ -118,7 +118,7 @@ function getWeeksModel(){
         var toWeek = getWeekNumber(today)
         //check if year is not the same, start from first week
         if (startDate.getFullYear() !== today.getFullYear()) fromWeek = 1
-        console.log("weeks from:" + fromWeek + " to: " + toWeek)
+        //console.log("weeks from:" + fromWeek + " to: " + toWeek)
         for (var x=parseInt(fromWeek);x <= parseInt(toWeek);x++){
             weeksModel.push({"week": x, "month":"Week", "year":today.getFullYear()})
         }
@@ -136,7 +136,7 @@ function getMonthsModel(){
         var toMonth = today.getMonth()
         //check if year is NOT the same, then we start from January
         if (startDate.getFullYear() !== today.getFullYear()) fromMonth = 1
-        console.log("months from:" + fromMonth + " to: " + toMonth)
+        //console.log("months from:" + fromMonth + " to: " + toMonth)
         for (var x=parseInt(fromMonth);x <= parseInt(toMonth);x++){
             monthsModel.push({"month":months[x], "year":today.getFullYear()})
             console.log(months[x])
@@ -153,7 +153,7 @@ function getYearsModel(){
         var fromYear = startDate.getFullYear()
         var toYear = today.getFullYear()
         //check if year is NOT the same, then we start from January
-        console.log("from YEAR:" + fromYear + "To YEAR:" + toYear)
+        //console.log("from YEAR:" + fromYear + "To YEAR:" + toYear)
 
         for (var x=parseInt(fromYear);x <= parseInt(toYear);x++){
             yearsModel.push({"year":x})
@@ -165,12 +165,61 @@ function getYearsModel(){
 }
 
 function getDataViewDayModel(){
-//    name: "Swimming"
-//    max: "5"
-//    today:"0"
-//    yesterday:"2"
-    dataViewDaysModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewDaysModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    //    name: "Swimming"
+    //    max: "5"
+    //    today:"0"
+    //    yesterday:"2"
+
+    /*
+qml: items in db:3June2015RUNNING-3-23-June-2015-Running-100
+qml: items in db:3June2015SWIMMING-3-23-June-2015-Swimming-100
+qml: items in db:2June2015SWIMMING-2-23-June-2015-Swimming-3
+qml: items in db:1June2015SWIMMING-1-23-June-2015-Swimming-333.3
+qml: items in db:3June2015TEEING-3-23-June-2015-Teeing-434
+qml: items in db:2June2015RUNNING-2-23-June-2015-Running-22.2
+  */
+    var str_activity = ""
+    var str_max = ""
+    var str_today = ""
+
+    dataViewDaysModel = [];
+
+    openDB()
+    var res = ""
+
+    if (selectedDateYear == "") selectedDateYear = today.getFullYear()
+    if (selectedDateMonth == "") selectedDateMonth = months[today.getMonth()]
+    if (selectedDateDay == "") selectedDateDay = today.getDay()
+
+    //get yesrdays month and year etc.
+    var tmp_today = new Date(getMonthNumber(selectedDateMonth.toString())  + "/" + selectedDateDay.toString() + "/" + selectedDateYear.toString());
+    var tmp_yesterday = new Date(tmp_today)
+    tmp_yesterday.setDate(tmp_today.getDate() - 1)
+
+    var str_yesterday = tmp_yesterday.getDay()
+    var str_yestermonth = tmp_yesterday.getMonth()
+    var str_yesteryear = tmp_yesterday.getFullYear()
+
+    console.log("yesterday:" + str_yesterday + "yest")
+    console.log("getDataViewDayModel:::::selected day:" + selectedDateDay + "-" + selectedDateMonth + "-" + selectedDateYear)
+
+    db.transaction(function(tx) {
+        var rsActivitites = tx.executeSql('SELECT * FROM activities');
+        for(x=0;x<rsActivitites.rows.length;x++){
+            str_activity = rsActivitites.rows.item(x).activity
+
+            var rsYesterday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [(parseInt(selectedDateDay)-1).toString(), selectedDateMonth.toString(), selectedDateYear.toString(), str_activity]);
+            var rsMax = tx.executeSql('SELECT Max(value) FROM logbook WHERE activity=?;', [str_activity]);
+            var rsToday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [selectedDateDay.toString(), selectedDateMonth.toString(), selectedDateYear.toString(), str_activity]);
+
+            if (rsToday.rows.length>0){
+                dataViewDaysModel.push({"name": str_activity, "max":"14", "today": rsToday.rows.item(0).value, "yesterday":"14"})
+            }else{
+                dataViewDaysModel.push({"name": str_activity, "max":"0", "today":"0", "yesterday":"0"})
+            }
+        }
+    });
+
     return dataViewDaysModel
 }
 function getDataViewWeekModel(){
@@ -263,7 +312,7 @@ function getToday() {
     if(mm<10) {
         mm='0'+mm
     }
-*/
+   */
     return dd + ' ' + MMMM + ' ' + yyyy;
 
 }
@@ -277,7 +326,7 @@ function getWeekNumber(d) {
     // Copy date so don't modify original
     d = new Date(+d);
     d.setHours(0,0,0);
-    console.log("getWeekNumber:" + d)
+    //console.log("getWeekNumber:" + d)
     // Set to nearest Thursday: current date + 4 - current day number
     // Make Sunday's day number 7
     d.setDate(d.getDate() + 4 - (d.getDay()||7));
@@ -290,6 +339,18 @@ function getWeekNumber(d) {
     return weekNo.toString()
 }
 
+function getMonthNumber(monthName){
+
+    var monthNo = 0
+
+    for (x=0;x<months.length;x++){
+        if(monthName === months[x]){
+            monthNo = x + 1 //array 0 based
+        }
+    }
+    //console.log("month returned:" + monthNo)
+    return monthNo
+}
 function getSliderHundred(munique){
 
     openDB()
@@ -302,7 +363,7 @@ function getSliderHundred(munique){
             res = 0
         }
     });
-    console.log("getSliderHundred db says:" + res)
+    //console.log("getSliderHundred db says:" + res)
     if (res > 99){
         var hundred = res.toString()
         hundred = hundred.substring(0, 1);
@@ -327,7 +388,7 @@ function getSliderTen(munique){
     });
     var ten = 0
 
-    console.log("getSliderTen db says:" + res)
+    //console.log("getSliderTen db says:" + res)
     if (res > 99){
         ten = res.toString()
         ten = ten.substring(1, 2);
@@ -356,7 +417,7 @@ function getSliderOne(munique){
         }
     });
     var one = 0
-    console.log("getsldone debugging:" + res)
+    //console.log("getsldone debugging:" + res)
     //console.log("getSliderOne db says:" + res)
     if (res > 99){
         one = res.toString()
@@ -393,7 +454,7 @@ function getSliderDecimal(munique){
     var deci = 0
     var decicheck = Math.floor(res)
 
-    console.log("decimal debugging:" + res)
+    //console.log("decimal debugging:" + res)
 
     if (res - decicheck == 0){
         //console.log("dezicheck 0")
@@ -406,7 +467,7 @@ function getSliderDecimal(munique){
     }
 }
 
-function saveLogBookEntry(day, month, year, activity, value) {
+function saveLogBookEntry(day, week, month, year, activity, value) {
     openDB();
     var munique = (day + month + year).toString()
     munique += activity.toString().toUpperCase()
@@ -417,8 +478,8 @@ function saveLogBookEntry(day, month, year, activity, value) {
     });
 
     db.transaction( function(tx){
-        var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?)', [munique.toString(), day, month, year, activity, value]);
-        console.log("inserted log entry:" + rs.insertId);
+        var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?, ?)', [munique.toString(), day, week, month, year, activity, value]);
+        //console.log("inserted log entry:" + rs.insertId);
 
     });
 
@@ -428,7 +489,7 @@ function saveLogBookEntry(day, month, year, activity, value) {
 
         for(var i = 0; i < rs.rows.length; i++) {
             //activities.push({"activityName": "" + rs.rows.item(i).activity , "activityUnit": "" + rs.rows.item(i).measurement + ""})
-            console.log("items in db:" + rs.rows.item(i).mid + "-" + rs.rows.item(i).day + "-" + rs.rows.item(i).month + "-" + rs.rows.item(i).year + "-" + rs.rows.item(i).activity + "-" + rs.rows.item(i).value)
+            //console.log("items in db:" + rs.rows.item(i).mid + "-" + rs.rows.item(i).day + "-" + rs.rows.item(i).week + "-" + rs.rows.item(i).month + "-" + rs.rows.item(i).year + "-" + rs.rows.item(i).activity + "-" + rs.rows.item(i).value)
         }
     });
 }
