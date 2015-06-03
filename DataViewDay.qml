@@ -93,7 +93,7 @@ Rectangle {
                         id:rectToday
                         anchors.top:txtBoxes.bottom
                         anchors.left: txtBoxes.right
-                        width:10 * today
+                        width: (today / max) * graphBarWidth
                         height:10
                         color: "#7abdf3"
                         border.width: 2
@@ -104,7 +104,7 @@ Rectangle {
                         id:rectDayBefore
                         anchors.top: rectToday.bottom
                         anchors.left: txtBoxes.right
-                        width:10 * yesterday
+                        width:(yesterday / max) * graphBarWidth
                         height:10
                         color: "#54a9ed"//#7abdf3
                         border.width: 2
@@ -114,7 +114,7 @@ Rectangle {
                         id:rectMax
                         anchors.top: rectDayBefore.bottom
                         anchors.left: txtBoxes.right
-                        anchors.right:parent.right
+                        width:graphBarWidth
                         height:10
                         color: "#3782bf"//"#54a9ed"//#7abdf3
                         border.width: 2

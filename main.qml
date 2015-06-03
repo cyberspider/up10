@@ -29,6 +29,7 @@ ApplicationWindow {
     property string selectedDateMonth: ""
     property string selectedDateYear: ""
     property string selectedSliderValue: ""
+    property int graphBarWidth: Screen.width / 1.61803398875 // Golden Ratio - why not
 
     property int sldHund_i: 0
     property int sldTen_i:0

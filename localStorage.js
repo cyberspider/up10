@@ -191,7 +191,7 @@ qml: items in db:2June2015RUNNING-2-23-June-2015-Running-22.2
     if (selectedDateMonth == "") selectedDateMonth = months[today.getMonth()]
     if (selectedDateDay == "") selectedDateDay = today.getDay()
 
-    //get yesrdays month and year etc.
+    //get yesterdays month and year etc.
     var tmp_today = new Date(getMonthNumber(selectedDateMonth.toString())  + "/" + selectedDateDay.toString() + "/" + selectedDateYear.toString());
     var tmp_yesterday = new Date(tmp_today)
     tmp_yesterday.setDate(tmp_today.getDate() - 1)
@@ -200,7 +200,7 @@ qml: items in db:2June2015RUNNING-2-23-June-2015-Running-22.2
     var str_yestermonth = tmp_yesterday.getMonth()
     var str_yesteryear = tmp_yesterday.getFullYear()
 
-    console.log("yesterday:" + str_yesterday + "yest")
+    console.log("yesterday:" + str_yesterday + ",yestermonth:" + months[parseInt(str_yestermonth)] + ", yesteryear:" + str_yesteryear)
     console.log("getDataViewDayModel:::::selected day:" + selectedDateDay + "-" + selectedDateMonth + "-" + selectedDateYear)
 
     db.transaction(function(tx) {
@@ -208,15 +208,29 @@ qml: items in db:2June2015RUNNING-2-23-June-2015-Running-22.2
         for(x=0;x<rsActivitites.rows.length;x++){
             str_activity = rsActivitites.rows.item(x).activity
 
-            var rsYesterday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [(parseInt(selectedDateDay)-1).toString(), selectedDateMonth.toString(), selectedDateYear.toString(), str_activity]);
-            var rsMax = tx.executeSql('SELECT Max(value) FROM logbook WHERE activity=?;', [str_activity]);
+            var rsYesterday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [str_yesterday.toString(), months[parseInt(str_yestermonth)], str_yesteryear.toString(), str_activity]);
+            var rsMax = tx.executeSql('SELECT MAX(value) as max FROM logbook WHERE activity=?;', [str_activity]);
             var rsToday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [selectedDateDay.toString(), selectedDateMonth.toString(), selectedDateYear.toString(), str_activity]);
 
             if (rsToday.rows.length>0){
-                dataViewDaysModel.push({"name": str_activity, "max":"14", "today": rsToday.rows.item(0).value, "yesterday":"14"})
+                str_today = rsToday.rows.item(0).value
             }else{
-                dataViewDaysModel.push({"name": str_activity, "max":"0", "today":"0", "yesterday":"0"})
+                str_today = 0
             }
+            if (rsYesterday.rows.length>0){
+                str_yesterday = rsYesterday.rows.item(0).value
+            }else{
+                str_yesterday = 0
+            }
+            if (rsMax.rows.length>0){
+                str_max = rsMax.rows.item(0).max
+
+            }else{
+                str_max = 0
+            }
+            console.log("name" + str_activity +", max" + str_max + ", today" + str_today + ", yesterday" + str_yesterday)
+            dataViewDaysModel.push({"name": str_activity, "max":str_max, "today":str_today, "yesterday":str_yesterday})
+
         }
     });
 
