@@ -51,6 +51,7 @@ Rectangle {
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
             selectedDateWeek = lvwDays.model.get(lvwDays.currentIndex).week
+            selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
         }
         highlightMoveDuration: 100
         Component.onCompleted: {

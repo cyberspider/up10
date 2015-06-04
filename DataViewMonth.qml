@@ -62,7 +62,7 @@ Rectangle {
                             anchors.right:txtBoxes.right
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
-                            text: "This Month: " + today
+                            text: "This Month: " + thismonth
                             color: clrFont
                         }
 
@@ -73,7 +73,7 @@ Rectangle {
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
                             color: clrFont
-                            text: "Prev. Month: " + yesterday
+                            text: "Prev. Month: " + yestermonth
                         }
                         Text{
                             id:txtMax
@@ -81,7 +81,7 @@ Rectangle {
                             anchors.right:txtBoxes.right
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
-                            text: "Max: " + max
+                            text: "Max: " + maxmonth
                             color: clrFont
                         }
 
@@ -91,7 +91,7 @@ Rectangle {
                         id:rectToday
                         anchors.top:txtBoxes.bottom
                         anchors.left: txtBoxes.right
-                        width:10 * today
+                        width:(yestermonth / maxmonth) * graphBarWidth
                         height:10
                         color: "#f37a7a"
                         border.width: 2
@@ -101,7 +101,7 @@ Rectangle {
                         id:rectDayBefore
                         anchors.top: rectToday.bottom
                         anchors.left: txtBoxes.right
-                        width:10 * yesterday
+                        width:(yestermonth / maxmonth) * graphBarWidth
                         height:10
                         color: "#ed5353"
                         border.width: 2
@@ -111,8 +111,7 @@ Rectangle {
                         id:rectMax
                         anchors.top: rectDayBefore.bottom
                         anchors.left: txtBoxes.right
-                        anchors.right:parent.right
-                        //width: 200
+                        width:graphBarWidth
                         height:10
                         color: "#bf3636"
                         border.width: 2

@@ -44,14 +44,14 @@ Rectangle {
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
             //reLoadSliders()
-            console.log("nothing happening here3")
+            //console.log("nothing happening here3")
             hideSplashScreen()
         }
         highlightMoveDuration: 100
         Component.onCompleted: {
 
             positionViewAtBeginning()
-            console.log("nothing happening here4")
+            //console.log("nothing happening here4")
         }
     }
 

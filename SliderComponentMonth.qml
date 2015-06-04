@@ -31,7 +31,8 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
-                    //day item click here
+                    dataViewMonthsModel.clear()
+                    dataViewMonthsModel.append(DB.getDataViewMonthModel())
 
                 }
             }
@@ -46,8 +47,9 @@ Rectangle {
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
-            //reLoadSliders()
-            console.log("nothing happening here1 <")
+            selectedDateMonth = DB.getMonthNumber(lvwDays.model.get(lvwDays.currentIndex).month)
+            selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
+            console.log("month changed:" + selectedDateMonth)
             hideSplashScreen()
         }
         highlightMoveDuration: 100
