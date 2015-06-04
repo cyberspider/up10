@@ -11,6 +11,12 @@ Rectangle{
     signal lvaddActivity()
     signal lvdeleteActivity()
     signal reloadSlidersFE()
+    onReloadSlidersFE: {
+
+        logViewDetail.mreloadSliders()
+
+    }
+
     onLvaddActivity: {
         activityListView.amaddActivity()
 
@@ -141,7 +147,9 @@ Rectangle{
             id:logViewDetail
             width:screen.width
             height: screen.height
-
+            function mreloadSliders(){
+                reloadSliders()
+            }
         }
         AddActivityView{
             id:addActivityView

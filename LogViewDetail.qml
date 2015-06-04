@@ -20,7 +20,10 @@ Rectangle{
 
     }
 
-
+    signal reloadSliders
+    onReloadSliders: {
+        sldcompday.reloadMeSliders()
+    }
     Image{
         id:btnBack
         source:"images/back_arrow.png"
@@ -143,6 +146,10 @@ Rectangle{
             width: parent.width
             height: 75
             opacity: sliderDayVisible
+            function reloadMeSliders(){
+                console.log("reload here?")
+                reLoadSliders()
+            }
         }
         Rectangle{
             id:spaceman2

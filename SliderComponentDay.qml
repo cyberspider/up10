@@ -51,10 +51,10 @@ Rectangle {
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
-            sldHund_i = 1
-            sldDec_i = 1
-            sldOne_i = 1
-            sldTen_i = 1
+            sldHund_i = 0
+            sldDec_i = 0
+            sldOne_i = 0
+            sldTen_i = 0
             console.log("set variables for sliders...")
             reLoadSliders()
         }
@@ -100,6 +100,7 @@ Rectangle {
         sldTen_i = DB.getSliderTen(munique)
         sldOne_i = DB.getSliderOne(munique)
         sldDec_i = DB.getSliderDecimal(munique)
+        console.log(sldHund_i + "-" + sldTen_i + "-" + sldOne_i + "-" + sldDec_i)
         var selectedYesterDateDay = 0
         var selectedYesterDateMonth = 0
         var selectedYesterDateYear = 2012
