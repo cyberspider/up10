@@ -34,8 +34,6 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
-
-                    console.log("we probably need to do something here...")
                     dataViewDaysModel.clear()
                     dataViewDaysModel.append(DB.getDataViewDayModel())
                 }

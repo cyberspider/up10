@@ -34,7 +34,9 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
-                    //day item click here
+
+                    dataViewWeeksModel.clear()
+                    dataViewWeeksModel.append(DB.getDataViewWeekModel())
                 }
             }
         }
@@ -48,15 +50,11 @@ Rectangle {
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
-            //reLoadSliders()
-            console.log("nothing happening here < sldcomponentweek")
-
+            selectedDateWeek = lvwDays.model.get(lvwDays.currentIndex).week
         }
         highlightMoveDuration: 100
         Component.onCompleted: {
-
             positionViewAtBeginning()
-
         }
     }
 

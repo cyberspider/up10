@@ -224,9 +224,11 @@ function getDataViewDayModel(){
 function getDataViewWeekModel(){
 
     var str_activity = ""
-    var str_max = ""
-    var str_today = ""
-    dataViewDaysModel = [];
+    var str_maxWeek = ""
+    var str_thisWeek = ""
+    var str_yesterWeek = ""
+
+    dataViewWeeksModel = [];
     openDB()
     var res = ""
 
@@ -252,38 +254,37 @@ function getDataViewWeekModel(){
         for(x=0;x<rsActivitites.rows.length;x++){
             str_activity = rsActivitites.rows.item(x).activity
 
-            var rsYesterWeek = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [str_yesterday.toString(), months[parseInt(str_yestermonth)], str_yesteryear.toString(), str_activity]);
-            var rsMaxWeek = tx.executeSql('SELECT MAX(value) as max FROM logbook WHERE activity=?;', [str_activity]);
-            var rsThisWeek = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [selectedDateDay.toString(), selectedDateMonth.toString(), selectedDateYear.toString(), str_activity]);
-/*
-            if (rsToday.rows.length>0){
-                str_today = rsToday.rows.item(0).value
-            }else{
-                str_today = 0
-            }
-            if (rsYesterday.rows.length>0){
-                str_yesterday = rsYesterday.rows.item(0).value
-            }else{
-                str_yesterday = 0
-            }
-            if (rsMax.rows.length>0){
-                str_max = rsMax.rows.item(0).max
+            var rsYesterWeek = tx.executeSql('SELECT SUM(value) as value FROM logbook WHERE week=? and year=? and activity=?;', [ yesterWeek, yesterYear, str_activity]);
+            console.log("SELECT SUM(value) as value FROM logbook WHERE week=" + yesterWeek + " and year=" + yesterYear + " and activity=" + str_activity)
+            var rsMaxWeek = tx.executeSql('select max(weektotal) as max from (select activity, sum(value) as weektotal from logbook where activity=? group by week);', [str_activity]);
+            var rsThisWeek = tx.executeSql('SELECT SUM(value) as value FROM logbook WHERE week=? and year=? and activity=?;', [ selectedDateWeek, selectedDateYear, str_activity]);
+            console.log("SELECT SUM(value) as value FROM logbook WHERE week=" + selectedDateWeek + " and year=" + selectedDateYear + " and activity=" + str_activity)
 
+            if (rsThisWeek.rows.length>0){
+                str_thisWeek = rsThisWeek.rows.item(0).value
             }else{
-                str_max = 0
+                str_thisWeek = 0
             }
-            console.log("name" + str_activity +", max" + str_max + ", today" + str_today + ", yesterday" + str_yesterday)
-            dataViewDaysModel.push({"name": str_activity, "max":str_max, "today":str_today, "yesterday":str_yesterday})
-*/
+            if (rsYesterWeek.rows.length>0){
+                //str_yesterWeek = rsYesterWeek.rows.item(0).value
+                str_yesterWeek = 20
+            }else{
+                str_yesterWeek = 0
+            }
+            if (rsMaxWeek.rows.length>0){
+                str_maxWeek = rsMaxWeek.rows.item(0).max
+                //str_maxWeek = 100
+            }else{
+                str_maxWeek = 0
+            }
+            console.log("name:" + str_activity + ", maxweek:" + str_maxWeek + ", thisweek:" + str_thisWeek + ", yesterweek:" + str_yesterWeek)
+            dataViewWeeksModel.push({"name":str_activity, "maxweek":str_maxWeek, "thisweek":str_thisWeek, "yesterweek":str_yesterWeek})
         }
     });
 
-    dataViewWeeksModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewWeeksModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewWeeksModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewWeeksModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
     return dataViewWeeksModel
 }
+
 function getDataViewMonthModel(){
     dataViewMonthsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
     dataViewMonthsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})

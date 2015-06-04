@@ -110,6 +110,7 @@ Rectangle {
                         border.width: 2
                         anchors.margins: 4
                     }
+
                     Rectangle{
                         id:rectMax
                         anchors.top: rectDayBefore.bottom
