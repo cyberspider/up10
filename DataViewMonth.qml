@@ -91,7 +91,7 @@ Rectangle {
                         id:rectToday
                         anchors.top:txtBoxes.bottom
                         anchors.left: txtBoxes.right
-                        width:(yestermonth / maxmonth) * graphBarWidth
+                        width:(thismonth / maxmonth) * graphBarWidth
                         height:10
                         color: "#f37a7a"
                         border.width: 2
