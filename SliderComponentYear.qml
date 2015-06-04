@@ -28,7 +28,8 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
-
+                    dataViewYearsModel.clear()
+                    dataViewYearsModel.append(DB.getDataViewYearModel())
 
                 }
             }
@@ -43,8 +44,7 @@ Rectangle {
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
-            //reLoadSliders()
-            //console.log("nothing happening here3")
+            selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
             hideSplashScreen()
         }
         highlightMoveDuration: 100

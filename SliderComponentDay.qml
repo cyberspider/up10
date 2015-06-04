@@ -34,8 +34,10 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
-                    dataViewDaysModel.clear()
-                    dataViewDaysModel.append(DB.getDataViewDayModel())
+                    if (typeof dataViewDaysModel === "undefined"){}else{
+                        dataViewDaysModel.clear()
+                        dataViewDaysModel.append(DB.getDataViewDayModel())
+                    }
                 }
             }
         }
@@ -49,6 +51,11 @@ Rectangle {
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
+            sldHund_i = 1
+            sldDec_i = 1
+            sldOne_i = 1
+            sldTen_i = 1
+            console.log("set variables for sliders...")
             reLoadSliders()
         }
         highlightMoveDuration: 100
@@ -77,6 +84,7 @@ Rectangle {
     }
     signal reLoadSliders()
     onReLoadSliders: {
+
         selectedDateDay = lvwDays.model.get(lvwDays.currentIndex).day
         selectedDateMonth = lvwDays.model.get(lvwDays.currentIndex).month
         selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
@@ -92,20 +100,23 @@ Rectangle {
         sldTen_i = DB.getSliderTen(munique)
         sldOne_i = DB.getSliderOne(munique)
         sldDec_i = DB.getSliderDecimal(munique)
+        var selectedYesterDateDay = 0
+        var selectedYesterDateMonth = 0
+        var selectedYesterDateYear = 2012
+        var selectedYesterDate = 0
 
+        if (lvwDays.currentIndex + 1 < lvwDays.model.count) {
+            selectedYesterDateDay = lvwDays.model.get(lvwDays.currentIndex + 1).day
+            selectedYesterDateMonth = lvwDays.model.get(lvwDays.currentIndex + 1).month
+            selectedYesterDateYear = lvwDays.model.get(lvwDays.currentIndex+ 1).year
+        }
 
-        var selectedYesterDateDay = lvwDays.model.get(lvwDays.currentIndex + 1).day
-        var selectedYesterDateMonth = lvwDays.model.get(lvwDays.currentIndex + 1).month
-        var selectedYesterDateYear = lvwDays.model.get(lvwDays.currentIndex+ 1).year
-        var selectedYesterDate = lvwDays.model.get(lvwDays.currentIndex + 1).day + "/" + lvwDays.model.get(lvwDays.currentIndex + 1).month + "/" + lvwDays.model.get(lvwDays.currentIndex + 1).year
+        selectedYesterDate = selectedYesterDateDay + "/" + selectedYesterDateMonth + "/" + selectedYesterDateYear
 
         var muniqueYesterday = (selectedYesterDateDay + selectedYesterDateMonth + selectedYesterDateYear).toString()
         muniqueYesterday += selectedActivity.toString().toUpperCase()
         //console.log(muniqueYesterday)
 
     }
-    signal reLoadMainDataView()
-    onReLoadMainDataView: {
-     console.log("reloading this day's view.")
-    }
+
 }

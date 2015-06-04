@@ -45,7 +45,6 @@ ApplicationWindow {
     onDeleteActivity: {
         logView.deleteActivity()
     }
-
     FontLoader { id: fntMyraidPro; source: "font/Myriad Pro Regular.ttf" }
 
     Rectangle {
@@ -82,7 +81,6 @@ ApplicationWindow {
         opacity: showSplash
         anchors.centerIn: parent
     }
-
 
     Item{
         id:topPanel

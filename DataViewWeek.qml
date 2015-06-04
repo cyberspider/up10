@@ -111,7 +111,7 @@ Rectangle {
                         id:rectMax
                         anchors.top: rectDayBefore.bottom
                         anchors.left: txtBoxes.right
-                        width: graphBarWidth
+                        width: (maxweek>0) ? graphBarWidth : 0
                         height:10
                         color: "#54bf36"
                         border.width: 2

@@ -22,6 +22,7 @@ Rectangle {
         function hideView(){
             hideVieW()
         }
+
     }
 
     ListView {
@@ -115,7 +116,7 @@ Rectangle {
                         id:rectMax
                         anchors.top: rectDayBefore.bottom
                         anchors.left: txtBoxes.right
-                        width:graphBarWidth
+                        width: (max>0) ? graphBarWidth : 0
                         height:10
                         color: "#3782bf"//"#54a9ed"//#7abdf3
                         border.width: 2

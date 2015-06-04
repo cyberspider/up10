@@ -10,7 +10,7 @@ Rectangle{
 
     signal lvaddActivity()
     signal lvdeleteActivity()
-    signal reloadSliders()
+    signal reloadSlidersFE()
     onLvaddActivity: {
         activityListView.amaddActivity()
 
@@ -18,9 +18,7 @@ Rectangle{
     onLvdeleteActivity: {
         activityListView.amdeleteActivity()
     }
-    onReloadSliders: {
-        logViewDetail.mreloadSliders()
-    }
+
 
     states: [
         State {
@@ -96,7 +94,7 @@ Rectangle{
                     selectedActivity = activityName
                     selectedActivityUnit = activityUnit
 
-                    reloadSliders()
+                    reloadSlidersFE()
 
                 }
             }
@@ -143,9 +141,7 @@ Rectangle{
             id:logViewDetail
             width:screen.width
             height: screen.height
-            function mreloadSliders(){
-                reloadSliders()
-            }
+
         }
         AddActivityView{
             id:addActivityView

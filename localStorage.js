@@ -38,7 +38,7 @@ function setupDB(){
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Running", "km"]);
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Cycling", "km"]);
 
-                console.log('Activities table added.');
+                //console.log('Activities table added.');
             };
 
             tx.executeSql('CREATE TABLE IF NOT EXISTS settings(mkey TEXT, mvalue TEXT)');
@@ -139,7 +139,7 @@ function getMonthsModel(){
         //console.log("months from:" + fromMonth + " to: " + toMonth)
         for (var x=parseInt(fromMonth);x <= parseInt(toMonth);x++){
             monthsModel.push({"month":months[x], "year":today.getFullYear()})
-            console.log(months[x])
+            //console.log(months[x])
         }
     }
     monthsModel.reverse()
@@ -255,10 +255,10 @@ function getDataViewWeekModel(){
             str_activity = rsActivitites.rows.item(x).activity
 
             var rsYesterWeek = tx.executeSql('SELECT SUM(value) as value FROM logbook WHERE week=? and year=? and activity=?;', [ yesterWeek, yesterYear, str_activity]);
-            console.log("SELECT SUM(value) as value FROM logbook WHERE week=" + yesterWeek + " and year=" + yesterYear + " and activity=" + str_activity)
+            //console.log("SELECT SUM(value) as value FROM logbook WHERE week=" + yesterWeek + " and year=" + yesterYear + " and activity=" + str_activity)
             var rsMaxWeek = tx.executeSql('select max(weektotal) as max from (select activity, sum(value) as weektotal from logbook where activity=? group by year, week);', [str_activity]);
             var rsThisWeek = tx.executeSql('SELECT SUM(value) as value FROM logbook WHERE week=? and year=? and activity=?;', [ selectedDateWeek, selectedDateYear, str_activity]);
-            console.log("SELECT SUM(value) as value FROM logbook WHERE week=" + selectedDateWeek + " and year=" + selectedDateYear + " and activity=" + str_activity)
+            //console.log("SELECT SUM(value) as value FROM logbook WHERE week=" + selectedDateWeek + " and year=" + selectedDateYear + " and activity=" + str_activity)
 
             if (rsThisWeek.rows.length>0){
                 str_thisWeek = rsThisWeek.rows.item(0).value ? rsThisWeek.rows.item(0).value : 0
@@ -276,7 +276,7 @@ function getDataViewWeekModel(){
                 str_maxWeek = 0
             }
 
-            console.log("name:" + str_activity + ", maxweek:" + str_maxWeek + ", thisweek:" + str_thisWeek + ", yesterweek:" + str_yesterWeek)
+            //console.log("name:" + str_activity + ", maxweek:" + str_maxWeek + ", thisweek:" + str_thisWeek + ", yesterweek:" + str_yesterWeek)
             dataViewWeeksModel.push({"name":str_activity, "maxweek":str_maxWeek, "thisweek":str_thisWeek, "yesterweek":str_yesterWeek})
         }
     });
@@ -335,7 +335,7 @@ function getDataViewMonthModel(){
             }else{
                 str_maxMonth = 0
             }
-            console.log("name:" + str_activity + ", maxmonth:" + str_maxMonth + ", thismonth:" + str_thisMonth + ", yestermonth:" + str_yesterMonth)
+            //console.log("name:" + str_activity + ", maxmonth:" + str_maxMonth + ", thismonth:" + str_thisMonth + ", yestermonth:" + str_yesterMonth)
             dataViewMonthsModel.push({"name":str_activity, "maxmonth":str_maxMonth, "thismonth":str_thisMonth, "yestermonth":str_yesterMonth})
 
         }
@@ -344,16 +344,48 @@ function getDataViewMonthModel(){
     return dataViewMonthsModel
 }
 function getDataViewYearModel(){
-    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Swimming", "max":"14", "today":"14", "yesterday":"14"})
-    dataViewYearsModel.push({"name":"Running", "max":"14", "today":"14", "yesterday":"14"})
+    var str_activity = ""
+    var str_maxYear = ""
+    var str_thisYear = ""
+    var str_yesterYear = ""
+
+    dataViewYearsModel = [];
+    openDB()
+    var res = ""
+
+    if (selectedDateYear == "") selectedDateYear = today.getFullYear()
+
+    var yesterYear = selectedDateYear - 1
+
+    db.transaction(function(tx) {
+        var rsActivitites = tx.executeSql('SELECT * FROM activities');
+        for(x=0;x<rsActivitites.rows.length;x++){
+            str_activity = rsActivitites.rows.item(x).activity
+
+            var rsYesterYear = tx.executeSql('SELECT SUM(value) as value FROM logbook WHERE year=? and activity=?;', [yesterYear, str_activity]);
+            var rsMaxYear = tx.executeSql('select max(yeartotal) as max from (select activity, sum(value) as yeartotal from logbook where activity=? group by year);', [str_activity]);
+            var rsThisYear = tx.executeSql('SELECT SUM(value) as value FROM logbook WHERE year=? and activity=?;', [selectedDateYear, str_activity]);
+
+            if (rsThisYear.rows.length>0){
+                str_thisYear = rsThisYear.rows.item(0).value ? rsThisYear.rows.item(0).value : 0
+            }else{
+                str_thisYear = 0
+            }
+            if (rsYesterYear.rows.length>0){
+                str_yesterYear = rsYesterYear.rows.item(0).value ? rsYesterYear.rows.item(0).value : 0
+            }else{
+                str_yesterYear = 0
+            }
+            if (rsMaxYear.rows.length>0){
+                str_maxYear = rsMaxYear.rows.item(0).max ? rsMaxYear.rows.item(0).max : 0
+            }else{
+                str_maxYear = 0
+            }
+            //console.log("name:" + str_activity + ", maxyear:" + str_maxYear + ", thisyear:" + str_thisYear + ", yesteryear:" + str_yesterYear)
+            dataViewYearsModel.push({"name":str_activity, "maxyear":str_maxYear, "thisyear":str_thisYear, "yesteryear":str_yesterYear})
+        }
+    });
+
     return dataViewYearsModel
 }
 
@@ -459,7 +491,7 @@ function getMonthNumber(monthName){
 function getSliderHundred(munique){
 
     openDB()
-    var res = "nothing found."
+    var res = 0
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
         if (rs.rows.length > 0) {
@@ -482,7 +514,7 @@ function getSliderHundred(munique){
 function getSliderTen(munique){
 
     openDB()
-    var res = "nothing found."
+    var res = 0
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
         if (rs.rows.length > 0) {
@@ -512,7 +544,7 @@ function getSliderTen(munique){
 function getSliderOne(munique){
     //console.log("munique" + munique)
     openDB()
-    var res = "nothing found."
+    var res = 0
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
         if (rs.rows.length > 0) {
@@ -547,7 +579,7 @@ function getSliderOne(munique){
 function getSliderDecimal(munique){
 
     openDB()
-    var res = "nothing found."
+    var res = 0
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
         if (rs.rows.length > 0) {

@@ -11,17 +11,16 @@ Rectangle{
     width: parent.width - 10
 
     property real milesDone: {
+
         if (sldDecimal.value > 0)  {
             sldHundred.value + sldTen.value + sldOne.value + (sldDecimal.value / 10)
         }else{
             sldHundred.value + sldTen.value + sldOne.value
         }
-    }
-    signal reloadSliders
-    onReloadSliders: {
 
-        sldcompday.reloadMeSliders()
     }
+
+
     Image{
         id:btnBack
         source:"images/back_arrow.png"
@@ -144,10 +143,6 @@ Rectangle{
             width: parent.width
             height: 75
             opacity: sliderDayVisible
-            function reloadMeSliders(){
-                console.log("reload here?")
-                reLoadSliders()
-            }
         }
         Rectangle{
             id:spaceman2
@@ -163,12 +158,14 @@ Rectangle{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-//                  //save the slider values with date for the activity
+
+                    //save the slider values with date for the activity
                     selectedSliderValue = parseInt(sldHundred.value) + parseInt(sldTen.value) + parseInt(sldOne.value)
                     selectedSliderValue += "." + sldDecimal.value
                     //console.log(selectedSliderValue + "<-------------")
                     DB.saveLogBookEntry(selectedDateDay, selectedDateWeek, selectedDateMonth, selectedDateYear, selectedActivity, selectedSliderValue)
                     //console.log(txtActivity.text + ":" + selectedDate + ":" + sldHundred.value + sldTen.value + sldOne.value + sldDecimal.value)
+                    reloadSlidersFE()
                 }
             }
             ShaderEffectSource {
@@ -194,7 +191,7 @@ Rectangle{
         standardButtons: StandardButton.Yes | StandardButton.No
         onYes: {
             console.log("deleting " + selectedActivity)
-//            //delete the item here
+            //            //delete the item here
             DB.deleteActivity(selectedActivity)
             deletedActivity = selectedActivity
             main.deleteActivity();
