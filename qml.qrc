@@ -54,5 +54,6 @@
         <file>images/help_calendar.png</file>
         <file>images/help_sliders.png</file>
         <file>images/help_buttons.png</file>
+        <file>images/btnToolBar_about.png</file>
     </qresource>
 </RCC>

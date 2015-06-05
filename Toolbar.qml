@@ -102,7 +102,7 @@ Item {
         }
         Image {
             id: btnToolBar3
-            source: "images/btnToolBar_settings.png"
+            source: "images/btnToolBar_about.png"
             opacity: 1
             MouseArea{
                 anchors.fill: parent
