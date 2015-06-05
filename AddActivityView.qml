@@ -75,15 +75,15 @@ Rectangle{
         ColorOverlay {
             anchors.fill: btnAddActivity
             source: btnAddActivity
-            color: "Green"
-            opacity: 0.5
+            color: staticClrGreen
+            opacity: staticOpacity
         }
     }
     ColorOverlay {
         anchors.fill: btnBack
         source: btnBack
-        color: "Orange"
-        opacity: 0.5
+        color: staticClrYellow
+        opacity: staticOpacity
     }
 }
 

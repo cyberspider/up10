@@ -50,14 +50,14 @@ Rectangle{
         anchors.fill: btnBack
         source: btnBack
         color: staticClrYellow
-        opacity: 0.95
+        opacity: staticOpacity
 
     }
     ColorOverlay {
         anchors.fill: btnDelete
         source: btnDelete
         color: staticClrRed
-        opacity: 0.95
+        opacity: staticOpacity
     }
     Column{
         id:logviewdetailcolumn
@@ -176,18 +176,17 @@ Rectangle{
                     reloadSlidersFE()
                 }
             }
-            ShaderEffectSource {
-                id:buf1;
-                recursive:true;
-                sourceItem: btnAddActivity;
-            }
+//            ShaderEffectSource {
+//                id:buf1;
+//                recursive:true;
+//                sourceItem: btnAddActivity;
+//            }
             ColorOverlay {
                 id:clroverlay
                 anchors.fill: btnAddActivity
-                color: staticClrGreen
-                opacity: 0.95
-                source: buf1
-                //property variant src: buf1;
+                color: staticClrBlue
+                opacity: staticOpacity
+                source:  btnAddActivity//buf1
             }
         }
     }

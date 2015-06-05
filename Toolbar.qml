@@ -35,7 +35,7 @@ Item {
                 id:clroverlay1
                 anchors.fill: btnToolBar1
                 color: clrStats
-                opacity: 0.95
+                opacity: staticOpacity
                 source: buf1
 
             }
@@ -57,7 +57,7 @@ Item {
                 id:clroverlay2
                 anchors.fill: btnToolBar2
                 color: clrEdit
-                opacity: 0.95
+                opacity: staticOpacity
                 source: buf2
 
             }
@@ -79,7 +79,7 @@ Item {
                 id:clroverlay3
                 anchors.fill: btnToolBar3
                 color: clrSettings
-                opacity: 0.95
+                opacity: staticOpacity
                 source: buf3
 
             }
@@ -104,7 +104,7 @@ Item {
                 id:clroverlay4
                 anchors.fill: btnToolBar4
                 color: clrHelp
-                opacity: 0.95
+                opacity: staticOpacity
                 source: buf4
 
             }

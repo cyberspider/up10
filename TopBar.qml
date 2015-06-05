@@ -20,8 +20,8 @@ Rectangle{
     ColorOverlay {
         anchors.fill: btnAdd
         source: btnAdd
-        color: "Green"
-        opacity: 0.5
+        color: staticClrGreen
+        opacity: staticOpacity
     }
 
 }

@@ -31,10 +31,11 @@ ApplicationWindow {
     property string selectedSliderValue: ""
     property int graphBarWidth: Screen.width / 1.61803398875 // Golden Ratio - why not
 
-    property string staticClrBlue: "#54a9ed" //blue
-    property string staticClrGreen: "#7ded53" //green
-    property string staticClrYellow: "#ed5353" //yellow
-    property string staticClrRed: "#e1ed53" //"Red"
+    property string staticClrBlue: "#3782bf"
+    property string staticClrGreen: "#54bf36"
+    property string staticClrRed: "#bf3636"
+    property string staticClrYellow: "#bbbf36"
+    property real staticOpacity: 0.95
 
     property int sldHund_i: 0
     property int sldTen_i:0
@@ -240,7 +241,7 @@ ApplicationWindow {
                         clrStats = "White"
                         clrEdit = "White"
                         clrHelp = "White"
-                        clrSettings = staticClrYellow
+                        clrSettings = staticClrRed
                     }
                 }
                 PropertyChanges {
@@ -269,7 +270,7 @@ ApplicationWindow {
                     script: {
                         clrStats = "White"
                         clrEdit = "White"
-                        clrHelp = staticClrBlue
+                        clrHelp = staticClrYellow
                         clrSettings = "White"
                     }
                 }
