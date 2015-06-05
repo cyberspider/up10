@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 
 Rectangle {
-    color: "lightgray"
+    color: clrBackground
     anchors.fill: parent
     opacity: 0
     VisualItemModel {
@@ -11,34 +11,37 @@ Rectangle {
         Rectangle {
             width: view.width; height: view.height
             color: clrBackground
-            Text { text: "Help Page 1"; color: clrFont; font.bold: true; anchors.centerIn: parent }
-        }
-        Rectangle {
-            width: view.width; height: view.height
-            color: clrBackground
-            Text { text: "Help Page 2"; color: clrFont; font.bold: true; anchors.centerIn: parent }
-        }
-        Rectangle {
-            width: view.width; height: view.height
-            color: clrBackground
-            Text { text: "Help Page 3"; color: clrFont; font.bold: true; anchors.centerIn: parent }
-            Behavior on opacity { NumberAnimation {} }
-        }
-        Rectangle {
-            width: view.width; height: view.height
-            color: clrBackground
-
-            Flow{
+            Image {
+                id: imgbuttons1
+                source: "images/help_buttons.png"
                 anchors.centerIn: parent
-                anchors.fill: parent
-
-                Text {
-                    text: "Help Page 4. Close button here. Help needs 2b modal";
-                    color: clrFont
-                    clip: true
-                    font.bold: true;
-                    wrapMode: Text.WordWrap
-                }
+            }
+        }
+        Rectangle {
+            width: view.width; height: view.height
+            color: clrBackground
+            Image {
+                id: imgbuttons2
+                source: "images/help_dataView.png"
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            width: view.width; height: view.height
+            color: clrBackground
+            Image {
+                id: imgbuttons3
+                source: "images/help_calendar.png"
+                anchors.centerIn: parent
+            }
+        }
+        Rectangle {
+            width: view.width; height: view.height
+            color: clrBackground
+            Image {
+                id: imgbuttons4
+                source: "images/help_sliders.png"
+                anchors.centerIn: parent
             }
         }
     }

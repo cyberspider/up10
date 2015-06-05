@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Toolbar.qml</file>
-        <file>images/bg.png</file>
         <file>deployment.pri</file>
         <file>main.cpp</file>
         <file>qml.qrc</file>
@@ -51,5 +50,9 @@
         <file>images/btnToolBar_settings.png</file>
         <file>images/btnToolBar_stats.png</file>
         <file>images/btnToolBar_edit.png</file>
+        <file>images/help_dataView.png</file>
+        <file>images/help_calendar.png</file>
+        <file>images/help_sliders.png</file>
+        <file>images/help_buttons.png</file>
     </qresource>
 </RCC>
