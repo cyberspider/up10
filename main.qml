@@ -31,10 +31,20 @@ ApplicationWindow {
     property string selectedSliderValue: ""
     property int graphBarWidth: Screen.width / 1.61803398875 // Golden Ratio - why not
 
+    property string staticClrBlue: "#54a9ed" //blue
+    property string staticClrGreen: "#7ded53" //green
+    property string staticClrYellow: "#ed5353" //yellow
+    property string staticClrRed: "#e1ed53" //"Red"
+
     property int sldHund_i: 0
     property int sldTen_i:0
     property int sldOne_i: 0
     property int sldDec_i:0
+
+    property string clrStats: "White"
+    property string clrEdit: "White"
+    property string clrHelp: "White"
+    property string clrSettings: "White"
 
     signal addActivity()
     signal deleteActivity()
@@ -112,10 +122,19 @@ ApplicationWindow {
             id:settingsView
 
         }
-//contr
+        //contr
         states: [
             State {
                 name: "dataViewState"
+                StateChangeScript {
+                    name: "clrStats"
+                    script: {
+                        clrStats = staticClrBlue
+                        clrEdit = "White"
+                        clrHelp = "White"
+                        clrSettings = "White"
+                    }
+                }
                 PropertyChanges {
                     target: splash
                     opacity: 0
@@ -133,9 +152,19 @@ ApplicationWindow {
                     opacity: 1
                     z:1
                 }
+
             },
             State {
                 name: "logViewState"
+                StateChangeScript {
+                    name: "clrEdit"
+                    script: {
+                        clrStats = "White"
+                        clrEdit = staticClrGreen
+                        clrHelp = "White"
+                        clrSettings = "White"
+                    }
+                }
                 PropertyChanges {
                     target: splash
                     opacity: 0
@@ -155,9 +184,11 @@ ApplicationWindow {
                     z:1
                 }
 
+
             },
             State {
                 name: "logViewDetailState"
+
                 PropertyChanges {
                     target: splash
                     opacity: 0
@@ -180,6 +211,7 @@ ApplicationWindow {
             },
             State {
                 name: "addActivityViewState"
+
                 PropertyChanges {
                     target: splash
                     opacity: 0
@@ -198,9 +230,19 @@ ApplicationWindow {
                     opacity: 1
                     z:1
                 }
+
             },
             State {
                 name: "settingsViewState"
+                StateChangeScript {
+                    name: "clrSettings"
+                    script: {
+                        clrStats = "White"
+                        clrEdit = "White"
+                        clrHelp = "White"
+                        clrSettings = staticClrYellow
+                    }
+                }
                 PropertyChanges {
                     target: splash
                     opacity: 0
@@ -222,6 +264,15 @@ ApplicationWindow {
             },
             State {
                 name: "helpViewState"
+                StateChangeScript {
+                    name: "clrHelp"
+                    script: {
+                        clrStats = "White"
+                        clrEdit = "White"
+                        clrHelp = staticClrBlue
+                        clrSettings = "White"
+                    }
+                }
                 PropertyChanges {
                     target: splash
                     opacity: 0
@@ -240,19 +291,24 @@ ApplicationWindow {
                     opacity: 1
                     z:1
                 }
+
             }]
         transitions: [
             Transition {
-                NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration:500}
+                NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration:50}
+
+
             }
 
+
         ]
+
     }
     Item {
-//        Timer {
-//            interval: 3333; running: true; repeat: false
-//            onTriggered: topPanel.state = "dataViewState"
-//        }
+        //        Timer {
+        //            interval: 3333; running: true; repeat: false
+        //            onTriggered: topPanel.state = "dataViewState"
+        //        }
     }
     Toolbar{
         opacity: 0

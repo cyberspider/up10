@@ -62,7 +62,7 @@ Rectangle {
                             anchors.right:txtBoxes.right
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
-                            text: "This Month: " + thismonth
+                            text: "This: " + thismonth
                             color: clrFont
                         }
 
@@ -73,7 +73,7 @@ Rectangle {
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
                             color: clrFont
-                            text: "Prev. Month: " + yestermonth
+                            text: "Prev: " + yestermonth
                         }
                         Text{
                             id:txtMax

@@ -65,7 +65,7 @@ Rectangle {
                             anchors.right:txtBoxes.right
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
-                            text: "Today: " + today
+                            text: "This: " + today
                             color: clrFont
                         }
 
@@ -76,7 +76,7 @@ Rectangle {
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
                             color: clrFont
-                            text: "Yesterday: " + yesterday
+                            text: "Prev: " + yesterday
                         }
                         Text{
                             id:txtMax

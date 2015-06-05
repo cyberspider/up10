@@ -49,15 +49,15 @@ Rectangle{
     ColorOverlay {
         anchors.fill: btnBack
         source: btnBack
-        color: "Orange"
-        opacity: 0.5
+        color: staticClrYellow
+        opacity: 0.95
 
     }
     ColorOverlay {
         anchors.fill: btnDelete
         source: btnDelete
-        color: "Red"
-        opacity: 0.5
+        color: staticClrRed
+        opacity: 0.95
     }
     Column{
         id:logviewdetailcolumn
@@ -184,8 +184,8 @@ Rectangle{
             ColorOverlay {
                 id:clroverlay
                 anchors.fill: btnAddActivity
-                color: "Green"
-                opacity: 0.5
+                color: staticClrGreen
+                opacity: 0.95
                 source: buf1
                 //property variant src: buf1;
             }

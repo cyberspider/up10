@@ -62,7 +62,7 @@ Rectangle {
                             anchors.right:txtBoxes.right
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
-                            text: "This Week: " + thisweek
+                            text: "This: " + thisweek
                             color: clrFont
                         }
 
@@ -73,7 +73,7 @@ Rectangle {
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
                             color: clrFont
-                            text: "Prev. Week: " + yesterweek
+                            text: "Prev: " + yesterweek
                         }
                         Text{
                             id:txtMax

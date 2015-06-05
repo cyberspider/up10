@@ -62,7 +62,7 @@ Rectangle {
                             anchors.right:txtBoxes.right
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
-                            text: "This Year: " + thisyear
+                            text: "This: " + thisyear
                             color: clrFont
                         }
 
@@ -73,7 +73,7 @@ Rectangle {
                             font.family: fntMyraidPro.name
                             font.pixelSize: 15
                             color: clrFont
-                            text: "Prev. Year: " + yesteryear
+                            text: "Prev: " + yesteryear
                         }
                         Text{
                             id:txtMax
