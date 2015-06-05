@@ -32,6 +32,7 @@ Rectangle{
             onClicked: {screen.state = ""}
         }
     }
+
     Image{
         id:btnDelete
         source:"images/delete.png"

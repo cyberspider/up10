@@ -240,11 +240,10 @@ ApplicationWindow {
                     opacity: 1
                     z:1
                 }
-
             }]
         transitions: [
             Transition {
-                NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration:1000}
+                NumberAnimation { property: "opacity"; easing.type: Easing.InOutQuad; duration:500}
             }
 
         ]

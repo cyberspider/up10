@@ -143,6 +143,7 @@ Rectangle{
                 }
             }
         }
+
         LogViewDetail{
             id:logViewDetail
             width:screen.width
@@ -151,6 +152,7 @@ Rectangle{
                 reloadSliders()
             }
         }
+
         AddActivityView{
             id:addActivityView
             width:screen.width

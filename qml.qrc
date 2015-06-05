@@ -47,5 +47,9 @@
         <file>DataViewWeeksModel.qml</file>
         <file>DataViewMonthsModel.qml</file>
         <file>DataViewYearsModel.qml</file>
+        <file>images/btnToolBar_question.png</file>
+        <file>images/btnToolBar_settings.png</file>
+        <file>images/btnToolBar_stats.png</file>
+        <file>images/btnToolBar_edit.png</file>
     </qresource>
 </RCC>
