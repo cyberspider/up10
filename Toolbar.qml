@@ -23,8 +23,21 @@ Item {
             source: "images/btnToolBar_stats.png"
             opacity: 1
             MouseArea{
-             anchors.fill: parent
-             onClicked: topPanel.state = "dataViewState"
+                id: mouseArea
+                anchors.fill: parent
+                onClicked: {
+
+                    topPanel.state = "dataViewState"
+
+                }
+//                states: State {
+//                    name: "pressed"; when: mouseArea.pressed
+//                    PropertyChanges { target: btnToolBar1; scale: 2.8 }
+//                }
+
+//                transitions: Transition {
+//                    NumberAnimation { properties: "scale"; duration: 10; easing.type: Easing.InOutQuad }
+//                }
             }
             ShaderEffectSource {
                 id:buf1;
@@ -45,8 +58,8 @@ Item {
             source: "images/btnToolBar_edit.png"
             opacity: 1
             MouseArea{
-             anchors.fill: parent
-             onClicked: topPanel.state = "logViewState"
+                anchors.fill: parent
+                onClicked: topPanel.state = "logViewState"
             }
             ShaderEffectSource {
                 id:buf2;
@@ -67,8 +80,8 @@ Item {
             source: "images/btnToolBar_settings.png"
             opacity: 1
             MouseArea{
-             anchors.fill: parent
-             onClicked: topPanel.state = "settingsViewState"
+                anchors.fill: parent
+                onClicked: topPanel.state = "settingsViewState"
             }
             ShaderEffectSource {
                 id:buf3;
@@ -89,11 +102,11 @@ Item {
             source: "images/btnToolBar_question.png"
             opacity: 1
             MouseArea{
-             anchors.fill: parent
-             onClicked: {
-                 topPanel.state = "helpViewState"
-                 //clrBackground = "#a90e1d"
-             }
+                anchors.fill: parent
+                onClicked: {
+                    topPanel.state = "helpViewState"
+                    //clrBackground = "#a90e1d"
+                }
             }
             ShaderEffectSource {
                 id:buf4;
