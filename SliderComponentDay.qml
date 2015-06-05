@@ -34,6 +34,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lvwDays.currentIndex = index
+
                     if (typeof dataViewDaysModel === "undefined"){}else{
                         dataViewDaysModel.clear()
                         dataViewDaysModel.append(DB.getDataViewDayModel())
@@ -51,11 +52,6 @@ Rectangle {
         highlight: dayhighlight
         orientation: Qt.Horizontal
         onCurrentItemChanged: {
-            sldHund_i = 0
-            sldDec_i = 0
-            sldOne_i = 0
-            sldTen_i = 0
-            console.log("set variables for sliders...")
             reLoadSliders()
         }
         highlightMoveDuration: 100
@@ -84,6 +80,11 @@ Rectangle {
     }
     signal reLoadSliders()
     onReLoadSliders: {
+        console.log("here?")
+        sldDec_i = 1
+        sldTen_i = 10
+        sldOne_i = 1
+        sldHund_i = 100
 
         selectedDateDay = lvwDays.model.get(lvwDays.currentIndex).day
         selectedDateMonth = lvwDays.model.get(lvwDays.currentIndex).month

@@ -22,7 +22,13 @@ Rectangle{
 
     signal reloadSliders
     onReloadSliders: {
+//        sldDec_i = 1
+//        sldTen_i = 10
+//        sldOne_i = 1
+//        sldHund_i = 100
+
         sldcompday.reloadMeSliders()
+
     }
     Image{
         id:btnBack
@@ -176,11 +182,11 @@ Rectangle{
                     reloadSlidersFE()
                 }
             }
-//            ShaderEffectSource {
-//                id:buf1;
-//                recursive:true;
-//                sourceItem: btnAddActivity;
-//            }
+            //            ShaderEffectSource {
+            //                id:buf1;
+            //                recursive:true;
+            //                sourceItem: btnAddActivity;
+            //            }
             ColorOverlay {
                 id:clroverlay
                 anchors.fill: btnAddActivity

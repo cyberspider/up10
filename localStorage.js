@@ -499,16 +499,20 @@ function getSliderHundred(munique){
         }else{
             res = 0
         }
+        console.log("res" + res)
+        console.log("sldHund_i" + sldHund_i)
     });
-    //console.log("getSliderHundred db says:" + res)
+    console.log("getSliderHundred db says:" + res)
     if (res > 99){
         var hundred = res.toString()
         hundred = hundred.substring(0, 1);
-        //console.log("returning:" + parseInt(hundred * 100))
-        return parseInt(hundred * 100)
-    }else{
-        //console.log("returning: 0")
-        return 0
+        sldHund_i = parseInt(hundred * 100)
+        console.log("getSliderHundred returning: " + sldHund_i)
+        return sldHund_i
+    }else{       
+        sldHund_i = 0
+        console.log("getSliderHundred returning: " + sldHund_i)
+        return sldHund_i
     }
 }
 function getSliderTen(munique){
