@@ -76,28 +76,6 @@ Item {
             }
         }
         Image {
-            id: btnToolBar3
-            source: "images/btnToolBar_settings.png"
-            opacity: 1
-            MouseArea{
-                anchors.fill: parent
-                onClicked: topPanel.state = "settingsViewState"
-            }
-            ShaderEffectSource {
-                id:buf3;
-                recursive:true;
-                sourceItem: btnToolBar3;
-            }
-            ColorOverlay {
-                id:clroverlay3
-                anchors.fill: btnToolBar3
-                color: clrSettings
-                opacity: staticOpacity
-                source: buf3
-
-            }
-        }
-        Image {
             id: btnToolBar4
             source: "images/btnToolBar_question.png"
             opacity: 1
@@ -119,6 +97,28 @@ Item {
                 color: clrHelp
                 opacity: staticOpacity
                 source: buf4
+
+            }
+        }
+        Image {
+            id: btnToolBar3
+            source: "images/btnToolBar_settings.png"
+            opacity: 1
+            MouseArea{
+                anchors.fill: parent
+                onClicked: topPanel.state = "settingsViewState"
+            }
+            ShaderEffectSource {
+                id:buf3;
+                recursive:true;
+                sourceItem: btnToolBar3;
+            }
+            ColorOverlay {
+                id:clroverlay3
+                anchors.fill: btnToolBar3
+                color: clrSettings
+                opacity: staticOpacity
+                source: buf3
 
             }
         }
