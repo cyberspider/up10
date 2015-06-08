@@ -1,5 +1,6 @@
 var db;
 var today = new Date();
+var startDate
 var daysModel = [];
 var weeksModel = [];
 var monthsModel = [];
@@ -12,17 +13,18 @@ var dataViewYearsModel = [];
 
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var slider1 = 0
+
 function openDB() {
-    console.debug("db:" + db)
+
     if(db !== undefined) return;
-    //console.debug("opening db")
+    console.debug("opening db cause db =" + db)
     // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
     db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
 
-
     if (!dbTablesCreated()){
-        //console.debug("setting up db#############")
+        console.debug("setting up DB.")
         setupDB()
+        //doInitialSettings()
     }
 
 }
@@ -30,7 +32,7 @@ function openDB() {
 function dbTablesCreated(){
 
     var res = 0
-    console.debug("res before:" + res)
+
     try {
         db.transaction(function(tx) {
             var rs = tx.executeSql('SELECT * FROM settings WHERE mkey=?;', ["TablesCreated"]);
@@ -41,12 +43,11 @@ function dbTablesCreated(){
                 res = 1
             }
         });
-
+        console.debug("dbTablesCreated:" + res)
         return res
     }catch(err){
         return res
     }
-
 }
 
 function setupDB(){
@@ -93,26 +94,25 @@ function setupDB(){
             //CREATE LOGBOOK TABLE
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
-            doInitialSettings()
         });
+
     } catch (err) {
         console.debug(errMsg + err);
     };
 }
 
 function doInitialSettings(){
-
-    var start = new Date(getSetting("Startdate"))
+    if (startDate === undefined) startDate = new Date(getSetting("Startdate"))
     var end = new Date();
     end.setDate(end.getDate() + 1);
 
-    // console.debug("building daysModel from:" + start + " to:" + end)
-    while(start < end){
+    // console.debug("building daysModel from:" + startDate + " to:" + end)
+    while(startDate < end){
         //console.debug("adding a day")
-        daysModel.push({"day": "" + start.getDate()  , "month": "" + months[start.getMonth()], "year": "" + start.getFullYear()})
+        daysModel.push({"day": "" + startDate.getDate()  , "month": "" + months[startDate.getMonth()], "year": "" + startDate.getFullYear()})
         //increment while loop
-        var newDate = start.setDate(start.getDate() + 1);
-        start = new Date(newDate);
+        var newDate = startDate.setDate(startDate.getDate() + 1);
+        startDate = new Date(newDate);
     }
     daysModel.reverse()
 }
@@ -147,7 +147,7 @@ function getWeeksModel(){
 
     if (weeksModel.length <=0){
 
-        var startDate = new Date(getSetting("Startdate"))
+        if (startDate === undefined) startDate = new Date(getSetting("Startdate"))
         var today = new Date()
         var fromWeek = getWeekNumber(startDate)
         var toWeek = getWeekNumber(today)
@@ -165,8 +165,8 @@ function getWeeksModel(){
 function getMonthsModel(){
 
     if (monthsModel.length <=0){
-        var startDate = new Date(getSetting("Startdate"))
-        var today = new Date()
+        if (startDate === undefined) startDate = new Date(getSetting("Startdate"))
+        //var today = new Date()
         var fromMonth = startDate.getMonth()//0 based
         var toMonth = today.getMonth()
         //check if year is NOT the same, then we start from January
@@ -183,7 +183,7 @@ function getMonthsModel(){
 
 function getYearsModel(){
     if (yearsModel.length <=0){
-        var startDate = new Date(getSetting("Startdate"))
+        if (startDate === undefined) startDate = new Date(getSetting("Startdate"))
         var today = new Date()
         var fromYear = startDate.getFullYear()
         var toYear = today.getFullYear()
@@ -460,11 +460,11 @@ function saveSetting(key, value) {
 
 function getSetting(key) {
     openDB();
-    //console.debug("attempting to get key:" + key)
+    console.debug("attempting to get key:" + key)
     var res = "nothing found."
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT mvalue FROM settings WHERE mkey=?;', [key]);
-        res = rs.rows.item(0).mvalue;
+        res = rs.rows.item(0).mvalue ? rs.rows.item(0).mvalue : today
 
     });
     //console.debug("getSetting:" + key + ":" + res)
