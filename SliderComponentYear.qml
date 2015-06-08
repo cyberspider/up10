@@ -51,7 +51,7 @@ Rectangle {
         Component.onCompleted: {
 
             positionViewAtBeginning()
-            //console.log("nothing happening here4")
+            //console.debug("nothing happening here4")
         }
     }
 

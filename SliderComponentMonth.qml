@@ -49,14 +49,14 @@ Rectangle {
         onCurrentItemChanged: {
             selectedDateMonth = DB.getMonthNumber(lvwDays.model.get(lvwDays.currentIndex).month)
             selectedDateYear = lvwDays.model.get(lvwDays.currentIndex).year
-            //console.log("month changed:" + selectedDateMonth)
+            //console.debug("month changed:" + selectedDateMonth)
             hideSplashScreen()
         }
         highlightMoveDuration: 100
         Component.onCompleted: {
 
             positionViewAtBeginning()
-            //console.log("nothing happening here2 <")
+            //console.debug("nothing happening here2 <")
 
         }
     }

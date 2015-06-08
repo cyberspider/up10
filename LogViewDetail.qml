@@ -154,7 +154,7 @@ Rectangle{
             height: 75
             opacity: sliderDayVisible
             function reloadMeSliders(){
-                console.log("reload here?")
+                console.debug("reload here?")
                 reLoadSliders()
             }
         }
@@ -176,9 +176,9 @@ Rectangle{
                     //save the slider values with date for the activity
                     selectedSliderValue = parseInt(sldHundred.value) + parseInt(sldTen.value) + parseInt(sldOne.value)
                     selectedSliderValue += "." + sldDecimal.value
-                    //console.log(selectedSliderValue + "<-------------")
+                    //console.debug(selectedSliderValue + "<-------------")
                     DB.saveLogBookEntry(selectedDateDay, selectedDateWeek, selectedDateMonth, selectedDateYear, selectedActivity, selectedSliderValue)
-                    //console.log(txtActivity.text + ":" + selectedDate + ":" + sldHundred.value + sldTen.value + sldOne.value + sldDecimal.value)
+                    //console.debug(txtActivity.text + ":" + selectedDate + ":" + sldHundred.value + sldTen.value + sldOne.value + sldDecimal.value)
                     reloadSlidersFE()
                 }
             }
@@ -203,7 +203,7 @@ Rectangle{
         text: "Are you sure you want to delete " + selectedActivity + " and all its data?"
         standardButtons: StandardButton.Yes | StandardButton.No
         onYes: {
-            console.log("deleting " + selectedActivity)
+            console.debug("deleting " + selectedActivity)
             //            //delete the item here
             DB.deleteActivity(selectedActivity)
             deletedActivity = selectedActivity
@@ -211,7 +211,7 @@ Rectangle{
             screen.state = ""
         }
 
-        onNo: {console.log("not deleting")}
+        onNo: {console.debug("not deleting")}
     }
 
 }

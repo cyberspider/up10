@@ -11,7 +11,7 @@ ListModel {
     onRefresh: {
         activityModel.clear()
         activityModel.append(DB.getActivityModel())
-        //console.log(activityModel)
+        //console.debug(activityModel)
     }
 }
 

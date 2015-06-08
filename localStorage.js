@@ -13,12 +13,39 @@ var dataViewYearsModel = [];
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var slider1 = 0
 function openDB() {
-
+    console.debug("db:" + db)
     if(db !== undefined) return;
-    //console.log("opening db")
+    //console.debug("opening db")
     // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
     db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
-    //setupDB()
+
+
+    if (!dbTablesCreated()){
+        //console.debug("setting up db#############")
+        setupDB()
+    }
+
+}
+
+function dbTablesCreated(){
+
+    var res = 0
+    console.debug("res before:" + res)
+    try {
+        db.transaction(function(tx) {
+            var rs = tx.executeSql('SELECT * FROM settings WHERE mkey=?;', ["TablesCreated"]);
+            if(rs.rows.length === 0){
+                //console.debug("we have NOTHING:" + rs.rows.count)
+            }else{
+                //console.debug("we have something:" + rs.rows.count)
+                res = 1
+            }
+        });
+
+        return res
+    }catch(err){
+        return res
+    }
 
 }
 
@@ -29,7 +56,9 @@ function setupDB(){
             //tx.executeSql('DROP TABLE activities');
             //tx.executeSql('DROP TABLE settings');
             //tx.executeSql('DROP TABLE logbook');
-            //tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
+
+            //CREATE ACTIVITIES TABLE
+            tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
             // Seed the table with default values
@@ -38,30 +67,33 @@ function setupDB(){
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Running", "km"]);
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Cycling", "km"]);
 
-                //console.log('Activities table added.');
+                //console.debug('Activities table added.');
             };
 
+            //CREATE SETTINGS TABLE
             tx.executeSql('CREATE TABLE IF NOT EXISTS settings(mkey TEXT, mvalue TEXT)');
             table = tx.executeSql('SELECT * from settings');
             if (table.rows.length === 0) {
+                tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["TablesCreated", "1"]);
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Use Metric System", "1"]);
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["TimePeriod", "2"]);
                 //First Run - set start date if not found
                 var strtdt = new Date(Date.now());
                 strtdt.setDate(1);
                 strtdt.setMonth(strtdt.getMonth()-1);
-                //console.log("startdate:" + strtdt)
+                //console.debug("startdate:" + strtdt)
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Startdate", strtdt]);
-                console.log('Settings table added');
+                console.debug('Settings table added');
 
             }
 
+            //CREATE LOGBOOK TABLE
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
             doInitialSettings()
         });
     } catch (err) {
-        console.log("Error creating table in database: " + err);
+        console.debug("Error creating table in database: " + err);
     };
 }
 
@@ -71,9 +103,9 @@ function doInitialSettings(){
     var end = new Date();
     end.setDate(end.getDate() + 1);
 
-    // console.log("building daysModel from:" + start + " to:" + end)
+    // console.debug("building daysModel from:" + start + " to:" + end)
     while(start < end){
-        //console.log("adding a day")
+        //console.debug("adding a day")
         daysModel.push({"day": "" + start.getDate()  , "month": "" + months[start.getMonth()], "year": "" + start.getFullYear()})
         //increment while loop
         var newDate = start.setDate(start.getDate() + 1);
@@ -86,7 +118,7 @@ function getActivityModel(){
     var initialActivity = ""
     var activities = []
     openDB();
-    //console.log("attempting to get model:")
+    //console.debug("attempting to get model:")
     db.transaction(function(tx) {
         //      tx.executeSql('Delete from activities;')
         var rs = tx.executeSql('SELECT activity, measurement FROM activities;')
@@ -118,7 +150,7 @@ function getWeeksModel(){
         var toWeek = getWeekNumber(today)
         //check if year is not the same, start from first week
         if (startDate.getFullYear() !== today.getFullYear()) fromWeek = 1
-        //console.log("weeks from:" + fromWeek + " to: " + toWeek)
+        //console.debug("weeks from:" + fromWeek + " to: " + toWeek)
         for (var x=parseInt(fromWeek);x <= parseInt(toWeek);x++){
             weeksModel.push({"week": x, "month":"Week", "year":today.getFullYear()})
         }
@@ -136,10 +168,10 @@ function getMonthsModel(){
         var toMonth = today.getMonth()
         //check if year is NOT the same, then we start from January
         if (startDate.getFullYear() !== today.getFullYear()) fromMonth = 1
-        //console.log("months from:" + fromMonth + " to: " + toMonth)
+        //console.debug("months from:" + fromMonth + " to: " + toMonth)
         for (var x=parseInt(fromMonth);x <= parseInt(toMonth);x++){
             monthsModel.push({"month":months[x], "year":today.getFullYear()})
-            //console.log(months[x])
+            //console.debug(months[x])
         }
     }
     monthsModel.reverse()
@@ -153,7 +185,7 @@ function getYearsModel(){
         var fromYear = startDate.getFullYear()
         var toYear = today.getFullYear()
         //check if year is NOT the same, then we start from January
-        //console.log("from YEAR:" + fromYear + "To YEAR:" + toYear)
+        //console.debug("from YEAR:" + fromYear + "To YEAR:" + toYear)
 
         for (var x=parseInt(fromYear);x <= parseInt(toYear);x++){
             yearsModel.push({"year":x})
@@ -185,8 +217,8 @@ function getDataViewDayModel(){
     var str_yestermonth = tmp_yesterday.getMonth()
     var str_yesteryear = tmp_yesterday.getFullYear()
 
-    //console.log("yesterday:" + str_yesterday + ",yestermonth:" + months[parseInt(str_yestermonth)] + ", yesteryear:" + str_yesteryear)
-    //console.log("getDataViewDayModel:::::selected day:" + selectedDateDay + "-" + selectedDateMonth + "-" + selectedDateYear)
+    //console.debug("yesterday:" + str_yesterday + ",yestermonth:" + months[parseInt(str_yestermonth)] + ", yesteryear:" + str_yesteryear)
+    //console.debug("getDataViewDayModel:::::selected day:" + selectedDateDay + "-" + selectedDateMonth + "-" + selectedDateYear)
 
     db.transaction(function(tx) {
         var rsActivitites = tx.executeSql('SELECT * FROM activities');
@@ -198,22 +230,22 @@ function getDataViewDayModel(){
             var rsToday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [selectedDateDay.toString(), selectedDateMonth.toString(), selectedDateYear.toString(), str_activity]);
 
             if (rsToday.rows.length>0){
-                str_today = rsToday.rows.item(0).value
+                str_today = rsToday.rows.item(0).value ? rsToday.rows.item(0).value : 0
             }else{
                 str_today = 0
             }
             if (rsYesterday.rows.length>0){
-                str_yesterday = rsYesterday.rows.item(0).value
+                str_yesterday = rsYesterday.rows.item(0).value ? rsYesterday.rows.item(0).value : 0
             }else{
                 str_yesterday = 0
             }
             if (rsMax.rows.length>0){
-                str_max = rsMax.rows.item(0).max
+                str_max = rsMax.rows.item(0).max ? rsMax.rows.item(0).max : 0
 
             }else{
                 str_max = 0
             }
-            //console.log("name" + str_activity +", max" + str_max + ", today" + str_today + ", yesterday" + str_yesterday)
+            //console.debug("name" + str_activity +", max" + str_max + ", today" + str_today + ", yesterday" + str_yesterday)
             dataViewDaysModel.push({"name": str_activity, "max":str_max, "today":str_today, "yesterday":str_yesterday})
 
         }
@@ -246,8 +278,8 @@ function getDataViewWeekModel(){
             i--
         }
     }
-    //console.log(yesterWeek)
-    //console.log(yesterYear)
+    //console.debug(yesterWeek)
+    //console.debug(yesterYear)
 
     db.transaction(function(tx) {
         var rsActivitites = tx.executeSql('SELECT * FROM activities');
@@ -255,10 +287,10 @@ function getDataViewWeekModel(){
             str_activity = rsActivitites.rows.item(x).activity
 
             var rsYesterWeek = tx.executeSql('SELECT SUM(value) as value FROM logbook WHERE week=? and year=? and activity=?;', [ yesterWeek, yesterYear, str_activity]);
-            //console.log("SELECT SUM(value) as value FROM logbook WHERE week=" + yesterWeek + " and year=" + yesterYear + " and activity=" + str_activity)
+            //console.debug("SELECT SUM(value) as value FROM logbook WHERE week=" + yesterWeek + " and year=" + yesterYear + " and activity=" + str_activity)
             var rsMaxWeek = tx.executeSql('select max(weektotal) as max from (select activity, sum(value) as weektotal from logbook where activity=? group by year, week);', [str_activity]);
             var rsThisWeek = tx.executeSql('SELECT SUM(value) as value FROM logbook WHERE week=? and year=? and activity=?;', [ selectedDateWeek, selectedDateYear, str_activity]);
-            //console.log("SELECT SUM(value) as value FROM logbook WHERE week=" + selectedDateWeek + " and year=" + selectedDateYear + " and activity=" + str_activity)
+            //console.debug("SELECT SUM(value) as value FROM logbook WHERE week=" + selectedDateWeek + " and year=" + selectedDateYear + " and activity=" + str_activity)
 
             if (rsThisWeek.rows.length>0){
                 str_thisWeek = rsThisWeek.rows.item(0).value ? rsThisWeek.rows.item(0).value : 0
@@ -276,7 +308,7 @@ function getDataViewWeekModel(){
                 str_maxWeek = 0
             }
 
-            //console.log("name:" + str_activity + ", maxweek:" + str_maxWeek + ", thisweek:" + str_thisWeek + ", yesterweek:" + str_yesterWeek)
+            //console.debug("name:" + str_activity + ", maxweek:" + str_maxWeek + ", thisweek:" + str_thisWeek + ", yesterweek:" + str_yesterWeek)
             dataViewWeeksModel.push({"name":str_activity, "maxweek":str_maxWeek, "thisweek":str_thisWeek, "yesterweek":str_yesterWeek})
         }
     });
@@ -335,7 +367,7 @@ function getDataViewMonthModel(){
             }else{
                 str_maxMonth = 0
             }
-            //console.log("name:" + str_activity + ", maxmonth:" + str_maxMonth + ", thismonth:" + str_thisMonth + ", yestermonth:" + str_yesterMonth)
+            //console.debug("name:" + str_activity + ", maxmonth:" + str_maxMonth + ", thismonth:" + str_thisMonth + ", yestermonth:" + str_yesterMonth)
             dataViewMonthsModel.push({"name":str_activity, "maxmonth":str_maxMonth, "thismonth":str_thisMonth, "yestermonth":str_yesterMonth})
 
         }
@@ -381,7 +413,7 @@ function getDataViewYearModel(){
             }else{
                 str_maxYear = 0
             }
-            //console.log("name:" + str_activity + ", maxyear:" + str_maxYear + ", thisyear:" + str_thisYear + ", yesteryear:" + str_yesterYear)
+            //console.debug("name:" + str_activity + ", maxyear:" + str_maxYear + ", thisyear:" + str_thisYear + ", yesteryear:" + str_yesterYear)
             dataViewYearsModel.push({"name":str_activity, "maxyear":str_maxYear, "thisyear":str_thisYear, "yesteryear":str_yesterYear})
         }
     });
@@ -391,18 +423,18 @@ function getDataViewYearModel(){
 
 function saveActivity(value, unit) {
     openDB();
-    //console.log("attempting to create value:" + value)
+    //console.debug("attempting to create value:" + value)
     if(value === "") {
-        //console.log("can't insert empty activity string")
+        //console.debug("can't insert empty activity string")
         return;
     }
     if(unit === "") {
-        //console.log("can't insert empty unit string")
+        //console.debug("can't insert empty unit string")
         return;
     }
     db.transaction( function(tx){
         var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?)', [value, unit]);
-        //console.log("inserted id:" + rs.insertId);
+        //console.debug("inserted id:" + rs.insertId);
 
     });
 }
@@ -411,7 +443,7 @@ function deleteActivity(value) {
 
     db.transaction( function(tx){
         tx.executeSql('Delete from activities where activity=?;', [value]);
-        //console.log("deleted:" + value);
+        //console.debug("deleted:" + value);
 
     });
 }
@@ -425,14 +457,14 @@ function saveSetting(key, value) {
 
 function getSetting(key) {
     openDB();
-    //console.log("attempting to get key:" + key)
+    //console.debug("attempting to get key:" + key)
     var res = "nothing found."
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT mvalue FROM settings WHERE mkey=?;', [key]);
         res = rs.rows.item(0).mvalue;
 
     });
-    //console.log("getSetting:" + key + ":" + res)
+    //console.debug("getSetting:" + key + ":" + res)
     return res;
 }
 
@@ -463,7 +495,7 @@ function getWeekNumber(d) {
     // Copy date so don't modify original
     d = new Date(+d);
     d.setHours(0,0,0);
-    //console.log("getWeekNumber:" + d)
+    //console.debug("getWeekNumber:" + d)
     // Set to nearest Thursday: current date + 4 - current day number
     // Make Sunday's day number 7
     d.setDate(d.getDate() + 4 - (d.getDay()||7));
@@ -485,7 +517,7 @@ function getMonthNumber(monthName){
             monthNo = x + 1 //array 0 based
         }
     }
-    //console.log("month returned:" + monthNo)
+    //console.debug("month returned:" + monthNo)
     return monthNo
 }
 function getSliderHundred(munique){
@@ -499,19 +531,19 @@ function getSliderHundred(munique){
         }else{
             res = 0
         }
-        console.log("res" + res)
-        console.log("sldHund_i" + sldHund_i)
+        //console.debug("res" + res)
+        //console.debug("sldHund_i" + sldHund_i)
     });
-    console.log("getSliderHundred db says:" + res)
+    //console.debug("getSliderHundred db says:" + res)
     if (res > 99){
         var hundred = res.toString()
         hundred = hundred.substring(0, 1);
         sldHund_i = parseInt(hundred * 100)
-        console.log("getSliderHundred returning: " + sldHund_i)
+        //console.debug("getSliderHundred returning: " + sldHund_i)
         return sldHund_i
-    }else{       
+    }else{
         sldHund_i = 0
-        console.log("getSliderHundred returning: " + sldHund_i)
+        //console.debug("getSliderHundred returning: " + sldHund_i)
         return sldHund_i
     }
 }
@@ -529,24 +561,24 @@ function getSliderTen(munique){
     });
     var ten = 0
 
-    //console.log("getSliderTen db says:" + res)
+    //console.debug("getSliderTen db says:" + res)
     if (res > 99){
         ten = res.toString()
         ten = ten.substring(1, 2);
-        //console.log("returning:" + parseInt(ten * 10))
+        //console.debug("returning:" + parseInt(ten * 10))
         return parseInt(ten * 10)
     }else if (res > 9){
         ten = res.toString()
         ten = ten.substring(0, 1);
-        //console.log("returning:" + parseInt(ten * 10))
+        //console.debug("returning:" + parseInt(ten * 10))
         return parseInt(ten * 10)
     }else{
-        //console.log("returning: 0")
+        //console.debug("returning: 0")
         return 0
     }
 }
 function getSliderOne(munique){
-    //console.log("munique" + munique)
+    //console.debug("munique" + munique)
     openDB()
     var res = 0
     db.transaction(function(tx) {
@@ -558,25 +590,25 @@ function getSliderOne(munique){
         }
     });
     var one = 0
-    //console.log("getsldone debugging:" + res)
-    //console.log("getSliderOne db says:" + res)
+    //console.debug("getsldone debugging:" + res)
+    //console.debug("getSliderOne db says:" + res)
     if (res > 99){
         one = res.toString()
         one = one.substring(2, 3);
-        //console.log("returning:" + parseInt(one))
+        //console.debug("returning:" + parseInt(one))
         return parseInt(one)
     }else if (res > 9){
         one = res.toString()
         one = one.substring(1, 2);
-        //console.log("returning:" + parseInt(one))
+        //console.debug("returning:" + parseInt(one))
         return parseInt(one)
     }else if (res > 0){
         one = res.toString()
         one = one.substring(0, 1);
-        //console.log("returning:" + parseInt(one))
+        //console.debug("returning:" + parseInt(one))
         return parseInt(one)
     }else{
-        //console.log("returning: 0")
+        //console.debug("returning: 0")
         return 0
     }
 }
@@ -595,14 +627,14 @@ function getSliderDecimal(munique){
     var deci = 0
     var decicheck = Math.floor(res)
 
-    //console.log("decimal debugging:" + res)
+    //console.debug("decimal debugging:" + res)
 
     if (res - decicheck == 0){
-        //console.log("dezicheck 0")
+        //console.debug("dezicheck 0")
         return 0
     }else{
-        //console.log("remainder:" + res + "-" + decicheck + "=" + (res -decicheck).toFixed(1) * 10)
-        //console.log("remainder:" + res + "-" + decicheck + "=" + parseFloat((res -decicheck)).toFixed(1))
+        //console.debug("remainder:" + res + "-" + decicheck + "=" + (res -decicheck).toFixed(1) * 10)
+        //console.debug("remainder:" + res + "-" + decicheck + "=" + parseFloat((res -decicheck)).toFixed(1))
 
         return (res -decicheck).toFixed(1) * 10
     }
@@ -620,7 +652,7 @@ function saveLogBookEntry(day, week, month, year, activity, value) {
 
     db.transaction( function(tx){
         var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?, ?)', [munique.toString(), day, week, month, year, activity, value]);
-        //console.log("inserted log entry:" + rs.insertId);
+        //console.debug("inserted log entry:" + rs.insertId);
 
     });
 
@@ -630,7 +662,7 @@ function saveLogBookEntry(day, week, month, year, activity, value) {
 
         for(var i = 0; i < rs.rows.length; i++) {
             //activities.push({"activityName": "" + rs.rows.item(i).activity , "activityUnit": "" + rs.rows.item(i).measurement + ""})
-            //console.log("items in db:" + rs.rows.item(i).mid + "-" + rs.rows.item(i).day + "-" + rs.rows.item(i).week + "-" + rs.rows.item(i).month + "-" + rs.rows.item(i).year + "-" + rs.rows.item(i).activity + "-" + rs.rows.item(i).value)
+            //console.debug("items in db:" + rs.rows.item(i).mid + "-" + rs.rows.item(i).day + "-" + rs.rows.item(i).week + "-" + rs.rows.item(i).month + "-" + rs.rows.item(i).year + "-" + rs.rows.item(i).activity + "-" + rs.rows.item(i).value)
         }
     });
 }

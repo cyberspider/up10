@@ -43,19 +43,19 @@ Rectangle {
 
             var mindex = view.currentIndex
             if(mindex == 0){
-                console.log("moving week to start")
+                //console.debug("moving week to start")
                 dataViewDay.showView()
                 dataViewWeek.hideView()
             }else if(mindex == 1){
-                console.log("moving month to week")
+                //console.debug("moving month to week")
                 dataViewWeek.showView()
                 dataViewMonth.hideView()
             }else if(mindex == 2){
-                console.log("moving year to start")
+                //console.debug("moving year to start")
                 dataViewMonth.showView()
                 dataViewYear.hideView()
             }else{
-                console.log("here we hide them from else")
+                //console.debug("here we hide them from else")
                 dataViewYear.showView()
             }
         }

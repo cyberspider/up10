@@ -80,7 +80,7 @@ Rectangle {
     }
     signal reLoadSliders()
     onReLoadSliders: {
-        console.log("here?")
+        //console.debug("here?")
         sldDec_i = 1
         sldTen_i = 10
         sldOne_i = 1
@@ -95,13 +95,13 @@ Rectangle {
 
         var munique = (selectedDateDay + selectedDateMonth + selectedDateYear).toString()
         munique += selectedActivity.toString().toUpperCase()
-        //console.log("munique:" + munique)
+        //console.debug("munique:" + munique)
 
         sldHund_i = DB.getSliderHundred(munique)
         sldTen_i = DB.getSliderTen(munique)
         sldOne_i = DB.getSliderOne(munique)
         sldDec_i = DB.getSliderDecimal(munique)
-        console.log(sldHund_i + "-" + sldTen_i + "-" + sldOne_i + "-" + sldDec_i)
+        //console.debug(sldHund_i + "-" + sldTen_i + "-" + sldOne_i + "-" + sldDec_i)
         var selectedYesterDateDay = 0
         var selectedYesterDateMonth = 0
         var selectedYesterDateYear = 2012
@@ -117,7 +117,7 @@ Rectangle {
 
         var muniqueYesterday = (selectedYesterDateDay + selectedYesterDateMonth + selectedYesterDateYear).toString()
         muniqueYesterday += selectedActivity.toString().toUpperCase()
-        //console.log(muniqueYesterday)
+        //console.debug(muniqueYesterday)
 
     }
 
