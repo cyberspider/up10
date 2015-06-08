@@ -50,6 +50,7 @@ function dbTablesCreated(){
 }
 
 function setupDB(){
+    var errMsg = "Error setting up DB - activities: "
     try {
         db.transaction(function(tx){
             //Create tables first
@@ -71,6 +72,7 @@ function setupDB(){
             };
 
             //CREATE SETTINGS TABLE
+            errMsg = "Error setting up DB - settings: "
             tx.executeSql('CREATE TABLE IF NOT EXISTS settings(mkey TEXT, mvalue TEXT)');
             table = tx.executeSql('SELECT * from settings');
             if (table.rows.length === 0) {
@@ -87,13 +89,14 @@ function setupDB(){
 
             }
 
+            errMsg = "Error setting up DB - logbook: "
             //CREATE LOGBOOK TABLE
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
 
             doInitialSettings()
         });
     } catch (err) {
-        console.debug("Error creating table in database: " + err);
+        console.debug(errMsg + err);
     };
 }
 
