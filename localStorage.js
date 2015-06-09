@@ -35,7 +35,7 @@ function openDB() {
 
         if(db !== undefined) return;
         // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
-        db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
+        db = LocalStorage.openDatabaseSync("Up10v2", "0.1", "Simple Up10 app", 100000);
 
         errMsg = "Error setting up DB - activities: "
         db.transaction(function(tx){
@@ -45,7 +45,7 @@ function openDB() {
             tx.executeSql('CREATE TABLE IF NOT EXISTS activities (activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
-            console.debug("activities.rows.length" + table.rows.length)
+            console.debug("activities.rows.length: " + table.rows.length)
             // Seed the table with default values
             if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Swimming", "laps"]);
@@ -59,7 +59,7 @@ function openDB() {
             errMsg = "Error setting up DB - settings: "
             tx.executeSql('CREATE TABLE IF NOT EXISTS settings (mkey TEXT, mvalue TEXT)');
             table = tx.executeSql('SELECT * from settings');
-            cconsole.debug("settings.rows.length" + table.rows.length)
+            console.debug("settings.rows.length: " + table.rows.length)
             if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["TablesCreated", "1"]);
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Use Metric System", "1"]);
@@ -70,10 +70,8 @@ function openDB() {
                 strtdt.setMonth(strtdt.getMonth()-1);
                 //console.debug("startdate:" + strtdt)
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Startdate", strtdt]);
-                console.debug('Settings table added');
-
+                console.debug('Settings table added')
             }
-
             errMsg = "Error setting up DB - logbook: "
             //CREATE LOGBOOK TABLE
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook (mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
@@ -182,6 +180,12 @@ function getYearsModel(){
     return yearsModel;
 }
 
+function roundedToFixed(_float, _digits){
+  _float = parseFloat(_float)
+  var rounder = Math.pow(10, _digits);
+  return (Math.round(_float * rounder) / rounder).toFixed(_digits);
+}
+
 function getDataViewDayModel(){
     var str_activity = ""
     var str_max = ""
@@ -231,6 +235,10 @@ function getDataViewDayModel(){
             }else{
                 str_max = 0
             }
+
+            str_today = roundedToFixed(str_today, 1)
+            str_yesterday = roundedToFixed(str_yesterday, 1)
+            str_max = roundedToFixed(str_max, 1)
             //console.debug("name" + str_activity +", max" + str_max + ", today" + str_today + ", yesterday" + str_yesterday)
             dataViewDaysModel.push({"name": str_activity, "max":str_max, "today":str_today, "yesterday":str_yesterday})
 
@@ -295,6 +303,10 @@ function getDataViewWeekModel(){
                 str_maxWeek = 0
             }
 
+            str_thisWeek = roundedToFixed(str_thisWeek, 1)
+            str_yesterWeek = roundedToFixed(str_yesterWeek, 1)
+            str_maxWeek = roundedToFixed(str_maxWeek, 1)
+
             //console.debug("name:" + str_activity + ", maxweek:" + str_maxWeek + ", thisweek:" + str_thisWeek + ", yesterweek:" + str_yesterWeek)
             dataViewWeeksModel.push({"name":str_activity, "maxweek":str_maxWeek, "thisweek":str_thisWeek, "yesterweek":str_yesterWeek})
         }
@@ -354,6 +366,11 @@ function getDataViewMonthModel(){
             }else{
                 str_maxMonth = 0
             }
+
+            str_thisMonth = roundedToFixed(str_thisMonth, 1)
+            str_yesterMonth = roundedToFixed(str_yesterMonth, 1)
+            str_maxMonth = roundedToFixed(str_maxMonth, 1)
+
             //console.debug("name:" + str_activity + ", maxmonth:" + str_maxMonth + ", thismonth:" + str_thisMonth + ", yestermonth:" + str_yesterMonth)
             dataViewMonthsModel.push({"name":str_activity, "maxmonth":str_maxMonth, "thismonth":str_thisMonth, "yestermonth":str_yesterMonth})
 
@@ -400,6 +417,11 @@ function getDataViewYearModel(){
             }else{
                 str_maxYear = 0
             }
+
+            str_thisYear = roundedToFixed(str_thisYear, 1)
+            str_yesterYear = roundedToFixed(str_yesterYear, 1)
+            str_maxYear = roundedToFixed(str_maxYear, 1)
+
             //console.debug("name:" + str_activity + ", maxyear:" + str_maxYear + ", thisyear:" + str_thisYear + ", yesteryear:" + str_yesterYear)
             dataViewYearsModel.push({"name":str_activity, "maxyear":str_maxYear, "thisyear":str_thisYear, "yesteryear":str_yesterYear})
         }
@@ -574,7 +596,7 @@ function getSliderOne(munique){
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
         if (rs.rows.length > 0) {
-            res = rs.rows.item(0).value;
+            res = rs.rows.item(0).value
         }else{
             res = 0
         }
@@ -609,7 +631,7 @@ function getSliderDecimal(munique){
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT value FROM logbook WHERE mid=?;', [munique]);
         if (rs.rows.length > 0) {
-            res = rs.rows.item(0).value;
+            res = rs.rows.item(0).value
         }else{
             res = 0
         }
@@ -639,7 +661,8 @@ function saveLogBookEntry(day, week, month, year, activity, value) {
     db.transaction( function(tx){
         tx.executeSql('Delete from logbook where mid=?;', [munique]);
     });
-
+    console.debug("value we are saving: " + value)
+    console.debug("float value we are saving: " + parseFloat(value))
     db.transaction( function(tx){
         var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?, ?)', [munique.toString(), day, week, month, year, activity, value]);
         //console.debug("inserted log entry:" + rs.insertId);
