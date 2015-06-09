@@ -182,17 +182,18 @@ Rectangle{
                     reloadSlidersFE()
                 }
             }
-            //            ShaderEffectSource {
-            //                id:buf1;
-            //                recursive:true;
-            //                sourceItem: btnAddActivity;
-            //            }
+                        ShaderEffectSource {
+                            id:buf1;
+                            recursive:true;
+                            sourceItem: btnAddActivity;
+                        }
             ColorOverlay {
                 id:clroverlay
                 anchors.fill: btnAddActivity
                 color: staticClrBlue
                 opacity: staticOpacity
-                source:  btnAddActivity//buf1
+                source:  buf1
+
             }
         }
     }

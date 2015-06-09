@@ -21,14 +21,27 @@ function openDB() {
     // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
     db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
 
+
     if (!dbTablesCreated()){
         console.debug("setting up DB.")
         setupDB()
-        //doInitialSettings()
     }
 
 }
 
+function deleteTables(){
+    try {
+        db.transaction(function(tx) {
+            tx.executeSql('DROP TABLE activities');
+            tx.executeSql('DROP TABLE settings');
+            tx.executeSql('DROP TABLE logbook');
+        });
+        return
+    }catch(err){
+        console.debug("deleteTables error: " + err)
+        return
+    }
+}
 function dbTablesCreated(){
 
     var res = 0
@@ -46,6 +59,7 @@ function dbTablesCreated(){
         console.debug("dbTablesCreated:" + res)
         return res
     }catch(err){
+        console.debug("dbTablesCreated error: " + err + ":" + res)
         return res
     }
 }
@@ -55,9 +69,6 @@ function setupDB(){
     try {
         db.transaction(function(tx){
             //Create tables first
-            //tx.executeSql('DROP TABLE activities');
-            //tx.executeSql('DROP TABLE settings');
-            //tx.executeSql('DROP TABLE logbook');
 
             //CREATE ACTIVITIES TABLE
             tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
@@ -69,7 +80,7 @@ function setupDB(){
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Running", "km"]);
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Cycling", "km"]);
 
-                //console.debug('Activities table added.');
+                console.debug('Activities table added.');
             };
 
             //CREATE SETTINGS TABLE
@@ -93,7 +104,7 @@ function setupDB(){
             errMsg = "Error setting up DB - logbook: "
             //CREATE LOGBOOK TABLE
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
-
+            console.debug('Logbook table added');
         });
 
     } catch (err) {
@@ -166,7 +177,6 @@ function getMonthsModel(){
 
     if (monthsModel.length <=0){
         if (startDate === undefined) startDate = new Date(getSetting("Startdate"))
-        //var today = new Date()
         var fromMonth = startDate.getMonth()//0 based
         var toMonth = today.getMonth()
         //check if year is NOT the same, then we start from January
@@ -460,14 +470,14 @@ function saveSetting(key, value) {
 
 function getSetting(key) {
     openDB();
-    console.debug("attempting to get key:" + key)
+    //console.debug("attempting to get key:" + key)
     var res = "nothing found."
     db.transaction(function(tx) {
         var rs = tx.executeSql('SELECT mvalue FROM settings WHERE mkey=?;', [key]);
         res = rs.rows.item(0).mvalue ? rs.rows.item(0).mvalue : today
 
     });
-    //console.debug("getSetting:" + key + ":" + res)
+    console.debug("getSetting:" + key + ":" + res)
     return res;
 }
 

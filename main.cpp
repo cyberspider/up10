@@ -8,5 +8,6 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
+
     return app.exec();
 }
