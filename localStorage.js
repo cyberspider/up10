@@ -42,9 +42,10 @@ function openDB() {
             //Create tables first
 
             //CREATE ACTIVITIES TABLE
-            tx.executeSql('CREATE TABLE IF NOT EXISTS activities(activity varchar(50) UNIQUE, measurement TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS activities (activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
+            console.debug("activities.rows.length" + table.rows.length)
             // Seed the table with default values
             if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Swimming", "laps"]);
@@ -56,8 +57,9 @@ function openDB() {
 
             //CREATE SETTINGS TABLE
             errMsg = "Error setting up DB - settings: "
-            tx.executeSql('CREATE TABLE IF NOT EXISTS settings(mkey TEXT, mvalue TEXT)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS settings (mkey TEXT, mvalue TEXT)');
             table = tx.executeSql('SELECT * from settings');
+            cconsole.debug("settings.rows.length" + table.rows.length)
             if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["TablesCreated", "1"]);
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Use Metric System", "1"]);
@@ -74,7 +76,7 @@ function openDB() {
 
             errMsg = "Error setting up DB - logbook: "
             //CREATE LOGBOOK TABLE
-            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook(mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS logbook (mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
             console.debug('Logbook table added');
         });
 
@@ -267,6 +269,7 @@ function getDataViewWeekModel(){
 
     db.transaction(function(tx) {
         var rsActivitites = tx.executeSql('SELECT * FROM activities');
+        console.debug("rsActivitites.rows.length:" + rsActivitites.rows.length)
         for(x=0;x<rsActivitites.rows.length;x++){
             str_activity = rsActivitites.rows.item(x).activity
 
@@ -444,9 +447,12 @@ function getSetting(key) {
     //console.debug("attempting to get key:" + key)
     var res = "nothing found."
     db.transaction(function(tx) {
-        var rs = tx.executeSql('SELECT mvalue FROM settings WHERE mkey=?;', [key]);
-        res = rs.rows.item(0).mvalue ? rs.rows.item(0).mvalue : today
-
+        var rs = tx.executeSql('SELECT * FROM settings WHERE mkey=?;', [key]);
+        if (rs.rows.length > 0){
+            res = rs.rows.item(0).mvalue ? rs.rows.item(0).mvalue : today
+        }else{
+            res = today
+        }
     });
     console.debug("getSetting:" + key + ":" + res)
     return res;
