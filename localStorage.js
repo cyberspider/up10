@@ -14,21 +14,6 @@ var dataViewYearsModel = [];
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var slider1 = 0
 
-function openDB() {
-
-    if(db !== undefined) return;
-    console.debug("opening db cause db =" + db)
-    // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
-    db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
-
-
-    if (!dbTablesCreated()){
-        console.debug("setting up DB.")
-        setupDB()
-    }
-
-}
-
 function deleteTables(){
     try {
         db.transaction(function(tx) {
@@ -42,31 +27,17 @@ function deleteTables(){
         return
     }
 }
-function dbTablesCreated(){
 
-    var res = 0
+function openDB() {
 
+    var errMsg = "Error setting up DB - @ step 1 opening / creating DB"
     try {
-        db.transaction(function(tx) {
-            var rs = tx.executeSql('SELECT * FROM settings WHERE mkey=?;', ["TablesCreated"]);
-            if(rs.rows.length === 0){
-                //console.debug("we have NOTHING:" + rs.rows.count)
-            }else{
-                //console.debug("we have something:" + rs.rows.count)
-                res = 1
-            }
-        });
-        console.debug("dbTablesCreated:" + res)
-        return res
-    }catch(err){
-        console.debug("dbTablesCreated error: " + err + ":" + res)
-        return res
-    }
-}
 
-function setupDB(){
-    var errMsg = "Error setting up DB - activities: "
-    try {
+        if(db !== undefined) return;
+        // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
+        db = LocalStorage.openDatabaseSync("Up10v1", "0.1", "Simple Up10 app", 100000);
+
+        errMsg = "Error setting up DB - activities: "
         db.transaction(function(tx){
             //Create tables first
 
