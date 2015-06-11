@@ -32,7 +32,7 @@ Rectangle{
     }
     Image{
         id:btnBack
-        source:"images/back_arrow.png"
+        source: "images/new/btn_back.png" //"images/back_arrow.png"
         MouseArea{
             anchors.fill: parent
             onClicked: {screen.state = ""}
@@ -41,7 +41,7 @@ Rectangle{
 
     Image{
         id:btnDelete
-        source:"images/delete.png"
+        source:"images/new/btn_delete.png" //"images/delete.png"
         anchors.right: parent.right
         MouseArea{
             anchors.fill: parent
@@ -167,7 +167,7 @@ Rectangle{
 
         Image{
             id:btnAddActivity
-            source:"images/save.png"
+            source: "images/new/btn_save.png"//"images/save.png"
             anchors.right:parent.right
             MouseArea{
                 anchors.fill: parent
@@ -182,18 +182,11 @@ Rectangle{
                     reloadSlidersFE()
                 }
             }
-                        ShaderEffectSource {
-                            id:buf1;
-                            recursive:true;
-                            sourceItem: btnAddActivity;
-                        }
             ColorOverlay {
-                id:clroverlay
                 anchors.fill: btnAddActivity
+                source: btnAddActivity
                 color: staticClrBlue
                 opacity: staticOpacity
-                source:  buf1
-
             }
         }
     }

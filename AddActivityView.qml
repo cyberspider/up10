@@ -8,7 +8,7 @@ Rectangle{
     //anchors.horizontalCenter: parent.horizontalCenter
     Image{
         id:btnBack
-        source:"images/back_arrow.png"
+        source:"images/new/btn_back.png" //"images/back_arrow.png"
         MouseArea{
             anchors.fill: parent
             onClicked: {screen.state = ""}
@@ -58,7 +58,7 @@ Rectangle{
         Image{
             id:btnAddActivity
             anchors.top: txtItemUnit.bottom
-            source:"images/save.png"
+            source:"images/new/btn_save.png" //"images/save.png"
             anchors.right: parent.right
             MouseArea{
                 anchors.fill: parent
@@ -75,7 +75,7 @@ Rectangle{
         ColorOverlay {
             anchors.fill: btnAddActivity
             source: btnAddActivity
-            color: staticClrGreen
+            color: staticClrBlue
             opacity: staticOpacity
         }
     }

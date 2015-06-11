@@ -8,7 +8,7 @@ Rectangle{
 
     Image {
         id: btnAdd
-        source: "images/add.png"
+        source: "images/new/btn_add.png" //"images/add.png"
         anchors.right: parent.right
         MouseArea{
             anchors.fill: parent

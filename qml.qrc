@@ -17,18 +17,12 @@
         <file>DataView.qml</file>
         <file>images/rarrow.png</file>
         <file>images/item.png</file>
-        <file>images/add.png</file>
-        <file>images/back.png</file>
         <file>TopBar.qml</file>
-        <file>images/btnToolBar.png</file>
         <file>TextItem.qml</file>
         <file>images/txtBox.png</file>
         <file>localStorage.js</file>
         <file>ActivityModel.qml</file>
         <file>SliderComponentDay.qml</file>
-        <file>images/back_arrow.png</file>
-        <file>images/delete.png</file>
-        <file>images/save.png</file>
         <file>font/Myriad Pro Regular.ttf</file>
         <file>SliderComponentMonth.qml</file>
         <file>MonthsModel.qml</file>
@@ -46,14 +40,17 @@
         <file>DataViewWeeksModel.qml</file>
         <file>DataViewMonthsModel.qml</file>
         <file>DataViewYearsModel.qml</file>
-        <file>images/btnToolBar_question.png</file>
-        <file>images/btnToolBar_settings.png</file>
-        <file>images/btnToolBar_stats.png</file>
-        <file>images/btnToolBar_edit.png</file>
         <file>images/help_dataView.png</file>
         <file>images/help_calendar.png</file>
         <file>images/help_sliders.png</file>
         <file>images/help_buttons.png</file>
-        <file>images/btnToolBar_about.png</file>
+        <file>images/new/btn_add.png</file>
+        <file>images/new/btn_delete.png</file>
+        <file>images/new/btn_save.png</file>
+        <file>images/new/btn_back.png</file>
+        <file>images/new/mnubtn_more.png</file>
+        <file>images/new/mnubtn_help.png</file>
+        <file>images/new/mnubtn_edit.png</file>
+        <file>images/new/mnubtn_stats.png</file>
     </qresource>
 </RCC>

@@ -20,7 +20,7 @@ Item {
         spacing: (parent.width / 4) - 77
         Image {
             id: btnToolBar1
-            source: "images/btnToolBar_stats.png"
+            source: "images/new/mnubtn_stats.png"
             opacity: 1
             MouseArea{
                 id: mouseArea
@@ -55,7 +55,7 @@ Item {
         }
         Image {
             id: btnToolBar2
-            source: "images/btnToolBar_edit.png"
+            source: "images/new/mnubtn_edit.png"
             opacity: 1
             MouseArea{
                 anchors.fill: parent
@@ -77,7 +77,7 @@ Item {
         }
         Image {
             id: btnToolBar4
-            source: "images/btnToolBar_question.png"
+            source: "images/new/mnubtn_help.png"
             opacity: 1
             MouseArea{
                 anchors.fill: parent
@@ -102,7 +102,7 @@ Item {
         }
         Image {
             id: btnToolBar3
-            source: "images/btnToolBar_about.png"
+            source: "images/new/mnubtn_more.png"
             opacity: 1
             MouseArea{
                 anchors.fill: parent
