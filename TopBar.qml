@@ -17,17 +17,20 @@ Rectangle{
                 screen.state = "stateActivityAdd"
             }
         }
+        ColorOverlay {
+            anchors.fill: btnAdd
+            source: btnAdd
+            color: staticClrGreen
+            opacity: staticOpacity
+
+        }
+        ShaderEffectSource {
+            id:buf1;
+            recursive:true;
+            sourceItem: btnAdd;
+        }
     }
 
-    ColorOverlay {
-        anchors.fill: btnAdd
-        source: buf1
-        color: staticClrGreen
-        opacity: staticOpacity
-    }
-    ShaderEffectSource {
-        id:buf1;
-        recursive:true;
-        sourceItem: btnAdd;
-    }
+
+
 }

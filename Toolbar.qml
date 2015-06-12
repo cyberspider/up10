@@ -22,7 +22,8 @@ Item {
         Image {
             id: btnToolBar1
             source: "images/new/mnubtn_stats.png"
-            opacity: 1
+            smooth: true
+            opacity: staticOpacity
             MouseArea{
                 id: mouseArea
                 anchors.fill: parent
@@ -57,7 +58,8 @@ Item {
         Image {
             id: btnToolBar2
             source: "images/new/mnubtn_edit.png"
-            opacity: 1
+            smooth: true
+            opacity: staticOpacity
             MouseArea{
                 anchors.fill: parent
                 onClicked: topPanel.state = "logViewState"
@@ -78,8 +80,9 @@ Item {
         }
         Image {
             id: btnToolBar4
+            smooth: true
             source: "images/new/mnubtn_help.png"
-            opacity: 1
+            opacity: staticOpacity
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
@@ -103,8 +106,9 @@ Item {
         }
         Image {
             id: btnToolBar3
+            smooth: true
             source: "images/new/mnubtn_more.png"
-            opacity: 1
+            opacity: staticOpacity
             MouseArea{
                 anchors.fill: parent
                 onClicked: topPanel.state = "settingsViewState"

@@ -209,7 +209,7 @@ Rectangle{
         text: "Are you sure you want to delete " + selectedActivity + " and all its data?"
         standardButtons: StandardButton.Yes | StandardButton.No
         onYes: {
-            console.debug("deleting " + selectedActivity)
+            //console.debug("deleting " + selectedActivity)
             //            //delete the item here
             DB.deleteActivity(selectedActivity)
             deletedActivity = selectedActivity
@@ -217,7 +217,9 @@ Rectangle{
             screen.state = ""
         }
 
-        onNo: {console.debug("not deleting")}
+        onNo: {
+            //console.debug("not deleting")
+        }
     }
 
 }
