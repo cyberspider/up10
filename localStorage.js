@@ -34,6 +34,7 @@ function openDB() {
     try {
 
         if(db !== undefined) return;
+
         // db = LocalStorage.openDatabaseSync(identifier, version, description, estimated_size, callback(db))
         db = LocalStorage.openDatabaseSync("Up10v2", "0.1", "Simple Up10 app", 100000);
 
@@ -45,7 +46,7 @@ function openDB() {
             tx.executeSql('CREATE TABLE IF NOT EXISTS activities (activity varchar(50) UNIQUE, measurement TEXT)');
             //measurement can be D - Distance, T - Time, R - Reps
             var table  = tx.executeSql("SELECT * FROM activities");
-            console.debug("activities.rows.length: " + table.rows.length)
+
             // Seed the table with default values
             if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO activities VALUES(?, ?)', ["Swimming", "laps"]);
@@ -59,7 +60,7 @@ function openDB() {
             errMsg = "Error setting up DB - settings: "
             tx.executeSql('CREATE TABLE IF NOT EXISTS settings (mkey TEXT, mvalue TEXT)');
             table = tx.executeSql('SELECT * from settings');
-            console.debug("settings.rows.length: " + table.rows.length)
+            //console.debug("settings.rows.length: " + table.rows.length)
             if (table.rows.length === 0) {
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["TablesCreated", "1"]);
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Use Metric System", "1"]);
@@ -72,10 +73,11 @@ function openDB() {
                 tx.executeSql('INSERT INTO settings VALUES(?, ?)', ["Startdate", strtdt]);
                 console.debug('Settings table added')
             }
+
             errMsg = "Error setting up DB - logbook: "
             //CREATE LOGBOOK TABLE
             tx.executeSql('CREATE TABLE IF NOT EXISTS logbook (mid TEXT, day NUMERIC, week NUMERIC, month NUMERIC, year NUMERIC, activity TEXT, value NUMERIC)');
-            console.debug('Logbook table added');
+
         });
 
     } catch (err) {
@@ -181,51 +183,56 @@ function getYearsModel(){
 }
 
 function roundedToFixed(_float, _digits){
-  _float = parseFloat(_float)
-  var rounder = Math.pow(10, _digits);
-  return (Math.round(_float * rounder) / rounder).toFixed(_digits);
+    _float = parseFloat(_float)
+    var rounder = Math.pow(10, _digits);
+    return (Math.round(_float * rounder) / rounder).toFixed(_digits);
 }
 
 function getDataViewDayModel(){
     var str_activity = ""
     var str_max = ""
     var str_today = ""
+    var str_yesterday = ""
     dataViewDaysModel = [];
     openDB()
     var res = ""
 
     if (selectedDateYear == "") selectedDateYear = today.getFullYear()
     if (selectedDateMonth == "") selectedDateMonth = months[today.getMonth()]
-    if (selectedDateDay == "") selectedDateDay = today.getDay()
+    if (selectedDateDay == "") selectedDateDay = today.getDate()
 
     //get yesterdays month and year etc.
     var tmp_today = new Date(getMonthNumber(selectedDateMonth.toString())  + "/" + selectedDateDay.toString() + "/" + selectedDateYear.toString());
     var tmp_yesterday = new Date(tmp_today)
+
     tmp_yesterday.setDate(tmp_today.getDate() - 1)
 
-    var str_yesterday = tmp_yesterday.getDay()
-    var str_yestermonth = tmp_yesterday.getMonth()
-    var str_yesteryear = tmp_yesterday.getFullYear()
+    var dt_yesterday = tmp_yesterday.getDate()
+    var dt_yestermonth = tmp_yesterday.getMonth()
+    var dt_yesteryear = tmp_yesterday.getFullYear()
 
-    //console.debug("yesterday:" + str_yesterday + ",yestermonth:" + months[parseInt(str_yestermonth)] + ", yesteryear:" + str_yesteryear)
-    //console.debug("getDataViewDayModel:::::selected day:" + selectedDateDay + "-" + selectedDateMonth + "-" + selectedDateYear)
 
     db.transaction(function(tx) {
         var rsActivitites = tx.executeSql('SELECT * FROM activities');
         for(x=0;x<rsActivitites.rows.length;x++){
             str_activity = rsActivitites.rows.item(x).activity
 
-            var rsYesterday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [str_yesterday.toString(), months[parseInt(str_yestermonth)], str_yesteryear.toString(), str_activity]);
+//            console.log('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [dt_yesterday, months[parseInt(dt_yestermonth)], dt_yesteryear, str_activity]);
+//            console.log('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [selectedDateDay, selectedDateMonth, selectedDateYear, str_activity]);
+
+            var rsYesterday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [dt_yesterday, months[parseInt(dt_yestermonth)], dt_yesteryear, str_activity]);
             var rsMax = tx.executeSql('SELECT MAX(value) as max FROM logbook WHERE activity=?;', [str_activity]);
-            var rsToday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [selectedDateDay.toString(), selectedDateMonth.toString(), selectedDateYear.toString(), str_activity]);
+            var rsToday = tx.executeSql('SELECT * FROM logbook WHERE day=? and month=? and year=? and activity=?;', [selectedDateDay, selectedDateMonth, selectedDateYear, str_activity]);
 
             if (rsToday.rows.length>0){
                 str_today = rsToday.rows.item(0).value ? rsToday.rows.item(0).value : 0
+                //console.debug("str_today: " + str_today + ":" + str_activity)
             }else{
                 str_today = 0
             }
             if (rsYesterday.rows.length>0){
                 str_yesterday = rsYesterday.rows.item(0).value ? rsYesterday.rows.item(0).value : 0
+                //console.debug("str_yesterday: " + str_yesterday + ":" + str_activity)
             }else{
                 str_yesterday = 0
             }
@@ -277,7 +284,7 @@ function getDataViewWeekModel(){
 
     db.transaction(function(tx) {
         var rsActivitites = tx.executeSql('SELECT * FROM activities');
-        console.debug("rsActivitites.rows.length:" + rsActivitites.rows.length)
+        //console.debug("rsActivitites.rows.length:" + rsActivitites.rows.length)
         for(x=0;x<rsActivitites.rows.length;x++){
             str_activity = rsActivitites.rows.item(x).activity
 
@@ -431,21 +438,20 @@ function getDataViewYearModel(){
 }
 
 function saveActivity(value, unit) {
-    openDB();
+
     //console.debug("attempting to create value:" + value)
-    if(value === "") {
+    if(value === "" || unit === "") {
         //console.debug("can't insert empty activity string")
         return;
-    }
-    if(unit === "") {
-        //console.debug("can't insert empty unit string")
-        return;
-    }
-    db.transaction( function(tx){
-        var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?)', [value, unit]);
-        //console.debug("inserted id:" + rs.insertId);
+    }else{
 
-    });
+        openDB();
+        db.transaction( function(tx){
+            var rs = tx.executeSql('INSERT OR REPLACE INTO activities VALUES(?, ?)', [value, unit]);
+            console.debug("inserted id:" + rs.insertId);
+
+        });
+    }
 }
 function deleteActivity(value) {
     openDB();
@@ -476,7 +482,7 @@ function getSetting(key) {
             res = today
         }
     });
-    console.debug("getSetting:" + key + ":" + res)
+    //console.debug("getSetting:" + key + ":" + res)
     return res;
 }
 
@@ -661,8 +667,8 @@ function saveLogBookEntry(day, week, month, year, activity, value) {
     db.transaction( function(tx){
         tx.executeSql('Delete from logbook where mid=?;', [munique]);
     });
-    console.debug("value we are saving: " + value)
-    console.debug("float value we are saving: " + parseFloat(value))
+    //console.debug("value we are saving: " + value)
+    //console.debug("float value we are saving: " + parseFloat(value))
     db.transaction( function(tx){
         var rs = tx.executeSql('INSERT OR REPLACE INTO logbook VALUES(?, ?, ?, ?, ?, ?, ?)', [munique.toString(), day, week, month, year, activity, value]);
         //console.debug("inserted log entry:" + rs.insertId);

@@ -50,6 +50,13 @@ ApplicationWindow {
     signal addActivity()
     signal deleteActivity()
 
+    signal reloadDataView
+
+    onReloadDataView:{
+        dataView.reloadDataView()
+    }
+
+
     onAddActivity: {
         logView.addActivity()
     }
@@ -104,6 +111,9 @@ ApplicationWindow {
         DataView{
             id:dataView
             width: Screen.width
+            function reloadDataView(){
+                reloadTheDataView()
+            }
         }
         LogView{
             id:logView

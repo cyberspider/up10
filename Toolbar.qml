@@ -3,6 +3,7 @@ import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 import QtQuick.Dialogs 1.2
 import QtGraphicalEffects 1.0
+import "localStorage.js" as DB
 Item {
 
     anchors.bottom: parent.bottom
@@ -26,18 +27,18 @@ Item {
                 id: mouseArea
                 anchors.fill: parent
                 onClicked: {
-
+                    //reloadDataView()
                     topPanel.state = "dataViewState"
 
                 }
-//                states: State {
-//                    name: "pressed"; when: mouseArea.pressed
-//                    PropertyChanges { target: btnToolBar1; scale: 2.8 }
-//                }
+                //                states: State {
+                //                    name: "pressed"; when: mouseArea.pressed
+                //                    PropertyChanges { target: btnToolBar1; scale: 2.8 }
+                //                }
 
-//                transitions: Transition {
-//                    NumberAnimation { properties: "scale"; duration: 10; easing.type: Easing.InOutQuad }
-//                }
+                //                transitions: Transition {
+                //                    NumberAnimation { properties: "scale"; duration: 10; easing.type: Easing.InOutQuad }
+                //                }
             }
             ShaderEffectSource {
                 id:buf1;

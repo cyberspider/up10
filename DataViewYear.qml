@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
+import "localStorage.js" as DB
 
 Rectangle {
     width: view.width; height: view.height
@@ -125,5 +126,10 @@ Rectangle {
         focus: true
     }
 
+    signal letsReload
+    onLetsReload:{
+        dataViewYearsModel.clear()
+        dataViewYearsModel.append(DB.getDataViewYearModel())
+    }
 }
 

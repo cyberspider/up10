@@ -1,27 +1,48 @@
 import QtQuick 2.0
+import "localStorage.js" as DB
 
 Rectangle {
 
     anchors.fill: parent
     opacity: 0
     color: clrBackground
+    signal reloadTheDataView
+    onReloadTheDataView: {
+        console.debug("FReEEEEE AT LAST!!!!!!!")
+        dataViewDay.reloadMe()
+//        dataViewWeek.reloadMe()
+//        dataViewMonth.reloadMe()
+//        dataViewYear.reloadMe()
+    }
     VisualItemModel {
         id: itemModel
 
         DataViewDay{
             id:dataViewDay
+            function reloadMe(){
+                console.debug("lets reload")
+                letsReload()
+            }
 
         }
         DataViewWeek{
             id:dataViewWeek
-
+            function reloadMe(){
+                letsReload()
+            }
         }
         DataViewMonth{
             id:dataViewMonth
+            function reloadMe(){
+                letsReload()
+            }
 
         }
         DataViewYear{
             id:dataViewYear
+            function reloadMe(){
+                letsReload()
+            }
 
         }
 

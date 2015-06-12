@@ -66,8 +66,13 @@ Rectangle{
 
                     newActivity = txtItem.text;
                     newActivityUnit = txtItemUnit.text;
-                    DB.saveActivity(newActivity, newActivityUnit);
-                    main.addActivity();
+                    if(newActivity === "" || newActivityUnit === ""){
+
+                    }else{
+                        DB.saveActivity(newActivity, newActivityUnit);
+
+                        main.addActivity();
+                    }
                     screen.state = "";
                 }
             }

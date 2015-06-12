@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
-
+import "localStorage.js" as DB
 Rectangle {
     width: view.width; height: view.height
     color: clrBackground
@@ -123,5 +123,10 @@ Rectangle {
         model: DataViewWeeksModel{id:dataViewWeeksModel}
         delegate: contactsDelegate
         focus: true
+    }
+    signal letsReload
+    onLetsReload:{
+        dataViewWeeksModel.clear()
+        dataViewWeeksModel.append(DB.getDataViewWeekModel())
     }
 }

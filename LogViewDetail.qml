@@ -22,10 +22,10 @@ Rectangle{
 
     signal reloadSliders
     onReloadSliders: {
-//        sldDec_i = 1
-//        sldTen_i = 10
-//        sldOne_i = 1
-//        sldHund_i = 100
+        //        sldDec_i = 1
+        //        sldTen_i = 10
+        //        sldOne_i = 1
+        //        sldHund_i = 100
 
         sldcompday.reloadMeSliders()
 
@@ -154,7 +154,7 @@ Rectangle{
             height: 75
             opacity: sliderDayVisible
             function reloadMeSliders(){
-                console.debug("reload here?")
+
                 reLoadSliders()
             }
         }
@@ -170,6 +170,7 @@ Rectangle{
             source: "images/new/btn_save.png"//"images/save.png"
             anchors.right:parent.right
             MouseArea{
+                id:mouseArea
                 anchors.fill: parent
                 onClicked: {
 
@@ -181,12 +182,23 @@ Rectangle{
                     //console.debug(txtActivity.text + ":" + selectedDate + ":" + sldHundred.value + sldTen.value + sldOne.value + sldDecimal.value)
                     reloadSlidersFE()
                 }
+
             }
             ColorOverlay {
                 anchors.fill: btnAddActivity
                 source: btnAddActivity
                 color: staticClrBlue
                 opacity: staticOpacity
+            }
+            states: State {
+                name: "pressed"; when: mouseArea.pressed
+                PropertyChanges { target: txtUnits; scale: 2.8 }
+                //PropertyChanges { target: txtUnits; rotation: 360 }
+            }
+
+            transitions: Transition {
+                NumberAnimation { properties: "scale"; duration: 10; easing.type: Easing.InOutQuad }
+                //NumberAnimation { properties: ["scale", "rotation"]; duration: 10; easing.type: Easing.InOutQuad }
             }
         }
     }
