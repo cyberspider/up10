@@ -14,7 +14,7 @@ ApplicationWindow {
     height:Screen.height
     visible: true
     property int showSplash: 1
-    property string clrBackground: "#000000"
+    property string clrBackground: "#131313"
     property string clrFont: "White"
     property string newActivity: ""
     property string newActivityUnit: ""
